@@ -1,0 +1,27 @@
+// Max width of page content
+$page-max-width: 1280px;
+
+// Used for the spacing aroudn the edges of a page
+$page-gutter-spacing: 30px;
+
+// Large spacing for major sections on a page
+$page-spacing: 60px;
+
+// Used for large spacing between section
+$section-spacing-large: 40px;
+
+// Used to separate related sections within the contents of a page
+$section-spacing: 15px;
+
+// For very small items within an item group
+$item-spacing-small: 5px;
+
+// Used to separate grouped items
+$item-spacing: 10px;
+
+// Used to separate grouped items
+$item-group-spacing: 15px;
+
+// Extra spacing is often required for user-interactive buttons
+// where there is enough free space to use
+$item-spacing-large: 20px;
