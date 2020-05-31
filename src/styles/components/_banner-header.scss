@@ -1,0 +1,38 @@
+#bannerHeader {
+  height: $banner-header-height;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 0 $page-gutter-spacing;
+  display: flex;
+  justify-content: space-between;
+  background-color: $white;
+
+  & > :first-child {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-right: $section-spacing-large;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+
+      img {
+        margin-right: $item-spacing-small;
+      }
+    }
+  }
+
+  & > :last-child {
+    display: flex;
+    align-items: center;
+
+    & > img {
+      margin-right: $item-group-spacing;
+    }
+  }
+}

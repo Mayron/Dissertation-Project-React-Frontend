@@ -1,0 +1,30 @@
+#profileSelect {
+  @include ui-border;
+  padding: 4px $item-group-spacing;
+  display: flex;
+  align-items: center;
+  width: 172px;
+  position: relative;
+
+  .profile-pic {
+    margin-right: $item-spacing;
+  }
+
+  p {
+    font-weight: 600;
+
+    & + div {
+      display: flex;
+      align-items: center;
+
+      img {
+        margin-left: $item-spacing-small;
+      }
+    }
+  }
+
+  .arrow {
+    position: absolute;
+    right: 15px;
+  }
+}

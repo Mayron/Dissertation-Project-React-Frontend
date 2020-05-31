@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Noto+Sans+JP:wght@400;700&display=swap");
 @import "vars";
 @import "classes";
+@import "mixins";
 
 * {
   box-sizing: border-box;
@@ -9,11 +10,14 @@
   padding: 0;
 }
 
-body {
+html {
   font-size: 14px;
+}
+
+body {
   font-family: "Montserrat", sans-serif;
   color: $black;
-  background-color: $white;
+  background-color: $main-background-color;
 }
 
 h1,
@@ -21,8 +25,14 @@ h2,
 h3,
 h4 {
   font-family: "Noto Sans JP", sans-serif;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 400;
+}
+
+h1 {
+  font-size: 16px;
+  font-weight: 600;
+  color: $dark-orange;
 }
 
 label {
@@ -31,6 +41,10 @@ label {
   &[for] {
     cursor: pointer;
   }
+}
+
+ul {
+  list-style-type: none;
 }
 
 button,
@@ -61,5 +75,14 @@ hr {
 }
 
 main {
-  background-color: $main-background-color;
+  flex: 1;
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+// must be same size as banner-header
+#pageWrapper {
+  margin-top: $banner-header-height;
+  padding: $page-gutter-spacing;
+  display: flex;
 }

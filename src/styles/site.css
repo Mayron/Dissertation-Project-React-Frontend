@@ -4,6 +4,11 @@
   height: 16px;
 }
 
+.meta {
+  font-size: 12px;
+  color: #707070;
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -11,11 +16,14 @@
   padding: 0;
 }
 
-body {
+html {
   font-size: 14px;
+}
+
+body {
   font-family: "Montserrat", sans-serif;
   color: #212121;
-  background-color: #fff;
+  background-color: #f8f8f8;
 }
 
 h1,
@@ -23,8 +31,14 @@ h2,
 h3,
 h4 {
   font-family: "Noto Sans JP", sans-serif;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 400;
+}
+
+h1 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f24d2b;
 }
 
 label {
@@ -36,6 +50,10 @@ label {
 
 label[for] {
   cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
 }
 
 button,
@@ -74,5 +92,120 @@ hr {
 }
 
 main {
-  background-color: #f8f8f8;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+#pageWrapper {
+  margin-top: 50px;
+  padding: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#bannerHeader {
+  height: 50px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 0 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background-color: #fff;
+}
+
+#bannerHeader > :first-child {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#bannerHeader > :first-child img {
+  margin-right: 40px;
+}
+
+#bannerHeader > :first-child header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#bannerHeader > :first-child header img {
+  margin-right: 5px;
+}
+
+#bannerHeader > :last-child {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#bannerHeader > :last-child > img {
+  margin-right: 15px;
+}
+
+#mainNav {
+  width: 200px;
+}
+
+#rightMenu {
+  width: 280px;
+}
+
+#profileSelect {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 4px 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 172px;
+  position: relative;
+}
+
+#profileSelect .profile-pic {
+  margin-right: 10px;
+}
+
+#profileSelect p {
+  font-weight: 600;
+}
+
+#profileSelect p + div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#profileSelect p + div img {
+  margin-left: 5px;
+}
+
+#profileSelect .arrow {
+  position: absolute;
+  right: 15px;
 }
