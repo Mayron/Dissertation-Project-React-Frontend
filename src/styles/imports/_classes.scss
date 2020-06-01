@@ -7,3 +7,21 @@
   font-size: 12px;
   color: $secondary-text-dark-grey;
 }
+
+.arrow:hover {
+  // TODO: Remove filter and just make it light grey background and orange theme
+  cursor: pointer;
+  background-color: $selected-menu-item;
+  padding: 0 4px;
+  margin: 0 -4px;
+  border-radius: 12px;
+
+  path {
+    stroke: $dark-orange;
+  }
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+}

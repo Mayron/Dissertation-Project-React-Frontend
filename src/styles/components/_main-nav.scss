@@ -1,3 +1,57 @@
 #mainNav {
   width: 200px;
+
+  & > section {
+    margin: $item-spacing-large 0;
+
+    &:first-of-type {
+      margin-top: $section-spacing-large;
+    }
+  }
+
+  header {
+    border-bottom: 1px solid $ui-border-grey;
+    padding-bottom: $item-spacing;
+    margin-bottom: $item-spacing-small;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  h3 {
+    color: $secondary-text-dark-grey;
+    font-weight: 600;
+  }
+
+  .menu-item {
+    a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 4px;
+
+      &.active,
+      &:hover {
+        background-color: $selected-menu-item;
+      }
+
+      img {
+        margin-right: $section-spacing;
+      }
+
+      span {
+        color: $secondary-text-dark-grey;
+        width: 146px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: block;
+        white-space: nowrap;
+      }
+
+      &.active span {
+        color: $dark-orange;
+        font-weight: 600;
+      }
+    }
+  }
 }

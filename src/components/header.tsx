@@ -4,7 +4,7 @@ import BurgerIcon from "../images/burger-icon.svg";
 import Logo from "../images/openspark-logo.svg";
 import NotificationIcon from "../images/notification-icon.svg";
 import FlameIcon from "../images/flame.svg";
-import Arrow from "../images/arrow.svg";
+import Arrow from "../images/arrow.inline.svg";
 
 // TODO: Use Gatsby image:
 import ProfilePic from "../images/placeholder-profile-pic.jpg";

@@ -9,6 +9,27 @@
   color: #707070;
 }
 
+.arrow:hover {
+  cursor: pointer;
+  background-color: #eee;
+  padding: 0 4px;
+  margin: 0 -4px;
+  border-radius: 12px;
+}
+
+.arrow:hover path {
+  stroke: #f24d2b;
+}
+
+.arrow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -164,6 +185,65 @@ main {
 
 #mainNav {
   width: 200px;
+}
+
+#mainNav > section {
+  margin: 20px 0;
+}
+
+#mainNav > section:first-of-type {
+  margin-top: 40px;
+}
+
+#mainNav header {
+  border-bottom: 1px solid #d9d9d9;
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#mainNav h3 {
+  color: #707070;
+  font-weight: 600;
+}
+
+#mainNav .menu-item a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+
+#mainNav .menu-item a.active, #mainNav .menu-item a:hover {
+  background-color: #eee;
+}
+
+#mainNav .menu-item a img {
+  margin-right: 15px;
+}
+
+#mainNav .menu-item a span {
+  color: #707070;
+  width: 146px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  white-space: nowrap;
+}
+
+#mainNav .menu-item a.active span {
+  color: #f24d2b;
+  font-weight: 600;
 }
 
 #rightMenu {

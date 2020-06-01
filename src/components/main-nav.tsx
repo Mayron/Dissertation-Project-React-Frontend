@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import Arrow from "../images/arrow.inline.svg";
+
 // TODO: Replace with gatsby image
 import PlaceholderIcon from "../images/placeholder-icon.svg";
 import menuData, { ILinkData } from "../api-data/main-nav-data";
@@ -8,11 +10,12 @@ import { Link } from "gatsby";
 interface IMenuListItemProps {
   name: string;
   url: string;
+  active?: boolean;
 }
 
-const MenuListItem: React.FC<IMenuListItemProps> = ({ name, url }) => (
-  <li>
-    <Link to={url}>
+const MenuListItem: React.FC<IMenuListItemProps> = ({ name, url, active = false }) => (
+  <li className="menu-item">
+    <Link to={url} className={active && "active"}>
       <img src={PlaceholderIcon} alt="icon" />
       <span>{name}</span>
     </Link>
@@ -32,6 +35,9 @@ const NavSection: React.FC<INavSectionProps> = ({ id, title, amount, items }) =>
       <h3>
         {title} {amount && `(${amount})`}
       </h3>
+      <div className="arrow">
+        <Arrow />
+      </div>
     </header>
     <ul>
       {items.map((item, key) => (
@@ -55,14 +61,14 @@ const MainNav: React.FC = () => {
   return (
     <nav id="mainNav" role="navigation">
       <ul>
-        <li>Home</li>
-        <li>Discover</li>
-        <li>Opportunities</li>
-        <li>Browse</li>
+        <MenuListItem active name="Home" url="/" />
+        <MenuListItem name="Discover" url="/discover" />
+        <MenuListItem name="Opportunities" url="/opportunities" />
+        <MenuListItem name="Browse" url="/browse" />
       </ul>
-      <NavSection id="projects" title="Your Projects" items={projects} />
-      <NavSection id="memberships" title="Memberships" items={memberships} />
-      <NavSection id="subs" title="Subscriptions" items={subscriptions} />
+      <NavSection id="projects" title="Your Projects" items={projects} amount={3} />
+      <NavSection id="memberships" title="Memberships" items={memberships} amount={4} />
+      <NavSection id="subs" title="Subscriptions" items={subscriptions} amount={1} />
     </nav>
   );
 };
