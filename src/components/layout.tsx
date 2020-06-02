@@ -16,9 +16,11 @@ const Layout: React.FC<ILayoutProps> = ({ id, title, children }) => {
     <>
       <SEO title={title} />
       <Header />
-      <div id="pageWrapper">
+      <div id="app">
         <MainNav />
-        <main id={id}>{children}</main>
+        <div id="pageWrapper">
+          <main id={id}>{children}</main>
+        </div>
         <RightSideMenu />
         {/* <footer>©OpenSpark.io {new Date().getFullYear()}</footer> */}
       </div>

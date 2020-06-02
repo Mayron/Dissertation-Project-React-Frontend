@@ -3,15 +3,21 @@
   padding: 4px $item-group-spacing;
   display: flex;
   align-items: center;
-  width: 172px;
+  width: 200px;
   position: relative;
 
   .profile-pic {
     margin-right: $item-spacing;
   }
 
+  &:hover {
+    border-color: $primary-orange;
+    cursor: pointer;
+  }
+
   p {
     font-weight: 600;
+    font-size: 13px;
 
     & + div {
       display: flex;

@@ -4,7 +4,7 @@ import BurgerIcon from "../images/burger-icon.svg";
 import Logo from "../images/openspark-logo.svg";
 import NotificationIcon from "../images/notification-icon.svg";
 import FlameIcon from "../images/flame.svg";
-import Arrow from "../images/arrow.inline.svg";
+import ArrowButton from "./arrow-button";
 
 // TODO: Use Gatsby image:
 import ProfilePic from "../images/placeholder-profile-pic.jpg";
@@ -21,7 +21,7 @@ const ProfileSelect: React.FC<IProfileSelectProps> = () => (
         <img src={FlameIcon} alt="points" />
       </div>
     </div>
-    <img src={Arrow} alt="toggle" className="arrow" />
+    <ArrowButton />
   </div>
 );
 

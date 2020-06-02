@@ -74,15 +74,33 @@ hr {
   border-top: 1px solid $light-divider;
 }
 
-main {
+#pageWrapper {
   flex: 1;
   margin-left: 60px;
   margin-right: 60px;
 }
 
 // must be same size as banner-header
-#pageWrapper {
+#app {
   margin-top: $banner-header-height;
   padding: $page-gutter-spacing;
   display: flex;
+}
+
+::-webkit-input-placeholder {
+  color: $ui-border-grey !important;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: $ui-border-grey !important;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: $ui-border-grey !important;
+}
+
+:-ms-input-placeholder {
+  color: $ui-border-grey !important;
 }

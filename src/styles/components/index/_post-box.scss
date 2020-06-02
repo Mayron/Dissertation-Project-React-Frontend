@@ -1,0 +1,41 @@
+#postBox {
+  @include ui-border;
+  background-color: $white;
+  padding: $item-spacing $section-spacing;
+  display: flex;
+
+  header {
+    display: flex;
+    align-items: center;
+    border-right: 1px solid $ui-border-grey;
+    padding-right: $item-spacing-large;
+
+    img {
+      margin-right: $item-spacing;
+    }
+
+    p {
+      font-size: 12px;
+      color: #707070;
+    }
+  }
+
+  header + div {
+    flex: 1;
+  }
+
+  // start posting input
+  input {
+    height: calc(100% + #{$item-spacing-large});
+    width: calc(100% + #{$section-spacing});
+    border: 0;
+    margin-top: -$item-spacing;
+    padding-right: $section-spacing;
+    padding-left: $item-spacing-large;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

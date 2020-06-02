@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-
-import Arrow from "../images/arrow.inline.svg";
+import { Link } from "gatsby";
+import ArrowButton from "./arrow-button";
 
 // TODO: Replace with gatsby image
 import PlaceholderIcon from "../images/placeholder-icon.svg";
 import menuData, { ILinkData } from "../api-data/main-nav-data";
-import { Link } from "gatsby";
 
 interface IMenuListItemProps {
   name: string;
@@ -35,9 +34,7 @@ const NavSection: React.FC<INavSectionProps> = ({ id, title, amount, items }) =>
       <h3>
         {title} {amount && `(${amount})`}
       </h3>
-      <div className="arrow">
-        <Arrow />
-      </div>
+      <ArrowButton />
     </header>
     <ul>
       {items.map((item, key) => (
