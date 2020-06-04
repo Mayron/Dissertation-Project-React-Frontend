@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "gatsby";
-import ArrowButton from "./arrow-button";
-
-// TODO: Replace with gatsby image
-import PlaceholderIcon from "../images/placeholder-icon.svg";
+import { Icons } from "./icons";
 import menuData, { ILinkData } from "../api-data/main-nav-data";
 
 interface IMenuListItemProps {
@@ -15,7 +12,7 @@ interface IMenuListItemProps {
 const MenuListItem: React.FC<IMenuListItemProps> = ({ name, url, active = false }) => (
   <li className="menu-item">
     <Link to={url} className={active && "active"}>
-      <img src={PlaceholderIcon} alt="icon" />
+      <Icons.Placeholder />
       <span>{name}</span>
     </Link>
   </li>
@@ -34,7 +31,7 @@ const NavSection: React.FC<INavSectionProps> = ({ id, title, amount, items }) =>
       <h3>
         {title} {amount && `(${amount})`}
       </h3>
-      <ArrowButton />
+      <Icons.Arrow />
     </header>
     <ul>
       {items.map((item, key) => (

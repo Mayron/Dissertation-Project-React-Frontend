@@ -19,6 +19,10 @@
   padding: 7px 4px;
 }
 
+.arrow svg {
+  pointer-events: none;
+}
+
 .arrow:hover {
   cursor: pointer;
   background-color: #eee;
@@ -37,6 +41,27 @@
 a.user {
   font-weight: 600;
   color: #ff6f00;
+}
+
+div[class$="-icon"] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+div[class$="-icon"] span {
+  color: #f24d2b;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+div[class$="-icon"] svg:hover {
+  cursor: pointer;
+  -webkit-filter: brightness(0.8);
+          filter: brightness(0.8);
 }
 
 * {
@@ -58,8 +83,7 @@ body {
 
 h1,
 h2,
-h3,
-h4 {
+h3 {
   font-family: "Noto Sans JP", sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -69,6 +93,13 @@ h1 {
   font-size: 16px;
   font-weight: 600;
   color: #f24d2b;
+}
+
+h4 {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  color: #707070;
 }
 
 label {
@@ -180,7 +211,7 @@ hr {
           align-items: center;
 }
 
-#bannerHeader > :first-child img {
+#bannerHeader > :first-child .burger-icon {
   margin-right: 30px;
 }
 
@@ -206,7 +237,7 @@ hr {
           align-items: center;
 }
 
-#bannerHeader > :last-child > img {
+#bannerHeader > :last-child .notification-icon {
   margin-right: 15px;
 }
 
@@ -256,7 +287,7 @@ hr {
   background-color: #eee;
 }
 
-#mainNav .menu-item a img {
+#mainNav .menu-item a svg {
   margin-right: 15px;
 }
 
@@ -323,56 +354,6 @@ hr {
 #profileSelect .arrow {
   position: absolute;
   right: 15px;
-}
-
-#postBox {
-  border: 1px solid #d9d9d9;
-  border-radius: 4px;
-  background-color: #fff;
-  padding: 10px 15px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-#postBox header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  border-right: 1px solid #d9d9d9;
-  padding-right: 20px;
-}
-
-#postBox header img {
-  margin-right: 10px;
-}
-
-#postBox header p {
-  font-size: 12px;
-  color: #707070;
-}
-
-#postBox header + div {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-}
-
-#postBox input {
-  height: calc(100% + 20px);
-  width: calc(100% + 15px);
-  border: 0;
-  margin-top: -10px;
-  padding-right: 15px;
-  padding-left: 20px;
-  cursor: pointer;
-}
-
-#postBox input:focus {
-  outline: none;
 }
 
 .filter {
@@ -446,6 +427,128 @@ hr {
   padding-right: 10px;
 }
 
+#postBox {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 10px 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#postBox header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-right: 1px solid #d9d9d9;
+  padding-right: 20px;
+}
+
+#postBox header img {
+  margin-right: 10px;
+}
+
+#postBox header p {
+  font-size: 12px;
+  color: #707070;
+}
+
+#postBox header + div {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+#postBox input {
+  height: calc(100% + 20px);
+  width: calc(100% + 15px);
+  border: 0;
+  margin-top: -10px;
+  padding-right: 15px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+#postBox input:focus {
+  outline: none;
+}
+
+.post {
+  padding: 15px 30px;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+}
+
+.post header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post header img {
+  margin-right: 10px;
+}
+
+.post .post-user {
+  font-size: 12px;
+}
+
+.post .post-user p {
+  color: #707070;
+}
+
+.post .post-body {
+  margin: 10px 0;
+}
+
+.post .post-contents {
+  margin-top: 10px;
+  line-height: 21px;
+}
+
+.post footer ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.post footer ul li {
+  margin-right: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.post footer ul li .arrow svg {
+  margin-right: 0;
+}
+
+.post footer ul li .arrow-icon {
+  margin-left: -4px;
+}
+
+.post footer ul li .arrow,
+.post footer ul li svg {
+  margin-right: 5px;
+}
+
+.post footer ul li:last-of-type {
+  margin-right: 0;
+}
+
 #index {
   max-width: 632px;
   margin: 0 auto;
@@ -480,7 +583,7 @@ hr {
   display: flex;
 }
 
-#index #toolBar .search-box img {
+#index #toolBar .search-box svg {
   margin: 0 5px;
 }
 

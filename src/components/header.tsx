@@ -1,10 +1,7 @@
 import React from "react";
-
-import BurgerIcon from "../images/burger-icon.svg";
 import Logo from "../images/openspark-logo.svg";
-import NotificationIcon from "../images/notification-icon.svg";
 import FlameIcon from "../images/flame.svg";
-import ArrowButton from "./arrow-button";
+import { Icons } from "./icons";
 
 // TODO: Use Gatsby image:
 import ProfilePic from "../images/placeholder-profile-pic.jpg";
@@ -21,14 +18,14 @@ const ProfileSelect: React.FC<IProfileSelectProps> = () => (
         <img src={FlameIcon} alt="points" />
       </div>
     </div>
-    <ArrowButton />
+    <Icons.Arrow />
   </div>
 );
 
 const Header: React.FC = () => (
   <div id="bannerHeader" role="banner">
     <div>
-      <img src={BurgerIcon} alt="toggle menu" />
+      <Icons.Burger />
       <header>
         <img src={Logo} alt="logo" />
         <h1>OpenSpark.io</h1>
@@ -36,7 +33,7 @@ const Header: React.FC = () => (
     </div>
 
     <div>
-      <img src={NotificationIcon} alt="notifications" />
+      <Icons.Notification />
       <ProfileSelect />
     </div>
   </div>

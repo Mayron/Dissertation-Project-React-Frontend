@@ -5,8 +5,11 @@
 @import "./components/main-nav";
 @import "./components/right-menu";
 @import "./components/profile-select";
-@import "./components/index/post-box";
 @import "./components/filter-box";
+
+// Components > Index
+@import "./components/index/post-box";
+@import "./components/index/post";
 
 // Pages
 @import "./pages/index-page";

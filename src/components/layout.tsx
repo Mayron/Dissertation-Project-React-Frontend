@@ -7,7 +7,7 @@ import RightSideMenu from "./right-menu";
 import "../styles/site.min.css";
 
 interface ILayoutProps {
-  title: string; // title of the page
+  title?: string; // title of the page
   id: string; // the main id
 }
 

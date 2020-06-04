@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
 
 interface ISEOProps {
-  title: string;
+  title?: string;
   description?: string;
   lang?: string;
   meta?: IMeta[];
@@ -38,8 +38,8 @@ const SEO: React.FC<ISEOProps> = ({
       htmlAttributes={{
         lang,
       }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      title={title ? `${title} | ` : ""}
+      titleTemplate={`%s${site.siteMetadata.title}`}
       defer={false}
       meta={[
         {

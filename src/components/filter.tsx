@@ -1,6 +1,5 @@
 import React from "react";
-import TickIcon from "../images/tick-icon.inline.svg";
-import ArrowButton from "./arrow-button";
+import { Icons } from "./icons";
 
 interface IFilterProps {
   label: string;
@@ -17,7 +16,7 @@ const Filter: React.FC<IFilterProps> = ({ label, tooltip, selected, items, show 
         <span>
           {label} <strong>{items[selected]}</strong>
         </span>
-        <ArrowButton active={show} />
+        <Icons.Arrow active={show} />
       </header>
       {show && (
         <div className="filter-dropdown">
@@ -27,7 +26,7 @@ const Filter: React.FC<IFilterProps> = ({ label, tooltip, selected, items, show 
               <li key={key}>
                 {key === selected && (
                   <div className="tick">
-                    <TickIcon />
+                    <Icons.Tick />
                   </div>
                 )}
                 {item}

@@ -13,6 +13,10 @@
   align-items: center;
   padding: 7px 4px;
 
+  svg {
+    pointer-events: none;
+  }
+
   &:hover {
     cursor: pointer;
     background-color: $selected-menu-item;
@@ -31,4 +35,20 @@
 a.user {
   font-weight: 600;
   color: #ff6f00;
+}
+
+div[class$="-icon"] {
+  display: flex;
+  align-items: center;
+
+  span {
+    color: $dark-orange;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  svg:hover {
+    cursor: pointer;
+    filter: brightness(0.8);
+  }
 }
