@@ -64,6 +64,18 @@ div[class$="-icon"] svg:hover {
           filter: brightness(0.8);
 }
 
+.btn-secondary {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  color: #f24d2b;
+  font-weight: 600;
+}
+
+.btn-secondary.sm {
+  padding: 4px 12px;
+  font-size: 12px;
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -186,7 +198,7 @@ hr {
   color: #d9d9d9 !important;
 }
 
-#bannerHeader {
+#banner {
   height: 50px;
   position: fixed;
   left: 0;
@@ -202,7 +214,7 @@ hr {
   background-color: #fff;
 }
 
-#bannerHeader > :first-child {
+#banner > :first-child {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -211,11 +223,11 @@ hr {
           align-items: center;
 }
 
-#bannerHeader > :first-child .burger-icon {
+#banner > :first-child .burger-icon {
   margin-right: 30px;
 }
 
-#bannerHeader > :first-child header {
+#banner > :first-child header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -224,11 +236,11 @@ hr {
           align-items: center;
 }
 
-#bannerHeader > :first-child header img {
+#banner > :first-child header img {
   margin-right: 5px;
 }
 
-#bannerHeader > :last-child {
+#banner > :last-child {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -237,7 +249,7 @@ hr {
           align-items: center;
 }
 
-#bannerHeader > :last-child .notification-icon {
+#banner > :last-child .notification-icon {
   margin-right: 15px;
 }
 
@@ -251,24 +263,6 @@ hr {
 
 #mainNav > section:first-of-type {
   margin-top: 40px;
-}
-
-#mainNav header {
-  border-bottom: 1px solid #d9d9d9;
-  padding-bottom: 10px;
-  margin-bottom: 5px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-#mainNav h3 {
-  color: #707070;
-  font-weight: 600;
-  font-size: 14px;
 }
 
 #mainNav .menu-item a {
@@ -308,6 +302,76 @@ hr {
 
 #rightMenu {
   width: 280px;
+  min-width: 280px;
+}
+
+#rightMenu > section {
+  margin-bottom: 20px;
+}
+
+#rightMenu > section:last-of-type {
+  margin-bottom: 0;
+}
+
+#rightMenu > section header {
+  margin-bottom: 10px;
+}
+
+#rightMenu li {
+  margin-bottom: 10px;
+}
+
+#rightMenu li section {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 10px;
+}
+
+#rightMenu li section p {
+  margin: 5px 0;
+}
+
+#rightMenu li section header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#rightMenu li section footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#rightMenu li section span {
+  color: #707070;
+}
+
+#rightMenu li section h4 {
+  font-weight: 600;
+  font-size: 14px;
+  color: #ff6f00;
+}
+
+#rightMenu a {
+  text-decoration: none;
+  color: #212121;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+#rightMenu .placeholder-icon {
+  margin-right: 10px;
 }
 
 #profileSelect {
@@ -425,6 +489,24 @@ hr {
 .filter .tick {
   margin-left: -20px;
   padding-right: 10px;
+}
+
+.menu-header {
+  border-bottom: 1px solid #d9d9d9;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.menu-header h3 {
+  color: #707070;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 #postBox {

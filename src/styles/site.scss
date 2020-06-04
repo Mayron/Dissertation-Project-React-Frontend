@@ -1,11 +1,12 @@
 @import "imports/defaults";
 
 // Components
-@import "./components/banner-header";
+@import "./components/banner";
 @import "./components/main-nav";
 @import "./components/right-menu";
 @import "./components/profile-select";
 @import "./components/filter-box";
+@import "./components/menu-header";
 
 // Components > Index
 @import "./components/index/post-box";

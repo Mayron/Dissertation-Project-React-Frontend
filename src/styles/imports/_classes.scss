@@ -52,3 +52,14 @@ div[class$="-icon"] {
     filter: brightness(0.8);
   }
 }
+
+.btn-secondary {
+  @include ui-border;
+  color: $dark-orange;
+  font-weight: 600;
+
+  &.sm {
+    padding: 4px 12px;
+    font-size: 12px;
+  }
+}

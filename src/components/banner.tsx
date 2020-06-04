@@ -22,8 +22,8 @@ const ProfileSelect: React.FC<IProfileSelectProps> = () => (
   </div>
 );
 
-const Header: React.FC = () => (
-  <div id="bannerHeader" role="banner">
+const Banner: React.FC = () => (
+  <div id="banner" role="banner">
     <div>
       <Icons.Burger />
       <header>
@@ -39,4 +39,4 @@ const Header: React.FC = () => (
   </div>
 );
 
-export default Header;
+export default Banner;

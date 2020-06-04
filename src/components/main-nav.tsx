@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "gatsby";
 import { Icons } from "./icons";
 import menuData, { ILinkData } from "../api-data/main-nav-data";
+import MenuHeader from "./menu-header";
 
 interface IMenuListItemProps {
   name: string;
@@ -27,12 +28,7 @@ interface INavSectionProps {
 
 const NavSection: React.FC<INavSectionProps> = ({ id, title, amount, items }) => (
   <section id={id}>
-    <header>
-      <h3>
-        {title} {amount && `(${amount})`}
-      </h3>
-      <Icons.Arrow />
-    </header>
+    <MenuHeader title={title} amount={amount} />
     <ul>
       {items.map((item, key) => (
         <MenuListItem key={key} url={item.url} name={item.name} />

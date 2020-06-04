@@ -1,0 +1,13 @@
+.menu-header {
+  border-bottom: 1px solid $ui-border-grey;
+  padding-bottom: $item-spacing-small;
+  margin-bottom: $item-spacing-small;
+  display: flex;
+  justify-content: space-between;
+
+  h3 {
+    color: $secondary-text-dark-grey;
+    font-weight: 600;
+    font-size: 14px;
+  }
+}

@@ -1,8 +1,8 @@
 import React from "react";
-import Header from "./header";
+import Banner from "./banner";
 import SEO from "./seo";
 import MainNav from "./main-nav";
-import RightSideMenu from "./right-menu";
+import RecommendationsMenu from "./recommendations-menu";
 
 import "../styles/site.min.css";
 
@@ -15,13 +15,13 @@ const Layout: React.FC<ILayoutProps> = ({ id, title, children }) => {
   return (
     <>
       <SEO title={title} />
-      <Header />
+      <Banner />
       <div id="app">
         <MainNav />
         <div id="pageWrapper">
           <main id={id}>{children}</main>
         </div>
-        <RightSideMenu />
+        <RecommendationsMenu />
         {/* <footer>©OpenSpark.io {new Date().getFullYear()}</footer> */}
       </div>
     </>

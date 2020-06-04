@@ -1,3 +1,62 @@
 #rightMenu {
   width: 280px;
+  min-width: 280px;
+
+  & > section {
+    margin-bottom: $item-spacing-large;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    header {
+      margin-bottom: $item-spacing;
+    }
+  }
+
+  li {
+    margin-bottom: $item-spacing;
+
+    section {
+      @include ui-border;
+      background-color: $white;
+      padding: $item-spacing;
+
+      p {
+        margin: $item-spacing-small 0;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+      }
+
+      footer {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+
+      span {
+        color: $secondary-text-dark-grey;
+      }
+
+      h4 {
+        font-weight: 600;
+        font-size: 14px;
+        color: $primary-orange;
+      }
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: $black;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .placeholder-icon {
+    margin-right: $item-spacing;
+  }
 }
