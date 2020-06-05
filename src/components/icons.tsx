@@ -10,84 +10,87 @@ import SearchIcon from "../images/icons/search.inline.svg";
 import ShareIcon from "../images/icons/share.inline.svg";
 import SaveIcon from "../images/icons/save.inline.svg";
 import TickIcon from "../images/icons/tick.inline.svg";
+import PlusIcon from "../images/icons/plus.inline.svg";
 
-interface IArrowProps {
-  active?: boolean;
+interface IIconProps {
   text?: string;
+  className?: string;
 }
 
-export const Arrow: React.FC<IArrowProps> = ({ active, text }) => (
-  <div className="arrow-icon">
-    <div className={`arrow${active ? " active" : ""}`}>
-      <ArrowIcon />
-    </div>
+export const Arrow: React.FC<IIconProps> = ({ text, className }) => (
+  <div className={className ? `arrow-icon ${className}` : "arrow-icon"}>
+    <ArrowIcon />
     {text && <span>{text}</span>}
   </div>
 );
 
-interface IHeartProps {
-  text?: string;
-}
-
-export const Heart: React.FC<IHeartProps> = ({ text }) => (
-  <div className="text-icon">
+export const Heart: React.FC<IIconProps> = ({ text, className }) => (
+  <div className={className ? `heart-icon ${className}` : "heart-icon"}>
     <HeartIcon />
     {text && <span>{text}</span>}
   </div>
 );
 
-interface ICommentProps {
-  text?: string;
-}
-
-export const Comment: React.FC<ICommentProps> = ({ text }) => (
-  <div className="comment-icon">
+export const Comment: React.FC<IIconProps> = ({ text, className }) => (
+  <div className={className ? `comment-icon ${className}` : "comment-icon"}>
     <CommentIcon />
     {text && <span>{text}</span>}
   </div>
 );
 
-export const Share: React.FC = () => (
-  <div className="share-icon">
+export const Share: React.FC<IIconProps> = ({ text, className }) => (
+  <div className={className ? `share-icon ${className}` : "share-icon"}>
     <ShareIcon />
-    <span>share</span>
+    {text && <span>{text}</span>}
   </div>
 );
 
-export const Save: React.FC = () => (
-  <div className="save-icon">
+export const Save: React.FC<IIconProps> = ({ text, className }) => (
+  <div className={className ? `save-icon ${className}` : "save-icon"}>
     <SaveIcon />
-    <span>save</span>
+    {text && <span>{text}</span>}
   </div>
 );
 
-export const Tick: React.FC = () => (
-  <div className="tick-icon">
+export const Tick: React.FC<IIconProps> = ({ text, className }) => (
+  <div className={className ? `tick-icon ${className}` : "tick-icon"}>
     <TickIcon />
+    {text && <span>{text}</span>}
   </div>
 );
 
-export const Search: React.FC = () => (
-  <div className="search-icon">
+export const Search: React.FC<IIconProps> = ({ text, className }) => (
+  <div className={className ? `search-icon ${className}` : "search-icon"}>
     <SearchIcon />
+    {text && <span>{text}</span>}
   </div>
 );
 
-export const Burger: React.FC = () => (
-  <div className="burger-icon">
+export const Burger: React.FC<IIconProps> = ({ text, className }) => (
+  <div className={className ? `burger-icon ${className}` : "burger-icon"}>
     <BurgerIcon />
+    {text && <span>{text}</span>}
   </div>
 );
 
-export const Notification: React.FC = () => (
-  <div className="notification-icon">
+export const Notification: React.FC<IIconProps> = ({ text, className }) => (
+  <div className={className ? `notification-icon ${className}` : "notification-icon"}>
     <NotificationIcon />
+    {text && <span>{text}</span>}
   </div>
 );
 
-export const Placeholder: React.FC = () => (
-  <div className="placeholder-icon">
+export const Placeholder: React.FC<IIconProps> = ({ text, className }) => (
+  <div className={className ? `placeholder-icon ${className}` : "placeholder-icon"}>
     <PlaceholderIcon />
+    {text && <span>{text}</span>}
+  </div>
+);
+
+export const Plus: React.FC<IIconProps> = ({ text, className }) => (
+  <div className={className ? `plus-icon ${className}` : "plus-icon"}>
+    <PlusIcon />
+    {text && <span>{text}</span>}
   </div>
 );
 
@@ -102,4 +105,5 @@ export const Icons = {
   Burger,
   Notification,
   Placeholder,
+  Plus,
 };

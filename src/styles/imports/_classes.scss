@@ -8,19 +8,40 @@
   color: $secondary-text-dark-grey;
 }
 
-.arrow {
+a.user {
+  font-weight: 600;
+  color: #ff6f00;
+}
+
+div[class*="-icon"] {
   display: flex;
   align-items: center;
-  padding: 7px 4px;
+  height: 19px;
+
+  span {
+    color: $dark-orange;
+    font-weight: 600;
+    font-size: 12px;
+    user-select: none;
+  }
 
   svg {
-    pointer-events: none;
+    width: 19px;
+    height: 19px;
   }
 
   &:hover {
     cursor: pointer;
-    background-color: $selected-menu-item;
-    border-radius: 12px;
+
+    svg {
+      filter: brightness(0.8);
+    }
+  }
+}
+
+.arrow-icon {
+  &:hover svg {
+    filter: brightness(1) !important;
 
     path {
       stroke: $dark-orange;
@@ -28,28 +49,9 @@
   }
 
   &.active {
-    transform: rotate(180deg);
-  }
-}
-
-a.user {
-  font-weight: 600;
-  color: #ff6f00;
-}
-
-div[class$="-icon"] {
-  display: flex;
-  align-items: center;
-
-  span {
-    color: $dark-orange;
-    font-weight: 600;
-    font-size: 12px;
-  }
-
-  svg:hover {
-    cursor: pointer;
-    filter: brightness(0.8);
+    svg {
+      transform: rotate(180deg);
+    }
   }
 }
 

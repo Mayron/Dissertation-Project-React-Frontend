@@ -3,10 +3,6 @@
 
   & > section {
     margin: $item-spacing-large 0;
-
-    &:first-of-type {
-      margin-top: $section-spacing-large;
-    }
   }
 
   .menu-item {
@@ -14,7 +10,7 @@
       display: flex;
       align-items: center;
       text-decoration: none;
-      padding: 8px 10px;
+      padding: 6px;
       border-radius: 4px;
 
       &.active,
@@ -26,6 +22,11 @@
         margin-right: $section-spacing;
       }
 
+      .action span {
+        color: $dark-orange;
+        font-weight: 600;
+      }
+
       span {
         color: $secondary-text-dark-grey;
         width: 146px;
@@ -34,6 +35,7 @@
         overflow: hidden;
         display: block;
         white-space: nowrap;
+        font-weight: 400;
       }
 
       &.active span {
