@@ -8,9 +8,19 @@
 @import "./components/filter-box";
 @import "./components/menu-header";
 
+// Componets > Common
+@import "./components/common/panel";
+
+// Components > Widgets
+@import "./components/widgets/text-field";
+@import "./components/widgets/dropdown";
+@import "./components/widgets/text-area";
+@import "./components/widgets/multi-dropdown";
+
 // Components > Index
 @import "./components/index/post-box";
 @import "./components/index/post";
 
 // Pages
 @import "./pages/index-page";
+@import "./pages/create-group-page";

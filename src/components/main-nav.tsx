@@ -57,13 +57,16 @@ const NavSection: React.FC<INavSectionProps> = ({ id, title, items, more, create
 );
 
 const MainNav: React.FC = () => {
-  const [memberships, setMemberships] = useState<ILinkData[]>([]);
   const [projects, setProjects] = useState<ILinkData[]>([]);
+  const [groups, setGroups] = useState<ILinkData[]>([]);
+  const [memberships, setMemberships] = useState<ILinkData[]>([]);
   const [subscriptions, setSubscriptions] = useState<ILinkData[]>([]);
 
   useEffect(() => {
-    setMemberships(menuData.memberships);
     setProjects([...menuData.projects]);
+    setGroups([...menuData.groups]);
+    setMemberships(menuData.memberships);
+
     setSubscriptions(menuData.subscriptions);
   }, []);
 
@@ -90,7 +93,7 @@ const MainNav: React.FC = () => {
         create="project"
         more
       />
-      <NavSection id="groups" title="Your Groups" items={projects} create="group" />
+      <NavSection id="groups" title="Your Groups" items={groups} create="group" />
       <NavSection id="memberships" title="Memberships" items={memberships} more />
       <NavSection id="subs" title="Subscriptions" items={subscriptions} />
     </nav>

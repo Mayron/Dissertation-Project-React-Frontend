@@ -26,7 +26,17 @@ $item-group-spacing: 15px;
 // where there is enough free space to use
 $item-spacing-large: 20px;
 
+// These two are used to control the spacing of user input items
+$input-horizontal-spacing: 10px;
+$input-vertical-spacing: 5px;
+
+//--------------------------------------------------
+// Other defaults
+//--------------------------------------------------
+$border-radius: 4px;
+
 //--------------------------------------------------
 // Variables for components
 //--------------------------------------------------
 $banner-header-height: 50px;
+$main-nav-item-font-size: 12px;

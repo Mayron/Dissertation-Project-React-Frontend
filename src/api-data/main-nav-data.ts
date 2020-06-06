@@ -7,6 +7,7 @@ export interface ILinkData {
 
 export interface IMenuData {
   projects: ILinkData[];
+  groups: ILinkData[];
   memberships: ILinkData[];
   subscriptions: ILinkData[];
 }
@@ -24,6 +25,16 @@ const menuData: IMenuData = {
     {
       name: "MayronUI Classic",
       url: "/p/mayronui-classic",
+    },
+  ],
+  groups: [
+    {
+      name: "MayronUI Gen6",
+      url: "/g/mayronui-gen6",
+    },
+    {
+      name: "Mayron's Hideout",
+      url: "/g/mayrons-hideout",
     },
   ],
   memberships: [

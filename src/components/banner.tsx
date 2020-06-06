@@ -5,6 +5,7 @@ import { Icons } from "./icons";
 
 // TODO: Use Gatsby image:
 import ProfilePic from "../images/placeholder-profile-pic.jpg";
+import { Link } from "gatsby";
 
 interface IProfileSelectProps {}
 
@@ -26,10 +27,12 @@ const Banner: React.FC = () => (
   <div id="banner" role="banner">
     <div>
       <Icons.Burger />
-      <header>
-        <img src={Logo} alt="logo" />
-        <h1>OpenSpark.io</h1>
-      </header>
+      <Link to="/">
+        <header>
+          <img src={Logo} alt="logo" />
+          <h1>OpenSpark.io</h1>
+        </header>
+      </Link>
     </div>
 
     <div>

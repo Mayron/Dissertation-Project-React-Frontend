@@ -1,0 +1,29 @@
+.panel {
+  @include ui-border;
+  padding: $item-spacing-large;
+  background-color: $white;
+
+  & > header {
+    padding-bottom: $item-spacing-large;
+
+    h3 {
+      color: $secondary-text-dark-grey;
+      font-size: 18px;
+    }
+  }
+
+  & > footer {
+    padding-top: $page-gutter-spacing;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    & > * {
+      margin-right: 20px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

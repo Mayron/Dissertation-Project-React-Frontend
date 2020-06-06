@@ -14,10 +14,19 @@ html {
   font-size: 14px;
 }
 
-body {
+main {
+  margin: 0 auto;
+}
+
+body,
+textarea {
   font-family: "Montserrat", sans-serif;
   color: $black;
   background-color: $main-background-color;
+}
+
+a {
+  text-decoration: none;
 }
 
 h1,
@@ -35,7 +44,7 @@ h1 {
 }
 
 h4 {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   font-family: "Montserrat", sans-serif;
   color: $secondary-text-dark-grey;
@@ -66,7 +75,12 @@ input[type="submit"] {
   }
 }
 
-input[type="search"] {
+input,
+.editbox {
+  flex: 1;
+  padding: $input-vertical-spacing $input-horizontal-spacing;
+  border: 0;
+  background: none;
   outline: none;
 }
 
@@ -78,6 +92,17 @@ img {
 hr {
   border: none;
   border-top: 1px solid $light-divider;
+}
+
+input[type="text"],
+textarea,
+.editbox {
+  @include text-content;
+}
+
+textarea {
+  resize: none;
+  outline: none;
 }
 
 #pageWrapper {

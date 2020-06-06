@@ -10,8 +10,12 @@
       display: flex;
       align-items: center;
       text-decoration: none;
-      padding: 6px;
       border-radius: 4px;
+
+      & > div {
+        padding: 6px;
+        height: auto !important;
+      }
 
       &.active,
       &:hover {
@@ -27,10 +31,15 @@
         font-weight: 600;
       }
 
+      .arrow-icon.action svg {
+        margin-left: 2px;
+        margin-right: 18px;
+      }
+
       span {
         color: $secondary-text-dark-grey;
         width: 146px;
-        font-size: 13px;
+        font-size: $main-nav-item-font-size;
         text-overflow: ellipsis;
         overflow: hidden;
         display: block;

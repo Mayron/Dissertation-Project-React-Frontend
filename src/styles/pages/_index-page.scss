@@ -1,6 +1,5 @@
 #index {
   max-width: 632px;
-  margin: 0 auto;
 
   #toolBar {
     display: flex;
@@ -21,7 +20,12 @@
       border-radius: 4px;
       display: flex;
 
+      .search-icon {
+        height: 100%;
+      }
+
       svg {
+        height: 13px !important;
         margin: 0 5px;
       }
 

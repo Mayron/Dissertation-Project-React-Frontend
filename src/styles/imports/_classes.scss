@@ -65,3 +65,58 @@ div[class*="-icon"] {
     font-size: 12px;
   }
 }
+
+.btn-primary {
+  padding: $item-spacing-small $section-spacing;
+  border-radius: $border-radius;
+  background-color: $dark-orange;
+  color: $white;
+  font-size: 14px;
+  font-weight: 600;
+
+  &:hover {
+    background-color: $primary-orange;
+  }
+}
+
+.btn-tertiary {
+  text-decoration: underline;
+  color: $dark-orange;
+
+  &:hover {
+    color: $primary-orange;
+  }
+}
+
+.row {
+  display: flex;
+  margin-bottom: $item-spacing-large;
+}
+
+.ui-inner {
+  @include ui-border;
+  background: $text-input-light-grey;
+  display: flex;
+  position: relative;
+}
+
+.counter {
+  font-size: 12px;
+  color: $secondary-text-dark-grey;
+  display: flex;
+  align-items: center;
+  padding: $input-vertical-spacing $input-horizontal-spacing;
+  border-top-right-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
+  border-left: 1px solid $ui-border-grey;
+  background-color: $white;
+}
+
+.placeholder {
+  color: $ui-border-grey !important;
+  user-select: none;
+}
+
+.arrow-icon svg {
+  width: 14px !important;
+}

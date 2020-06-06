@@ -1,0 +1,31 @@
+.dropdown {
+  width: 180px;
+
+  header {
+    padding-bottom: $item-spacing-small;
+  }
+
+  .ui-inner {
+    cursor: pointer;
+    align-items: center;
+  }
+
+  .placeholder {
+    @include text-content;
+    flex: 1;
+    padding: $input-vertical-spacing $input-horizontal-spacing;
+  }
+
+  .arrow-icon {
+    padding: $input-vertical-spacing $input-horizontal-spacing;
+
+    svg {
+      width: 14px;
+    }
+  }
+
+  // TODO: Remove this when I add state:
+  select {
+    display: none;
+  }
+}

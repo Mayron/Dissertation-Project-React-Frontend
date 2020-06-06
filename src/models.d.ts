@@ -13,3 +13,8 @@ declare module "*.png" {
   const content: string;
   export default content;
 }
+
+declare interface IKeyValuePair {
+  key: string;
+  value: string;
+}
