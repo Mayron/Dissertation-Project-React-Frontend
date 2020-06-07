@@ -16,7 +16,7 @@ const Filter: React.FC<IFilterProps> = ({ label, tooltip, selected, items, show 
         <span>
           {label} <strong>{items[selected]}</strong>
         </span>
-        <Icons.Arrow active={show} />
+        <Icons.Arrow />
       </header>
       {show && (
         <div className="filter-dropdown">

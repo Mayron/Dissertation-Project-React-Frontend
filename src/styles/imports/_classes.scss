@@ -11,6 +11,7 @@
 a.user {
   font-weight: 600;
   color: #ff6f00;
+  text-decoration: none;
 }
 
 div[class*="-icon"] {
@@ -63,6 +64,14 @@ div[class*="-icon"] {
   &.sm {
     padding: 4px 12px;
     font-size: 12px;
+  }
+
+  &:hover {
+    span {
+      color: $primary-orange;
+    }
+    color: $primary-orange;
+    border-color: $primary-orange;
   }
 }
 
@@ -117,6 +126,19 @@ div[class*="-icon"] {
   user-select: none;
 }
 
-.arrow-icon svg {
-  width: 14px !important;
+div.arrow-icon svg {
+  width: 14px;
+}
+
+div.arrow-icon.lg svg {
+  width: 19px;
+}
+
+div.arrow-icon.up svg {
+  transform: rotate(180deg);
+}
+
+.f-align-c {
+  display: flex;
+  align-items: center;
 }

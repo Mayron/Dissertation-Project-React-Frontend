@@ -1,5 +1,5 @@
 .dropdown {
-  width: 180px;
+  width: 200px;
 
   header {
     padding-bottom: $item-spacing-small;
@@ -8,6 +8,7 @@
   .ui-inner {
     cursor: pointer;
     align-items: center;
+    background-color: $white;
   }
 
   .placeholder {

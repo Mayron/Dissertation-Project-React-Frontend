@@ -4,7 +4,7 @@ import recommendationData, {
 } from "../../api-data/recommendation-data";
 import { Icons } from "../icons";
 import { Link } from "gatsby";
-import MenuHeader from "../menu-header";
+import MenuHeader from "../nav-menus/menu-header";
 
 interface IRecommendationProps {
   url: string;

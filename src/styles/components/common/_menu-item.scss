@@ -1,0 +1,58 @@
+.menu-item {
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 4px;
+
+    & > * {
+      padding: 6px;
+      height: auto !important;
+    }
+
+    &.btn {
+      padding-top: 20px;
+
+      & > * {
+        width: 100%;
+      }
+    }
+
+    &:not(.btn) {
+      &.active,
+      &:hover {
+        background-color: $selected-menu-item;
+      }
+
+      span {
+        color: $secondary-text-dark-grey;
+        width: 146px;
+        font-size: $main-nav-item-font-size;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: block;
+        white-space: nowrap;
+        font-weight: 400;
+      }
+    }
+
+    svg {
+      margin-right: $section-spacing;
+    }
+
+    .action span {
+      color: $dark-orange;
+      font-weight: 600;
+    }
+
+    .arrow-icon.action svg {
+      margin-left: 2px;
+      margin-right: 18px;
+    }
+
+    &.active:not(.btn) span {
+      color: $dark-orange;
+      font-weight: 600;
+    }
+  }
+}

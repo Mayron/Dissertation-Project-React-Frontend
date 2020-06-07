@@ -1,7 +1,7 @@
 import React from "react";
 
 // TODO: Replace
-import ProfilePic from "../../images/placeholder-profile-pic-lg.png";
+import ProfilePic from "../images/placeholder-profile-pic-lg.png";
 
 const PostBox = () => {
   return (

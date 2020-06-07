@@ -1,0 +1,30 @@
+.menu-bar {
+  margin-bottom: $item-spacing-large;
+
+  a {
+    color: $secondary-text-dark-grey;
+    padding: 0 10px 5px 10px;
+    font-weight: 600;
+    -webkit-user-drag: none;
+    user-select: none;
+
+    &:hover,
+    &.active {
+      color: $dark-orange;
+      border-bottom: 1px solid $dark-orange;
+    }
+  }
+
+  ul {
+    border-bottom: 1px solid #d9d9d9;
+    display: inline-flex;
+    padding-bottom: 5px;
+  }
+
+  li:first-of-type a {
+    padding-left: 0;
+  }
+  li:last-of-type a {
+    padding-right: 0;
+  }
+}

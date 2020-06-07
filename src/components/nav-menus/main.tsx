@@ -1,55 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "gatsby";
 import { Icons } from "../icons";
 import menuData, { ILinkData } from "../../api-data/main-nav-data";
-import MenuHeader from "../menu-header";
-
-interface IMenuListItemProps {
-  url: string;
-}
-
-const MenuListItem: React.FC<IMenuListItemProps> = ({ url, children }) => (
-  <li className="menu-item">
-    <Link to={url} activeClassName="active">
-      {children}
-    </Link>
-  </li>
-);
-
-interface INavSectionProps {
-  id: string;
-  title: string;
-  items: ILinkData[];
-  more?: boolean;
-  create?: string;
-}
-
-const NavSection: React.FC<INavSectionProps> = ({ id, title, items, more, create }) => (
-  <section id={id}>
-    <MenuHeader title={title} amount={items.length} />
-    <ul>
-      {items.map((item, key) => (
-        <MenuListItem key={key} url={item.url}>
-          <Icons.Placeholder text={item.name} />
-        </MenuListItem>
-      ))}
-    </ul>
-    <footer>
-      <ul>
-        {create && (
-          <MenuListItem url={`/create/${create}`}>
-            <Icons.Plus text={`Create ${create}`} className="action" />
-          </MenuListItem>
-        )}
-        {more && (
-          <MenuListItem url={`/create/${create}`}>
-            <Icons.Arrow text="Show more" className="action" />
-          </MenuListItem>
-        )}
-      </ul>
-    </footer>
-  </section>
-);
+import MenuListItem from "./menu-list-item";
+import NavSection from "./nav-section";
 
 interface IMainNavProps {
   collapsed?: boolean;

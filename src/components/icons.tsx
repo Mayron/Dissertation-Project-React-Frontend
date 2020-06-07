@@ -11,18 +11,31 @@ import ShareIcon from "../images/icons/share.inline.svg";
 import SaveIcon from "../images/icons/save.inline.svg";
 import TickIcon from "../images/icons/tick.inline.svg";
 import PlusIcon from "../images/icons/plus.inline.svg";
+import SettingsIcon from "../images/icons/settings.inline.svg";
 
 interface IIconProps {
   text?: string;
   className?: string;
 }
 
-export const Arrow: React.FC<IIconProps> = ({ text, className }) => (
-  <div className={className ? `arrow-icon ${className}` : "arrow-icon"}>
-    <ArrowIcon />
-    {text && <span>{text}</span>}
-  </div>
-);
+interface IArrowIconProps extends IIconProps {
+  large?: boolean;
+  up?: boolean;
+}
+
+export const Arrow: React.FC<IArrowIconProps> = ({ text, className, large, up }) => {
+  const classes = ["arrow-icon"];
+  if (className) classes.push(className);
+  if (large) classes.push("lg");
+  if (up) classes.push("up");
+
+  return (
+    <div className={classes.join(" ")}>
+      <ArrowIcon />
+      {text && <span>{text}</span>}
+    </div>
+  );
+};
 
 export const Heart: React.FC<IIconProps> = ({ text, className }) => (
   <div className={className ? `heart-icon ${className}` : "heart-icon"}>
@@ -94,6 +107,13 @@ export const Plus: React.FC<IIconProps> = ({ text, className }) => (
   </div>
 );
 
+export const Settings: React.FC<IIconProps> = ({ text, className }) => (
+  <div className={className ? `settings-icon ${className}` : "settings-icon"}>
+    <SettingsIcon />
+    {text && <span>{text}</span>}
+  </div>
+);
+
 export const Icons = {
   Arrow,
   Heart,
@@ -106,4 +126,5 @@ export const Icons = {
   Notification,
   Placeholder,
   Plus,
+  Settings,
 };

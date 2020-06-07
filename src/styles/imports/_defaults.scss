@@ -107,6 +107,11 @@ textarea {
 
 #pageWrapper {
   flex: 1;
+  margin: 0 $page-gutter-spacing;
+}
+
+img {
+  display: block;
 }
 
 // must be same size as banner-header
