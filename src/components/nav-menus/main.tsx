@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "gatsby";
-import { Icons } from "./icons";
-import menuData, { ILinkData } from "../api-data/main-nav-data";
-import MenuHeader from "./menu-header";
+import { Icons } from "../icons";
+import menuData, { ILinkData } from "../../api-data/main-nav-data";
+import MenuHeader from "../menu-header";
 
 interface IMenuListItemProps {
   url: string;
-  active?: boolean;
 }
 
-const MenuListItem: React.FC<IMenuListItemProps> = ({
-  url,
-  children,
-  active = false,
-}) => (
+const MenuListItem: React.FC<IMenuListItemProps> = ({ url, children }) => (
   <li className="menu-item">
-    <Link to={url} className={active && "active"}>
+    <Link to={url} activeClassName="active">
       {children}
     </Link>
   </li>
@@ -56,7 +51,11 @@ const NavSection: React.FC<INavSectionProps> = ({ id, title, items, more, create
   </section>
 );
 
-const MainNav: React.FC = () => {
+interface IMainNavProps {
+  collapsed?: boolean;
+}
+
+const MainNav: React.FC<IMainNavProps> = ({ collapsed }) => {
   const [projects, setProjects] = useState<ILinkData[]>([]);
   const [groups, setGroups] = useState<ILinkData[]>([]);
   const [memberships, setMemberships] = useState<ILinkData[]>([]);
@@ -71,9 +70,9 @@ const MainNav: React.FC = () => {
   }, []);
 
   return (
-    <nav id="mainNav" role="navigation">
+    <nav id="mainNav" role="navigation" className={collapsed ? "collapsed" : ""}>
       <ul>
-        <MenuListItem active url="/">
+        <MenuListItem url="/">
           <Icons.Placeholder text="Home" />
         </MenuListItem>
         <MenuListItem url="/discover">
@@ -86,16 +85,25 @@ const MainNav: React.FC = () => {
           <Icons.Placeholder text="Browse" />
         </MenuListItem>
       </ul>
-      <NavSection
-        id="projects"
-        title="Your Projects"
-        items={projects}
-        create="project"
-        more
-      />
-      <NavSection id="groups" title="Your Groups" items={groups} create="group" />
-      <NavSection id="memberships" title="Memberships" items={memberships} more />
-      <NavSection id="subs" title="Subscriptions" items={subscriptions} />
+      {!collapsed && (
+        <>
+          <NavSection
+            id="projects"
+            title="Your Projects"
+            items={projects}
+            create="project"
+            more
+          />
+          <NavSection
+            id="groups"
+            title="Your Groups &amp; Communities"
+            items={groups}
+            create="group"
+          />
+          <NavSection id="memberships" title="Memberships" items={memberships} more />
+          <NavSection id="subs" title="Subscriptions" items={subscriptions} />
+        </>
+      )}
     </nav>
   );
 };

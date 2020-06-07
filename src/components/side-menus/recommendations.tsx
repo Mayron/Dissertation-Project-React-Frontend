@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import recommendationData, {
   IRecommendationItemData,
-} from "../api-data/recommendation-data";
-import { Icons } from "./icons";
+} from "../../api-data/recommendation-data";
+import { Icons } from "../icons";
 import { Link } from "gatsby";
-import MenuHeader from "./menu-header";
+import MenuHeader from "../menu-header";
 
 interface IRecommendationProps {
   url: string;
@@ -100,7 +100,7 @@ const RecommendationsMenu: React.FC = () => {
   }, []);
 
   return (
-    <aside id="rightMenu" role="complimentary">
+    <aside id="recommendMenu" role="complimentary">
       <RecommendationSection
         id="recommendedGroups"
         title="Groups &amp; Communities"

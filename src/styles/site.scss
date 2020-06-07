@@ -2,11 +2,15 @@
 
 // Components
 @import "./components/banner";
-@import "./components/main-nav";
-@import "./components/right-menu";
 @import "./components/profile-select";
 @import "./components/filter-box";
 @import "./components/menu-header";
+
+// Components > Menus and Nav
+@import "./components/nav-menus/main";
+@import "./components/nav-menus/group";
+@import "./components/side-menus/recommendations";
+@import "./components/side-menus/group";
 
 // Componets > Common
 @import "./components/common/panel";
@@ -24,3 +28,4 @@
 // Pages
 @import "./pages/index-page";
 @import "./pages/create-group-page";
+@import "./pages/group-page";

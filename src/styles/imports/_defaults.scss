@@ -107,8 +107,6 @@ textarea {
 
 #pageWrapper {
   flex: 1;
-  margin-left: 60px;
-  margin-right: 60px;
 }
 
 // must be same size as banner-header
@@ -116,6 +114,8 @@ textarea {
   margin-top: $banner-header-height;
   padding: $page-gutter-spacing;
   display: flex;
+  min-height: calc(100vh - #{$banner-header-height});
+  padding-bottom: 0;
 }
 
 ::-webkit-input-placeholder {
@@ -134,4 +134,18 @@ textarea {
 
 :-ms-input-placeholder {
   color: $ui-border-grey !important;
+}
+
+p a {
+  text-decoration: underline;
+  color: $dark-orange;
+
+  &:hover {
+    color: $primary-orange;
+  }
+}
+
+p {
+  font-size: 14px;
+  line-height: 20px;
 }

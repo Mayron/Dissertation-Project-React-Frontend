@@ -12,6 +12,13 @@ const CreateGroupPage: React.FC = () => {
     <Layout id="createGroup">
       <Panel title="Create a Group">
         <div className="row">
+          <p>
+            Once your group reaches over 100 members, it gains the community status.
+            Communities gain special benefits.{" "}
+            <Link to="/faq/communities">Find out more</Link>.
+          </p>
+        </div>
+        <div className="row">
           <TextField
             title="Group Name"
             placeholder="What should your group be called?"

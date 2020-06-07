@@ -4,6 +4,7 @@
   margin-bottom: $item-spacing-small;
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
 
   h3 {
     color: $secondary-text-dark-grey;
