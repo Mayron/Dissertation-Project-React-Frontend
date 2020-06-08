@@ -1,0 +1,35 @@
+.search-box {
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+
+  & + div {
+    display: flex;
+  }
+
+  .search-icon {
+    height: 100%;
+  }
+
+  svg {
+    height: 13px !important;
+    margin: 0 5px;
+  }
+
+  input {
+    width: 196px;
+    transition: width ease-out 0.4s;
+    padding: 5px;
+    padding-right: 10px;
+    border: none;
+    border-radius: 4px;
+    padding-left: 0;
+
+    &:focus {
+      transition: width ease-out 0.4s;
+      width: 330px;
+    }
+  }
+}

@@ -1,14 +1,29 @@
+.panel-link > .panel {
+  &:hover {
+    @include card-shadow;
+    cursor: pointer;
+  }
+}
+
 .panel {
   @include ui-border;
   padding: $item-spacing-large;
   background-color: $white;
+  position: relative;
+
+  &.highlight {
+    border-color: $dark-orange;
+  }
 
   & > header {
     padding-bottom: $item-spacing-large;
+    display: flex;
+    align-items: flex-start;
 
     h3 {
       color: $secondary-text-dark-grey;
       font-size: 18px;
+      margin-top: -7px;
     }
   }
 

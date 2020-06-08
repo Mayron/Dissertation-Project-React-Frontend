@@ -1,6 +1,6 @@
 import React from "react";
-import { Icons } from "../icons";
 import ProfilePic from "../../images/placeholder-profile-pic-lg.png";
+import PostFooter from "../common/post-footer";
 
 const Post = () => {
   return (
@@ -22,25 +22,7 @@ const Post = () => {
           tellus ipsum.
         </div>
       </div>
-      <footer>
-        <ul>
-          <li>
-            <Icons.Heart text="12.5k" />
-          </li>
-          <li>
-            <Icons.Comment text="1.5k" />
-          </li>
-          <li>
-            <Icons.Share />
-          </li>
-          <li>
-            <Icons.Save />
-          </li>
-          <li>
-            <Icons.Arrow text="more" />
-          </li>
-        </ul>
-      </footer>
+      <PostFooter />
     </article>
   );
 };

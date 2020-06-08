@@ -1,0 +1,32 @@
+.card {
+  @include ui-border;
+  padding: $item-spacing;
+
+  &:hover {
+    @include card-shadow;
+    cursor: pointer;
+
+    svg {
+      filter: brightness(0.8);
+    }
+  }
+
+  header {
+    margin-bottom: $item-spacing;
+
+    & > div[class*="-icon"] {
+      height: 25px;
+
+      svg {
+        width: 25px;
+        height: 25px;
+      }
+
+      span {
+        font-size: 16px;
+        padding-left: $item-spacing;
+        color: $secondary-text-dark-grey;
+      }
+    }
+  }
+}

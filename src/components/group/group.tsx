@@ -1,9 +1,15 @@
 import Banner from "./banner";
-import SubMenus from "./sub-menus";
+import HomeMenuBar from "./home-menu-bar";
+import AnnouncementsMenuBar from "./announcements-menu-bar";
+
+const MenuBars = {
+  HomeMenuBar,
+  AnnouncementsMenuBar,
+};
 
 const Group = {
   Banner,
-  SubMenus,
+  MenuBars,
 };
 
 export default Group;

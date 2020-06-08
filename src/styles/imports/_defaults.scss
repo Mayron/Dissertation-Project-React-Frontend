@@ -150,6 +150,10 @@ p a {
   }
 }
 
+a p {
+  color: $black;
+}
+
 p {
   font-size: 14px;
   line-height: 20px;

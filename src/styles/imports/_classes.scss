@@ -10,8 +10,13 @@
 
 a.user {
   font-weight: 600;
-  color: #ff6f00;
+  color: $primary-orange;
   text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    color: lighten($primary-orange, 10);
+  }
 }
 
 div[class*="-icon"] {
@@ -134,6 +139,29 @@ div.arrow-icon.lg svg {
   width: 19px;
 }
 
+div.edit-icon {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+
+  span {
+    text-decoration: underline;
+  }
+  svg {
+    margin-right: 5px;
+    line-height: 12px;
+  }
+}
+
+div.edit-icon:hover {
+  svg {
+    filter: brightness(1);
+  }
+  span {
+    color: $primary-orange;
+  }
+}
+
 div.arrow-icon.up svg {
   transform: rotate(180deg);
 }
@@ -141,4 +169,24 @@ div.arrow-icon.up svg {
 .f-align-c {
   display: flex;
   align-items: center;
+}
+
+.cards {
+  margin: -10px;
+  margin-top: 40px;
+  display: flex;
+
+  .card {
+    margin: 10px;
+  }
+}
+
+.panel-label {
+  font-weight: 600;
+  color: #f24d2b;
+  padding: 5px;
+  border: 1px solid #f24d2b;
+  border-radius: 4px;
+  margin-right: 10px;
+  user-select: none;
 }

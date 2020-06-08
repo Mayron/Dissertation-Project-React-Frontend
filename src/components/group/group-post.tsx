@@ -26,7 +26,7 @@ const GroupPost = () => {
           tellus ipsum.
         </div>
       </div>
-      <footer>
+      <footer className="post-footer">
         <ul>
           <li>
             <Icons.Comment text="1.5k" />

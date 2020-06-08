@@ -1,21 +1,27 @@
 import React from "react";
-import { Router } from "@reach/router";
-import GroupPageTemplate from "../templates/group";
+import { Router, Redirect } from "@reach/router";
+import GroupPage from "../components/dynamic-pages/group";
 import NotFoundPage from "./404";
-import PostsSection from "../components/group/posts-section";
-import ActivitySection from "../components/group/activity-section";
-import AboutSection from "../components/group/about-section";
-import RulesSection from "../components/group/rules-section";
+import PostsView from "../components/group/views/posts";
+import AboutView from "../components/group/views/about";
+import AnnouncementsCommunityView from "../components/group/views/announcements-community";
+import AnnouncementsProjectView from "../components/group/views/announcements-projects";
+import OpportunitiesView from "../components/group/views/opportunities";
 
 const App = () => {
   return (
     <Router>
-      <GroupPageTemplate path="/g/:slug">
-        <PostsSection path="/" />
-        <ActivitySection path="/activity" />
-        <AboutSection path="/about" />
-        <RulesSection path="/rules" />
-      </GroupPageTemplate>
+      <GroupPage path="/g/:slug">
+        <PostsView path="/" />
+        <AboutView path="/about" />
+        <AnnouncementsCommunityView path="/announcements" />
+        <AnnouncementsProjectView path="/announcements/projects" />
+        <OpportunitiesView path="/opportunities" />
+
+        <Redirect default to="/g/404" />
+      </GroupPage>
+
+      <NotFoundPage path="/g/404" />
       <NotFoundPage default />
     </Router>
   );

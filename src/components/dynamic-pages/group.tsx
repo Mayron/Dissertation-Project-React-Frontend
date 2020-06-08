@@ -1,13 +1,13 @@
 import React from "react";
-import Layout from "../components/layout";
+import Layout from "../layout";
 import { RouteComponentProps } from "@reach/router";
-import Group from "../components/group/group";
+import Group from "../group/group";
 
 interface IGroupPageTemplateProps extends RouteComponentProps {
   slug?: string;
 }
 
-const GroupPageTemplate: React.FC<IGroupPageTemplateProps> = ({ slug, children }) => {
+const GroupPage: React.FC<IGroupPageTemplateProps> = ({ slug, children }) => {
   return (
     <Layout id="groupPage" title="Test" collapsed menuType="group">
       <Group.Banner
@@ -22,10 +22,9 @@ const GroupPageTemplate: React.FC<IGroupPageTemplateProps> = ({ slug, children }
           <li>FB Icon here!</li>
         </ul>
       </Group.Banner>
-      <Group.SubMenus />
       {children}
     </Layout>
   );
 };
 
-export default GroupPageTemplate;
+export default GroupPage;

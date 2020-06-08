@@ -1,5 +1,8 @@
 .menu-bar {
   margin-bottom: $item-spacing-large;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 
   a {
     color: $secondary-text-dark-grey;
@@ -7,6 +10,8 @@
     font-weight: 600;
     -webkit-user-drag: none;
     user-select: none;
+    display: block;
+    height: calc(100% + 1px);
 
     &:hover,
     &.active {
@@ -18,7 +23,6 @@
   ul {
     border-bottom: 1px solid #d9d9d9;
     display: inline-flex;
-    padding-bottom: 5px;
   }
 
   li:first-of-type a {

@@ -12,13 +12,14 @@ import SaveIcon from "../images/icons/save.inline.svg";
 import TickIcon from "../images/icons/tick.inline.svg";
 import PlusIcon from "../images/icons/plus.inline.svg";
 import SettingsIcon from "../images/icons/settings.inline.svg";
+import EditIcon from "../images/icons/edit.inline.svg";
 
-interface IIconProps {
+export interface IIconProps {
   text?: string;
   className?: string;
 }
 
-interface IArrowIconProps extends IIconProps {
+export interface IArrowIconProps extends IIconProps {
   large?: boolean;
   up?: boolean;
 }
@@ -38,7 +39,13 @@ export const Arrow: React.FC<IArrowIconProps> = ({ text, className, large, up })
 };
 
 export const Heart: React.FC<IIconProps> = ({ text, className }) => (
-  <div className={className ? `heart-icon ${className}` : "heart-icon"}>
+  <div
+    className={className ? `heart-icon ${className}` : "heart-icon"}
+    onClick={(e) => {
+      console.log("triggered!");
+      e.stopPropagation();
+    }}
+  >
     <HeartIcon />
     {text && <span>{text}</span>}
   </div>
@@ -114,6 +121,13 @@ export const Settings: React.FC<IIconProps> = ({ text, className }) => (
   </div>
 );
 
+export const Edit: React.FC<IIconProps> = ({ text, className }) => (
+  <div className={className ? `edit-icon ${className}` : "edit-icon"}>
+    <EditIcon />
+    {text && <span>{text}</span>}
+  </div>
+);
+
 export const Icons = {
   Arrow,
   Heart,
@@ -127,4 +141,5 @@ export const Icons = {
   Placeholder,
   Plus,
   Settings,
+  Edit,
 };
