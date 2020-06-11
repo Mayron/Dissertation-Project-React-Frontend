@@ -22,7 +22,7 @@ const GroupNav = () => {
         </MenuListItem>
       </ul>
       <NavSection id="projects" title="Projects" items={menuData.projects} more />
-      <NavSection id="channels" title="Chat Channels" items={menuData.projects} />
+      <NavSection id="channels" title="Chat Channels" items={menuData.chatChannels} />
     </nav>
   );
 };

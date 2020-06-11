@@ -1,24 +1,26 @@
-import React from "react";
-import { Icons } from "./icons";
+import React, { useState } from "react";
+import { Icons } from "../icons";
 
 interface IFilterProps {
-  label: string;
+  label?: string;
   tooltip: string;
   selected: number;
   items: string[];
-  show?: boolean;
 }
 
-const Filter: React.FC<IFilterProps> = ({ label, tooltip, selected, items, show }) => {
+const Filter: React.FC<IFilterProps> = ({ label, tooltip, selected, items }) => {
+  const [shown, setShown] = useState<boolean>(false);
+
   return (
     <div className="filter">
       <header>
-        <span>
-          {label} <strong>{items[selected]}</strong>
-        </span>
-        <Icons.Arrow />
+        <p>
+          {label && <span>{label}</span>}
+          <strong>{items[selected]}</strong>
+        </p>
+        <Icons.Arrow onClick={() => setShown(!shown)} open={shown} />
       </header>
-      {show && (
+      {shown && (
         <div className="filter-dropdown">
           <ul>
             <li>{tooltip}</li>

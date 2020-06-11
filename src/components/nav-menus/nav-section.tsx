@@ -31,7 +31,7 @@ const NavSection: React.FC<INavSectionProps> = ({ id, title, items, more, create
         )}
         {more && (
           <MenuListItem url={`/create/${create}`}>
-            <Icons.Arrow text="Show more" className="action" />
+            <Icons.Arrow text="Show more" className="action" open />
           </MenuListItem>
         )}
       </ul>

@@ -27,7 +27,7 @@
     border-radius: 4px;
     padding-left: 0;
 
-    &:focus {
+    &:not(.no-anim):focus {
       transition: width ease-out 0.4s;
       width: 330px;
     }

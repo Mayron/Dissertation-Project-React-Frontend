@@ -1,0 +1,38 @@
+div.arrow-icon svg {
+  width: 14px;
+}
+
+div.arrow-icon:not(.open) svg {
+  transform: rotate(270deg);
+}
+
+div.arrow-icon.lg svg {
+  width: 19px;
+}
+
+div.tick-icon svg {
+  width: 14px;
+}
+
+div.edit-icon {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+
+  span {
+    text-decoration: underline;
+  }
+  svg {
+    margin-right: 5px;
+    line-height: 12px;
+  }
+}
+
+div.edit-icon:hover {
+  svg {
+    filter: brightness(1);
+  }
+  span {
+    color: $primary-orange;
+  }
+}

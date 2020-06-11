@@ -34,6 +34,7 @@ div[class*="-icon"] {
   svg {
     width: 19px;
     height: 19px;
+    user-select: none;
   }
 
   &:hover {
@@ -102,6 +103,7 @@ div[class*="-icon"] {
   }
 }
 
+// TODO: Should rename this to "block" or something
 .row {
   display: flex;
   margin-bottom: $item-spacing-large;
@@ -131,41 +133,6 @@ div[class*="-icon"] {
   user-select: none;
 }
 
-div.arrow-icon svg {
-  width: 14px;
-}
-
-div.arrow-icon.lg svg {
-  width: 19px;
-}
-
-div.edit-icon {
-  position: absolute;
-  right: 20px;
-  top: 10px;
-
-  span {
-    text-decoration: underline;
-  }
-  svg {
-    margin-right: 5px;
-    line-height: 12px;
-  }
-}
-
-div.edit-icon:hover {
-  svg {
-    filter: brightness(1);
-  }
-  span {
-    color: $primary-orange;
-  }
-}
-
-div.arrow-icon.up svg {
-  transform: rotate(180deg);
-}
-
 .f-align-c {
   display: flex;
   align-items: center;
@@ -189,4 +156,19 @@ div.arrow-icon.up svg {
   border-radius: 4px;
   margin-right: 10px;
   user-select: none;
+}
+
+.row-20 {
+  display: flex;
+  align-items: center;
+
+  & > *:not(:last-child) {
+    margin-right: 20px;
+  }
+}
+
+.spaced {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

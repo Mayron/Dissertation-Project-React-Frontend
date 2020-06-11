@@ -5,9 +5,10 @@ import { Link } from "gatsby";
 interface IPostFooterProps {
   postedBy?: string;
   when?: string;
+  showIcons?: boolean;
 }
 
-const PostFooter: React.FC<IPostFooterProps> = ({ postedBy, when }) => {
+const PostFooter: React.FC<IPostFooterProps> = ({ postedBy, when, showIcons = true }) => {
   return (
     <footer className="post-footer">
       {postedBy && (
@@ -19,23 +20,25 @@ const PostFooter: React.FC<IPostFooterProps> = ({ postedBy, when }) => {
           {when}
         </p>
       )}
-      <ul>
-        <li>
-          <Icons.Heart text="12.5k" />
-        </li>
-        <li>
-          <Icons.Comment text="1.5k" />
-        </li>
-        <li>
-          <Icons.Share />
-        </li>
-        <li>
-          <Icons.Save />
-        </li>
-        <li>
-          <Icons.Arrow text="more" />
-        </li>
-      </ul>
+      {showIcons && (
+        <ul>
+          <li>
+            <Icons.Heart text="12.5k" />
+          </li>
+          <li>
+            <Icons.Comment text="1.5k" />
+          </li>
+          <li>
+            <Icons.Share />
+          </li>
+          <li>
+            <Icons.Save />
+          </li>
+          <li>
+            <Icons.Arrow text="more" />
+          </li>
+        </ul>
+      )}
     </footer>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import Filter from "../filter";
+import Filter from "../common/filter";
 import SearchBox from "../search-box";
 
 const ToolBar = () => {

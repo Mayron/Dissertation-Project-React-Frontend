@@ -3,10 +3,10 @@
 // Components
 @import "./components/banner";
 @import "./components/profile-select";
-@import "./components/filter-box";
 @import "./components/menu-header";
 @import "./components/tool-bar";
 @import "./components/search-box";
+@import "./components/icons";
 
 // Components > Menus and Nav
 @import "./components/nav-menus/main";
@@ -21,6 +21,8 @@
 @import "./components/common/vote";
 @import "./components/common/card";
 @import "./components/common/post-footer";
+@import "./components/common/filter-box";
+@import "./components/common/comment";
 
 // Components > Widgets
 @import "./components/widgets/text-field";

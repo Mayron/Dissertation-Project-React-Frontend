@@ -10,6 +10,7 @@ export interface IMenuData {
   groups: ILinkData[];
   memberships: ILinkData[];
   subscriptions: ILinkData[];
+  chatChannels: ILinkData[];
 }
 
 const menuData: IMenuData = {
@@ -60,6 +61,25 @@ const menuData: IMenuData = {
     {
       name: "Some YouTube Channel",
       url: "/p/some-youtube-channel",
+    },
+  ],
+
+  chatChannels: [
+    {
+      name: "#shadowlands-wow",
+      url: "/g/mayronui-gen6/chat/shadowlands-wow",
+    },
+    {
+      name: "#general",
+      url: "/g/mayronui-gen6/chat/general",
+    },
+    {
+      name: "#help-english",
+      url: "/g/mayronui-gen6/chat/help-english",
+    },
+    {
+      name: "#random",
+      url: "/g/mayronui-gen6/chat/random",
     },
   ],
 };

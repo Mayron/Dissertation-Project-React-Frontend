@@ -17,115 +17,189 @@ import EditIcon from "../images/icons/edit.inline.svg";
 export interface IIconProps {
   text?: string;
   className?: string;
+  onClick?: () => void;
 }
 
 export interface IArrowIconProps extends IIconProps {
   large?: boolean;
-  up?: boolean;
+  open?: boolean;
 }
 
-export const Arrow: React.FC<IArrowIconProps> = ({ text, className, large, up }) => {
-  const classes = ["arrow-icon"];
-  if (className) classes.push(className);
-  if (large) classes.push("lg");
-  if (up) classes.push("up");
+interface IBaseIconProps extends IIconProps {
+  iconType: string;
+  icon: () => React.ReactNode;
+  onClick?: () => void;
+}
+
+const BaseIcon: React.FC<IBaseIconProps> = ({
+  text,
+  className,
+  iconType,
+  icon,
+  onClick,
+}) => {
+  if (className) {
+    className = `${iconType}-icon ${className}`;
+  } else {
+    className = `${iconType}-icon`;
+  }
 
   return (
-    <div className={classes.join(" ")}>
-      <ArrowIcon />
+    <div
+      className={className}
+      onClick={(e) => {
+        e.stopPropagation();
+        console.log(onClick);
+        if (onClick) onClick();
+      }}
+    >
+      {icon()}
       {text && <span>{text}</span>}
     </div>
   );
 };
 
-export const Heart: React.FC<IIconProps> = ({ text, className }) => (
-  <div
-    className={className ? `heart-icon ${className}` : "heart-icon"}
-    onClick={(e) => {
-      console.log("triggered!");
-      e.stopPropagation();
-    }}
-  >
-    <HeartIcon />
-    {text && <span>{text}</span>}
-  </div>
+export const Arrow: React.FC<IArrowIconProps> = ({
+  text,
+  className,
+  onClick,
+  large,
+  open,
+}) => {
+  const classes = ["arrow-icon"];
+  if (className) classes.push(className);
+  if (large) classes.push("lg");
+  if (open) classes.push("open");
+
+  return (
+    <BaseIcon
+      text={text}
+      className={classes.join(" ")}
+      iconType="arrow"
+      onClick={onClick}
+      icon={() => <ArrowIcon />}
+    />
+  );
+};
+
+export const Heart: React.FC<IIconProps> = ({ text, className, onClick }) => (
+  <BaseIcon
+    text={text}
+    className={className}
+    onClick={onClick}
+    iconType="heart"
+    icon={() => <HeartIcon />}
+  />
 );
 
-export const Comment: React.FC<IIconProps> = ({ text, className }) => (
-  <div className={className ? `comment-icon ${className}` : "comment-icon"}>
-    <CommentIcon />
-    {text && <span>{text}</span>}
-  </div>
+export const Comment: React.FC<IIconProps> = ({ text, className, onClick }) => (
+  <BaseIcon
+    text={text}
+    className={className}
+    onClick={onClick}
+    iconType="comment"
+    icon={() => <CommentIcon />}
+  />
 );
 
-export const Share: React.FC<IIconProps> = ({ text, className }) => (
-  <div className={className ? `share-icon ${className}` : "share-icon"}>
-    <ShareIcon />
-    {text && <span>{text}</span>}
-  </div>
+export const Share: React.FC<IIconProps> = ({ text, className, onClick }) => (
+  <BaseIcon
+    text={text}
+    className={className}
+    onClick={onClick}
+    iconType="share"
+    icon={() => <ShareIcon />}
+  />
 );
 
-export const Save: React.FC<IIconProps> = ({ text, className }) => (
-  <div className={className ? `save-icon ${className}` : "save-icon"}>
-    <SaveIcon />
-    {text && <span>{text}</span>}
-  </div>
+export const Save: React.FC<IIconProps> = ({ text, className, onClick }) => (
+  <BaseIcon
+    text={text}
+    className={className}
+    onClick={onClick}
+    iconType="save"
+    icon={() => <SaveIcon />}
+  />
 );
 
-export const Tick: React.FC<IIconProps> = ({ text, className }) => (
-  <div className={className ? `tick-icon ${className}` : "tick-icon"}>
-    <TickIcon />
-    {text && <span>{text}</span>}
-  </div>
+export const Tick: React.FC<IIconProps> = ({ text, className, onClick }) => (
+  <BaseIcon
+    text={text}
+    className={className}
+    onClick={onClick}
+    iconType="tick"
+    icon={() => <TickIcon />}
+  />
 );
 
-export const Search: React.FC<IIconProps> = ({ text, className }) => (
-  <div className={className ? `search-icon ${className}` : "search-icon"}>
-    <SearchIcon />
-    {text && <span>{text}</span>}
-  </div>
+export const Search: React.FC<IIconProps> = ({ text, className, onClick }) => (
+  <BaseIcon
+    text={text}
+    className={className}
+    onClick={onClick}
+    iconType="search"
+    icon={() => <SearchIcon />}
+  />
 );
 
-export const Burger: React.FC<IIconProps> = ({ text, className }) => (
-  <div className={className ? `burger-icon ${className}` : "burger-icon"}>
-    <BurgerIcon />
-    {text && <span>{text}</span>}
-  </div>
+export const Burger: React.FC<IIconProps> = ({ text, className, onClick }) => (
+  <BaseIcon
+    text={text}
+    className={className}
+    onClick={onClick}
+    iconType="burger"
+    icon={() => <BurgerIcon />}
+  />
 );
 
-export const Notification: React.FC<IIconProps> = ({ text, className }) => (
-  <div className={className ? `notification-icon ${className}` : "notification-icon"}>
-    <NotificationIcon />
-    {text && <span>{text}</span>}
-  </div>
+export const Notification: React.FC<IIconProps> = ({ text, className, onClick }) => (
+  <BaseIcon
+    text={text}
+    className={className}
+    onClick={onClick}
+    iconType="notification"
+    icon={() => <NotificationIcon />}
+  />
 );
 
-export const Placeholder: React.FC<IIconProps> = ({ text, className }) => (
-  <div className={className ? `placeholder-icon ${className}` : "placeholder-icon"}>
-    <PlaceholderIcon />
-    {text && <span>{text}</span>}
-  </div>
+export const Placeholder: React.FC<IIconProps> = ({ text, className, onClick }) => (
+  <BaseIcon
+    text={text}
+    className={className}
+    onClick={onClick}
+    iconType="placeholder"
+    icon={() => <PlaceholderIcon />}
+  />
 );
 
-export const Plus: React.FC<IIconProps> = ({ text, className }) => (
-  <div className={className ? `plus-icon ${className}` : "plus-icon"}>
-    <PlusIcon />
-    {text && <span>{text}</span>}
-  </div>
+export const Plus: React.FC<IIconProps> = ({ text, className, onClick }) => (
+  <BaseIcon
+    text={text}
+    className={className}
+    onClick={onClick}
+    iconType="plus"
+    icon={() => <PlusIcon />}
+  />
 );
 
-export const Settings: React.FC<IIconProps> = ({ text, className }) => (
-  <div className={className ? `settings-icon ${className}` : "settings-icon"}>
-    <SettingsIcon />
-    {text && <span>{text}</span>}
-  </div>
+export const Settings: React.FC<IIconProps> = ({ text, className, onClick }) => (
+  <BaseIcon
+    text={text}
+    className={className}
+    onClick={onClick}
+    iconType="settings"
+    icon={() => <SettingsIcon />}
+  />
 );
 
-export const Edit: React.FC<IIconProps> = ({ text, className }) => (
-  <div className={className ? `edit-icon ${className}` : "edit-icon"}>
-    <EditIcon />
-    {text && <span>{text}</span>}
-  </div>
+export const Edit: React.FC<IIconProps> = ({ text, className, onClick }) => (
+  <BaseIcon
+    text={text}
+    className={className}
+    onClick={onClick}
+    iconType="edit"
+    icon={() => <EditIcon />}
+  />
 );
 
 export const Icons = {

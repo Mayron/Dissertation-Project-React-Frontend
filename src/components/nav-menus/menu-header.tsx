@@ -12,7 +12,7 @@ const MenuHeader: React.FC<IMenuHeaderProps> = ({ title, amount }) => {
       <h3>
         {title} {amount && `(${amount})`}
       </h3>
-      <Icons.Arrow />
+      <Icons.Arrow open />
     </header>
   );
 };
