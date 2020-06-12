@@ -9,11 +9,11 @@ const Vote: React.FC<IVoteProps> = ({ value }) => {
   return (
     <div className="vote">
       <button>
-        <Icons.Arrow up />
+        <Icons.Arrow direction="up" />
       </button>
       <span>{value}</span>
       <button>
-        <Icons.Arrow />
+        <Icons.Arrow direction="down" />
       </button>
     </div>
   );

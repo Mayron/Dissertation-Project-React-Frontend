@@ -20,11 +20,6 @@ export interface IIconProps {
   onClick?: () => void;
 }
 
-export interface IArrowIconProps extends IIconProps {
-  large?: boolean;
-  open?: boolean;
-}
-
 interface IBaseIconProps extends IIconProps {
   iconType: string;
   icon: () => React.ReactNode;
@@ -37,6 +32,7 @@ const BaseIcon: React.FC<IBaseIconProps> = ({
   iconType,
   icon,
   onClick,
+  children,
 }) => {
   if (className) {
     className = `${iconType}-icon ${className}`;
@@ -53,11 +49,18 @@ const BaseIcon: React.FC<IBaseIconProps> = ({
         if (onClick) onClick();
       }}
     >
+      {children}
       {icon()}
       {text && <span>{text}</span>}
     </div>
   );
 };
+
+export interface IArrowIconProps extends IIconProps {
+  large?: boolean;
+  open?: boolean;
+  direction?: "up" | "down";
+}
 
 export const Arrow: React.FC<IArrowIconProps> = ({
   text,
@@ -65,11 +68,14 @@ export const Arrow: React.FC<IArrowIconProps> = ({
   onClick,
   large,
   open,
+  direction,
+  children,
 }) => {
   const classes = ["arrow-icon"];
   if (className) classes.push(className);
   if (large) classes.push("lg");
   if (open) classes.push("open");
+  if (direction) classes.push(direction);
 
   return (
     <BaseIcon
@@ -78,7 +84,9 @@ export const Arrow: React.FC<IArrowIconProps> = ({
       iconType="arrow"
       onClick={onClick}
       icon={() => <ArrowIcon />}
-    />
+    >
+      {children}
+    </BaseIcon>
   );
 };
 

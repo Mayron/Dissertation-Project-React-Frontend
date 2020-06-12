@@ -1,3 +1,31 @@
+[class*="-icon"] {
+  display: flex;
+  align-items: center;
+  height: 19px;
+  user-select: none;
+
+  span {
+    color: $dark-orange;
+    font-weight: 600;
+    font-size: 12px;
+    user-select: none;
+  }
+
+  svg {
+    width: 19px;
+    height: 19px;
+    user-select: none;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    svg {
+      filter: brightness(0.8);
+    }
+  }
+}
+
 div.arrow-icon svg {
   width: 14px;
 }
@@ -6,11 +34,39 @@ div.arrow-icon:not(.open) svg {
   transform: rotate(270deg);
 }
 
+div.arrow-icon.up svg {
+  transform: rotate(180deg) !important;
+}
+
+div.arrow-icon.down svg {
+  transform: rotate(0deg) !important;
+}
+
 div.arrow-icon.lg svg {
   width: 19px;
 }
 
-div.tick-icon svg {
+div.arrow-icon {
+  &:hover svg {
+    filter: brightness(1) !important;
+
+    path {
+      stroke: $dark-orange;
+    }
+  }
+
+  &.active {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  svg {
+    width: 14px;
+  }
+}
+
+div.tick-icon {
   width: 14px;
 }
 

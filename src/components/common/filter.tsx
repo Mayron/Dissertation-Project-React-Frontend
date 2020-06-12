@@ -14,11 +14,12 @@ const Filter: React.FC<IFilterProps> = ({ label, tooltip, selected, items }) => 
   return (
     <div className="filter">
       <header>
-        <p>
-          {label && <span>{label}</span>}
-          <strong>{items[selected]}</strong>
-        </p>
-        <Icons.Arrow onClick={() => setShown(!shown)} open={shown} />
+        <Icons.Arrow onClick={() => setShown(!shown)} open={shown}>
+          <p>
+            {label && <span>{label}</span>}
+            <strong>{items[selected]}</strong>
+          </p>
+        </Icons.Arrow>
       </header>
       {shown && (
         <div className="filter-dropdown">

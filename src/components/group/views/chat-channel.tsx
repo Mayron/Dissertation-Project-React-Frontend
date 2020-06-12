@@ -40,8 +40,10 @@ const ChatChannelView: React.FC<IChatChannelViewProps> = ({ channel }) => {
         <div className="scroll">
           <Comment />
         </div>
-        <TextArea id="chatEditbox" placeholder="Send a message">
-          <Icons.Plus />
+        <TextArea id="chatEditBox" placeholder="Send a message">
+          <div role="toolbar">
+            <Icons.Plus />
+          </div>
         </TextArea>
       </Panel>
     </section>

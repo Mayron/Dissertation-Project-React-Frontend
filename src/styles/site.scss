@@ -11,8 +11,10 @@
 // Components > Menus and Nav
 @import "./components/nav-menus/main";
 @import "./components/nav-menus/group";
+@import "./components/nav-menus/project";
 @import "./components/side-menus/recommendations";
 @import "./components/side-menus/group";
+@import "./components/side-menus/project";
 
 // Componets > Common
 @import "./components/common/panel";
@@ -36,8 +38,10 @@
 
 // Components > Group
 @import "./components/group/banner";
+@import "./components/group/chatEditBox";
 
 // Pages
 @import "./pages/index-page";
 @import "./pages/create-group-page";
 @import "./pages/group-page";
+@import "./pages/project-page";

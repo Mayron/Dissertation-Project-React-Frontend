@@ -1,0 +1,46 @@
+#projectPage {
+  max-width: 630px;
+}
+
+#projectHeader {
+  display: flex;
+  align-items: center;
+
+  img {
+    margin-right: 15px;
+  }
+
+  & > div:first-of-type {
+    margin-right: 20px;
+  }
+
+  h2 {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 18px;
+  }
+
+  button {
+    height: 34px;
+  }
+
+  .download-stats {
+    margin-left: auto;
+    display: flex;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+
+      p {
+        line-height: 16px;
+      }
+    }
+
+    button {
+      margin-left: 15px;
+    }
+  }
+}

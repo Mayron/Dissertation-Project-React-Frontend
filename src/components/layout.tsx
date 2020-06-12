@@ -5,8 +5,11 @@ import MainNav from "./nav-menus/main";
 import RecommendationsMenu from "./side-menus/recommendations";
 import GroupSideMenu from "./side-menus/group";
 
-import "../styles/site.min.css";
 import GroupNav from "./nav-menus/group";
+import ProjectNav from "./nav-menus/project";
+
+import "../styles/site.min.css";
+import ProjectHeader from "./project/project-header";
 
 interface ILayoutProps {
   title?: string; // title of the page
@@ -23,16 +26,17 @@ const Layout: React.FC<ILayoutProps> = ({ id, title, children, collapsed, menuTy
       <div id="app">
         <MainNav collapsed={collapsed} />
 
-        {menuType === "group" && <GroupNav />}
+        <div className={menuType ? `${menuType}-wrapper` : "page-wrapper"}>
+          {menuType === "project" && <ProjectHeader />}
+          {menuType === "group" && <GroupNav />}
+          {menuType === "project" && <ProjectNav />}
 
-        <div id="pageWrapper">
           <main id={id}>{children}</main>
         </div>
 
-        {!menuType && <RecommendationsMenu />}
+        {(!menuType || menuType === "project") && <RecommendationsMenu />}
         {menuType === "group" && <GroupSideMenu />}
-
-        {/* {sideMenu === "project" && <ProjectSideMenu />} */}
+        {/* {menuType === "project" && <ProjectSideMenu />} */}
         {/* <footer>©OpenSpark.io {new Date().getFullYear()}</footer> */}
       </div>
     </>

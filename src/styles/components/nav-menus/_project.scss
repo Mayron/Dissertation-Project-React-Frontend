@@ -1,17 +1,10 @@
-#groupNav {
-  width: 220px;
-  min-width: 220px;
-
-  & > section {
-    margin: 20px 0;
+#projectNav {
+  .btn-secondary {
+    width: 100%;
   }
 
-  .btn {
-    margin-top: 20px;
-  }
-
-  & > ul:first-child {
-    margin-bottom: 40px;
+  & > ul:first-of-type {
+    margin-top: 30px;
 
     .menu-item {
       a {

@@ -1,0 +1,12 @@
+#chatEditBox {
+  [role="toolbar"] {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8px;
+    background-color: $white;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    border-left: 1px solid $ui-border-grey;
+  }
+}
