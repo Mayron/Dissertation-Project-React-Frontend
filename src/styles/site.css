@@ -599,6 +599,10 @@ textarea {
           user-select: none;
 }
 
+[class*="-icon"] svg + span {
+  margin-left: 5px;
+}
+
 [class*="-icon"]:hover {
   cursor: pointer;
 }
@@ -675,6 +679,23 @@ div.edit-icon:hover svg {
 
 div.edit-icon:hover span {
   color: #ff6f00;
+}
+
+.role {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #707070;
+  margin-bottom: 15px;
+}
+
+.role h4 {
+  margin-right: 15px;
+  font-weight: 700;
 }
 
 #mainNav {
@@ -976,15 +997,15 @@ div.edit-icon:hover span {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }
 
-.menu-bar a {
+.menu-bar a:not(.btn) {
   color: #707070;
-  padding: 0 10px 5px 10px;
   font-weight: 600;
+  padding: 0 10px 5px 10px;
   -webkit-user-drag: none;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -994,7 +1015,7 @@ div.edit-icon:hover span {
   height: calc(100% + 1px);
 }
 
-.menu-bar a:hover, .menu-bar a.active {
+.menu-bar a:not(.btn):hover, .menu-bar a:not(.btn).active {
   color: #f24d2b;
   border-bottom: 1px solid #f24d2b;
 }
@@ -1133,11 +1154,16 @@ footer.post-footer > p {
 .filter header p {
   font-size: 12px;
   line-height: 12px;
-  margin-right: 10px;
+  margin-right: 5px;
+}
+
+.filter header span + strong {
+  margin-left: 5px;
 }
 
 .filter header span {
-  margin-right: 5px;
+  color: #707070;
+  font-weight: 400;
 }
 
 .filter .filter-dropdown {
@@ -1164,6 +1190,10 @@ footer.post-footer > p {
   left: 50%;
   border: 1px solid #d9d9d9;
   border-radius: 2px;
+}
+
+.filter .filter-dropdown.no-select li {
+  padding-left: 25px;
 }
 
 .filter ul {
@@ -1564,24 +1594,7 @@ footer.post-footer > p {
 }
 
 #groupPage {
-  max-width: 630px;
-}
-
-#groupPage .role {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #707070;
-  margin-bottom: 15px;
-}
-
-#groupPage .role h4 {
-  margin-right: 15px;
-  font-weight: 700;
+  width: 630px;
 }
 
 #group_cc > header {
@@ -1605,7 +1618,11 @@ footer.post-footer > p {
 }
 
 #projectPage {
-  max-width: 630px;
+  width: 630px;
+}
+
+#projectPage .menu-bar .btn-secondary.sm {
+  padding: 6px 12px;
 }
 
 #projectHeader {
@@ -1664,4 +1681,72 @@ footer.post-footer > p {
 
 #projectHeader .download-stats button {
   margin-left: 15px;
+}
+
+.issues-subbar {
+  margin-bottom: 20px;
+}
+
+.issues-subbar > :first-child {
+  margin-right: 100px;
+}
+
+#project_iss article {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  width: 100%;
+  background: #fff;
+  padding: 10px 15px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+#project_iss article:hover {
+  -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+#project_iss article .meta {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#project_iss article .meta p {
+  font-size: 12px;
+}
+
+#project_iss article [type="checkbox"] {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+
+#project_iss article header {
+  margin-left: 20px;
+}
+
+#project_iss article h4 {
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#project_iss article .label {
+  font-size: 10px;
+  background: #ce4545;
+  color: #fff;
+  border-radius: 2px;
+  padding: 2px 5px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  margin-left: 5px;
 }

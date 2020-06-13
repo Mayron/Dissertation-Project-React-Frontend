@@ -1,0 +1,12 @@
+.role {
+  display: inline-flex;
+  align-items: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid $secondary-text-dark-grey;
+  margin-bottom: 15px;
+
+  h4 {
+    margin-right: 15px;
+    font-weight: $fw-header-bold;
+  }
+}

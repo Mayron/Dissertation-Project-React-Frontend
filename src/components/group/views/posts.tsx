@@ -2,8 +2,8 @@ import React from "react";
 import { RouteComponentProps } from "@reach/router";
 import PostBox from "../../post-box";
 import ToolBar from "../../index/tool-bar";
-import GroupPost from "../group-post";
 import Group from "../group";
+import VotingPost from "../../common/voting-post";
 
 const PostsView: React.FC<RouteComponentProps> = () => {
   return (
@@ -12,7 +12,7 @@ const PostsView: React.FC<RouteComponentProps> = () => {
       <section id="groupPosts">
         <PostBox />
         <ToolBar />
-        <GroupPost />
+        <VotingPost />
       </section>
     </>
   );

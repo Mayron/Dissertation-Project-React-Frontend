@@ -2,12 +2,12 @@
   margin-bottom: $item-spacing-large;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-end;
 
-  a {
+  a:not(.btn) {
     color: $secondary-text-dark-grey;
-    padding: 0 10px 5px 10px;
     font-weight: 600;
+    padding: 0 10px 5px 10px;
     -webkit-user-drag: none;
     user-select: none;
     display: block;

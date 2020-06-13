@@ -15,6 +15,10 @@
     width: 19px;
     height: 19px;
     user-select: none;
+
+    & + span {
+      margin-left: 5px;
+    }
   }
 
   &:hover {

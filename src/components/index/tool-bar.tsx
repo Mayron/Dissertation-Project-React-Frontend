@@ -1,6 +1,6 @@
 import React from "react";
 import Filter from "../common/filter";
-import SearchBox from "../search-box";
+import SearchBox from "../common/search-box";
 
 const ToolBar = () => {
   return (

@@ -1,5 +1,9 @@
 #projectPage {
-  max-width: 630px;
+  width: 630px;
+
+  .menu-bar .btn-secondary.sm {
+    padding: 6px 12px;
+  }
 }
 
 #projectHeader {
@@ -41,6 +45,63 @@
 
     button {
       margin-left: 15px;
+    }
+  }
+}
+
+.issues-subbar {
+  margin-bottom: $item-spacing-large;
+  & > :first-child {
+    margin-right: 100px;
+  }
+}
+
+#project_iss {
+  article {
+    @include ui-border;
+    width: 100%;
+    background: $white;
+    padding: $item-spacing $item-group-spacing;
+    position: relative;
+    margin-bottom: 10px;
+
+    &:hover {
+      @include card-shadow;
+      cursor: pointer;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+
+      p {
+        font-size: 12px;
+      }
+    }
+
+    [type="checkbox"] {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+
+    header {
+      margin-left: 20px;
+    }
+
+    h4 {
+      @include text-overflow-ellipsis;
+    }
+
+    .label {
+      font-size: 10px;
+      background: $default-issue-label-background;
+      color: $white;
+      border-radius: 2px;
+      padding: 2px 5px;
+      user-select: none;
+      margin-left: 5px;
     }
   }
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { RouteComponentProps } from "@reach/router";
 import Group from "../group";
-import SearchBox from "../../search-box";
+import SearchBox from "../../common/search-box";
 import LinkPanel from "../../common/link-panel";
 import PostFooter from "../../common/post-footer";
 import Filter from "../../common/filter";

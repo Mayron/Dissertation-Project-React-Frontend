@@ -11,3 +11,9 @@
   font-size: 14px;
   line-height: 20px;
 }
+
+@mixin text-overflow-ellipsis {
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

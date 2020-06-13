@@ -11,11 +11,16 @@
     p {
       font-size: 12px;
       line-height: 12px;
-      margin-right: 10px;
+      margin-right: 5px;
+    }
+
+    span + strong {
+      margin-left: 5px;
     }
 
     span {
-      margin-right: 5px;
+      color: $secondary-text-dark-grey;
+      font-weight: 400;
     }
   }
 
@@ -40,6 +45,10 @@
       left: 50%;
       border: 1px solid $ui-border-grey;
       border-radius: 2px;
+    }
+
+    &.no-select li {
+      padding-left: 25px;
     }
   }
 

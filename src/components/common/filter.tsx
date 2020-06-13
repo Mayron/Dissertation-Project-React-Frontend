@@ -4,7 +4,7 @@ import { Icons } from "../icons";
 interface IFilterProps {
   label?: string;
   tooltip: string;
-  selected: number;
+  selected?: number;
   items: string[];
 }
 
@@ -14,20 +14,20 @@ const Filter: React.FC<IFilterProps> = ({ label, tooltip, selected, items }) => 
   return (
     <div className="filter">
       <header>
-        <Icons.Arrow onClick={() => setShown(!shown)} open={shown}>
+        <Icons.Arrow onClick={() => setShown(!shown)} direction={shown ? "up" : "down"}>
           <p>
             {label && <span>{label}</span>}
-            <strong>{items[selected]}</strong>
+            {selected != undefined && <strong>{items[selected]}</strong>}
           </p>
         </Icons.Arrow>
       </header>
       {shown && (
-        <div className="filter-dropdown">
+        <div className={`filter-dropdown${selected == undefined ? " no-select" : ""}`}>
           <ul>
             <li>{tooltip}</li>
             {items.map((item, key) => (
               <li key={key}>
-                {key === selected && (
+                {selected != undefined && key === selected && (
                   <div className="tick">
                     <Icons.Tick />
                   </div>

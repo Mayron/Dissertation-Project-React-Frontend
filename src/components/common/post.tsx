@@ -1,6 +1,6 @@
 import React from "react";
 import ProfilePic from "../../images/placeholder-profile-pic-lg.png";
-import PostFooter from "../common/post-footer";
+import PostFooter from "./post-footer";
 
 const Post = () => {
   return (
