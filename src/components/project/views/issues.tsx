@@ -6,7 +6,11 @@ import SearchBox from "../../common/search-box";
 import { Link } from "gatsby";
 import IssuePost from "../issue-post";
 
-const IssuesView: React.FC<RouteComponentProps> = () => {
+interface IIssuesViewProps extends RouteComponentProps {
+  closed?: boolean;
+}
+
+const IssuesView: React.FC<IIssuesViewProps> = ({ closed }) => {
   return (
     <>
       <Project.MenuBars.IssuesMenuBar>
@@ -48,6 +52,7 @@ const IssuesView: React.FC<RouteComponentProps> = () => {
         <IssuePost
           author="Mayron"
           when="3 days ago"
+          closed={closed && "Closed by Mayron 1 day ago"}
           labels={["Bug"]}
           header={`1# Cannot load the installer without a Lua bug occuring - this is some really really really long title that I need to be aware of`}
         />

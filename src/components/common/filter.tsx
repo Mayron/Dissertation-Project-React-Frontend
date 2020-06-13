@@ -3,7 +3,7 @@ import { Icons } from "../icons";
 
 interface IFilterProps {
   label?: string;
-  tooltip: string;
+  tooltip?: string;
   selected?: number;
   items: string[];
 }
@@ -24,7 +24,7 @@ const Filter: React.FC<IFilterProps> = ({ label, tooltip, selected, items }) => 
       {shown && (
         <div className={`filter-dropdown${selected == undefined ? " no-select" : ""}`}>
           <ul>
-            <li>{tooltip}</li>
+            {tooltip && <li className="tooltip">{tooltip}</li>}
             {items.map((item, key) => (
               <li key={key}>
                 {selected != undefined && key === selected && (

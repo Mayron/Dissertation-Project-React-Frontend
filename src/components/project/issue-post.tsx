@@ -7,6 +7,7 @@ interface IIssuePostProps {
   when: string;
   labels?: string[];
   totalComments?: number;
+  closed?: string;
 }
 
 const IssuePost: React.FC<IIssuePostProps> = ({
@@ -15,6 +16,7 @@ const IssuePost: React.FC<IIssuePostProps> = ({
   when,
   labels = [],
   totalComments,
+  closed,
 }) => {
   return (
     <article>
@@ -23,7 +25,8 @@ const IssuePost: React.FC<IIssuePostProps> = ({
         <h4>{header}</h4>
         <div className="meta">
           <p>
-            Submitted by {`${author} ${when}`}{" "}
+            Submitted by {`${author} ${when}`}
+            {closed && <strong>{` - ${closed}`}</strong>}
             {labels.map((label, key) => (
               <span key={key} className="label">
                 {label}

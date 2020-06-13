@@ -50,7 +50,7 @@ a.user {
   color: $dark-orange;
   font-weight: 600;
   padding: 6px 15px;
-  font-size: 16px;
+  font-size: 14px;
 
   &.sm {
     padding: 4px 12px;
@@ -73,6 +73,11 @@ a.user {
   color: $white;
   font-size: 14px;
   font-weight: 600;
+
+  &.lg {
+    padding: 8px $page-gutter-spacing;
+    font-size: 16px;
+  }
 
   &:hover {
     background-color: $primary-orange;

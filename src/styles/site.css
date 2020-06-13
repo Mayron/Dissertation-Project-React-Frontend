@@ -57,7 +57,7 @@ a.user:hover {
   color: #f24d2b;
   font-weight: 600;
   padding: 6px 15px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .btn-secondary.sm {
@@ -81,6 +81,11 @@ a.user:hover {
   color: #fff;
   font-size: 14px;
   font-weight: 600;
+}
+
+.btn-primary.lg {
+  padding: 8px 30px;
+  font-size: 16px;
 }
 
 .btn-primary:hover {
@@ -1220,7 +1225,7 @@ footer.post-footer > p {
           align-items: center;
 }
 
-.filter li:first-of-type {
+.filter li.tooltip {
   padding-top: 0;
   color: #d9d9d9;
 }
@@ -1229,7 +1234,7 @@ footer.post-footer > p {
   padding-bottom: 0;
 }
 
-.filter li:not(:first-of-type):hover {
+.filter li:not(.tooltip):hover {
   color: #f24d2b;
   cursor: pointer;
 }
@@ -1749,4 +1754,81 @@ footer.post-footer > p {
       -ms-user-select: none;
           user-select: none;
   margin-left: 5px;
+}
+
+#project_ad section.highlight h4 {
+  color: #f24d2b;
+}
+
+#project_ad section.highlight li {
+  border-color: #f24d2b;
+}
+
+#project_ad section.highlight .version-card {
+  border-color: #f24d2b;
+}
+
+#project_ad section.highlight .version {
+  font-weight: 600;
+  color: #f24d2b;
+}
+
+#project_ad section > header {
+  padding-top: 5px;
+  border-top: 1px solid #d9d9d9;
+  padding-bottom: 15px;
+}
+
+#project_ad section {
+  margin-bottom: 20px;
+}
+
+#project_ad section:first-child header {
+  padding-top: 0;
+  border-top: none;
+}
+
+#project_ad section:last-child {
+  margin-bottom: 0;
+}
+
+#project_ad h4 {
+  font-weight: 600;
+  color: #707070;
+  font-size: 12px;
+}
+
+#project_ad .summary {
+  max-width: 320px;
+}
+
+#project_ad .version-card {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 10px 15px;
+  background-color: #fff;
+  margin-bottom: 10px;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+#project_ad .version-card div > span {
+  color: #d9d9d9;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+#project_ad .version-card > :last-child {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -ms-flex-item-align: center;
+      align-self: center;
 }
