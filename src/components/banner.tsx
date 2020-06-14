@@ -23,10 +23,14 @@ const ProfileSelect: React.FC<IProfileSelectProps> = () => (
   </div>
 );
 
-const Banner: React.FC = () => (
+interface IBannerProps {
+  onBurgerMenuClick: () => void;
+}
+
+const Banner: React.FC<IBannerProps> = ({ onBurgerMenuClick }) => (
   <div id="banner" role="banner">
     <div>
-      <Icons.Burger />
+      <Icons.Burger onClick={onBurgerMenuClick} />
       <Link to="/">
         <header>
           <img src={Logo} alt="logo" />

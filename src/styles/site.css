@@ -176,7 +176,8 @@ a.user:hover {
           user-select: none;
 }
 
-.row-20 {
+.row-20,
+.row-10 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -187,6 +188,10 @@ a.user:hover {
 
 .row-20 > *:not(:last-child) {
   margin-right: 20px;
+}
+
+.row-10 > *:not(:last-child) {
+  margin-right: 10px;
 }
 
 .spaced {
@@ -208,6 +213,38 @@ a.user:hover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.count {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  background-color: #f24d2b;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 20px;
+  cursor: help;
+}
+
+.striped li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px 15px;
+}
+
+.striped li:nth-child(odd) {
+  background-color: #fbfbfb;
+  border-radius: 4px;
 }
 
 * {
@@ -405,6 +442,7 @@ textarea {
       -ms-flex-pack: justify;
           justify-content: space-between;
   background-color: #fff;
+  z-index: 100;
 }
 
 #banner > :first-child {
@@ -654,6 +692,10 @@ div.arrow-icon.active svg {
           transform: rotate(180deg);
 }
 
+div.arrow-icon > h4 {
+  margin-right: 10px;
+}
+
 div.arrow-icon svg {
   width: 14px;
 }
@@ -778,6 +820,10 @@ div.edit-icon:hover span {
 
 #projectNav .btn-secondary {
   width: 100%;
+}
+
+#projectNav .btn {
+  margin-top: 20px;
 }
 
 #projectNav > ul:first-of-type {
@@ -928,12 +974,23 @@ div.edit-icon:hover span {
           align-items: center;
 }
 
+.panel > footer.sep {
+  border-top: 1px solid #d9d9d9;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
 .panel > footer > * {
   margin-right: 20px;
 }
 
 .panel > footer > *:last-child {
   margin-right: 0;
+}
+
+.panel-section > header + div {
+  margin-top: 20px;
+  padding: 0 15px;
 }
 
 .menu-item a {
@@ -1390,6 +1447,10 @@ footer.post-footer > p {
   border-radius: 4px;
   border-top-right-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+.multi-dropdown {
+  width: 100%;
 }
 
 .multi-dropdown header {

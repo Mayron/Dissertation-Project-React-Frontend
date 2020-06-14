@@ -8,6 +8,7 @@ import AnnouncementsCommunityView from "../components/group/views/announcements-
 import AnnouncementsProjectView from "../components/group/views/announcements-projects";
 import OpportunitiesView from "../components/group/views/opportunities";
 import ChatChannelView from "../components/group/views/chat-channel";
+import SettingsView from "../components/group/views/settings";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <AnnouncementsProjectView path="/announcements/projects" />
         <OpportunitiesView path="/opportunities" />
         <ChatChannelView path="/chat/:channel" />
+        <SettingsView path="/settings" />
 
         <Redirect default to="/g/404" />
       </GroupPage>

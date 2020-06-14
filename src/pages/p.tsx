@@ -9,6 +9,8 @@ import KnowledgeBaseView from "../components/project/views/knowledge-base";
 import IssuesView from "../components/project/views/issues";
 import AllDownloadsView from "../components/project/views/all-downloads";
 import ConnectView from "../components/project/views/connect";
+import GeneralSettingsView from "../components/project/views/general-settings";
+import TeamSettingsView from "../components/project/views/team-settings";
 
 const App = () => {
   return (
@@ -22,6 +24,8 @@ const App = () => {
         <IssuesView path="/issues" />
         <IssuesView path="/issues/closed" closed />
         <AllDownloadsView path="/all-downloads" />
+        <GeneralSettingsView path="/settings" />
+        <TeamSettingsView path="/settings/teams" />
         <Redirect default to="/p/404" />
       </ProjectPage>
 

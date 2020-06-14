@@ -148,13 +148,18 @@ a.user {
   user-select: none;
 }
 
-.row-20 {
+.row-20,
+.row-10 {
   display: flex;
   align-items: center;
+}
 
-  & > *:not(:last-child) {
-    margin-right: 20px;
-  }
+.row-20 > *:not(:last-child) {
+  margin-right: 20px;
+}
+
+.row-10 > *:not(:last-child) {
+  margin-right: 10px;
 }
 
 .spaced {
@@ -166,4 +171,32 @@ a.user {
 .full-flex {
   flex: 1;
   display: flex;
+}
+
+.count {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  background-color: #f24d2b;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 20px;
+  cursor: help;
+}
+
+.striped {
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+  }
+
+  li:nth-child(odd) {
+    background-color: $table-striped-row;
+    border-radius: $border-radius;
+  }
 }

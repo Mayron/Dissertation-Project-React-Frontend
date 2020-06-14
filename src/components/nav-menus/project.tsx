@@ -1,6 +1,7 @@
 import React from "react";
 import MenuListItem from "./menu-list-item";
 import { Link } from "gatsby";
+import { Icons } from "../icons";
 
 const ProjectNav = () => {
   const connected = false;
@@ -32,6 +33,9 @@ const ProjectNav = () => {
         </MenuListItem>
         <MenuListItem url="/p/mayronui-gen6/all-downloads">
           <span>All Downloads</span>
+        </MenuListItem>
+        <MenuListItem url="/p/mayronui-gen6/settings" button="secondary">
+          <Icons.Settings text="Project Settings" className="btn-secondary" />
         </MenuListItem>
       </ul>
     </nav>

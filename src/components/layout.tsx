@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Banner from "./banner";
 import SEO from "./seo";
 import MainNav from "./nav-menus/main";
@@ -19,12 +19,17 @@ interface ILayoutProps {
 }
 
 const Layout: React.FC<ILayoutProps> = ({ id, title, children, collapsed, menuType }) => {
+  const [isCollapsed, setIsCollapsed] = useState(collapsed);
+  const handleBannerBurgerMenuClicked = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
     <>
       <SEO title={title} />
-      <Banner />
+      <Banner onBurgerMenuClick={handleBannerBurgerMenuClicked} />
       <div id="app">
-        <MainNav collapsed={collapsed} />
+        <MainNav collapsed={isCollapsed} />
 
         <div className={menuType ? `${menuType}-wrapper` : "page-wrapper"}>
           {menuType === "project" && <ProjectHeader />}
@@ -34,8 +39,10 @@ const Layout: React.FC<ILayoutProps> = ({ id, title, children, collapsed, menuTy
           <main id={id}>{children}</main>
         </div>
 
-        {(!menuType || menuType === "project") && <RecommendationsMenu />}
-        {menuType === "group" && <GroupSideMenu />}
+        {(!menuType || (isCollapsed && menuType === "project")) && (
+          <RecommendationsMenu />
+        )}
+        {isCollapsed && menuType === "group" && <GroupSideMenu />}
         {/* {menuType === "project" && <ProjectSideMenu />} */}
         {/* <footer>©OpenSpark.io {new Date().getFullYear()}</footer> */}
       </div>
