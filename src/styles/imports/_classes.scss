@@ -200,3 +200,46 @@ a.user {
     border-radius: $border-radius;
   }
 }
+
+.user-points {
+  display: flex;
+  align-items: center;
+
+  span {
+    font-weight: 600;
+  }
+
+  img {
+    margin-left: $item-spacing-small;
+  }
+}
+
+.banner {
+  position: relative;
+  width: 630px;
+  margin-bottom: $section-spacing-large;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .banner-title {
+    display: flex;
+  }
+
+  .profile-pic {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 20px;
+    bottom: -10px;
+    border-radius: 50px;
+    border: 2px solid $light-divider;
+  }
+
+  .banner-img {
+    width: 630px;
+    height: 190px;
+  }
+}

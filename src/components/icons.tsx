@@ -71,7 +71,7 @@ export const Arrow: React.FC<IArrowIconProps> = ({
   direction,
   children,
 }) => {
-  const classes = ["arrow-icon"];
+  const classes = [];
   if (className) classes.push(className);
   if (large) classes.push("lg");
   if (open) classes.push("open");

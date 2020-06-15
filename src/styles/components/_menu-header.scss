@@ -10,5 +10,12 @@
     color: $secondary-text-dark-grey;
     font-weight: 600;
     font-size: 14px;
+    width: 100%;
+  }
+
+  .arrow-icon {
+    height: auto !important;
+    width: 100%;
+    justify-content: space-between;
   }
 }

@@ -1,10 +1,14 @@
 #profileSelect {
   @include ui-border;
   padding: 4px $item-group-spacing;
-  display: flex;
-  align-items: center;
   width: 200px;
   position: relative;
+
+  header {
+    display: flex;
+    align-items: center;
+    user-select: none;
+  }
 
   .profile-pic {
     margin-right: $item-spacing;
@@ -12,25 +16,58 @@
 
   &:hover {
     border-color: $primary-orange;
+    ul {
+      border-color: $primary-orange;
+    }
+
+    .arrow-icon svg {
+      filter: brightness(1) !important;
+
+      path {
+        stroke: $dark-orange;
+      }
+    }
+
     cursor: pointer;
   }
 
   p {
     font-weight: 600;
     font-size: 13px;
-
-    & + div {
-      display: flex;
-      align-items: center;
-
-      img {
-        margin-left: $item-spacing-small;
-      }
-    }
   }
 
   .arrow-icon {
     position: absolute;
     right: 15px;
+  }
+
+  ul {
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    background-color: $white;
+    border: 1px solid $ui-border-grey;
+    border-radius: $border-radius;
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding-top: 8px;
+
+    li {
+      &:last-child {
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+      }
+
+      a {
+        padding: 8px 20px;
+        color: $black;
+        display: block;
+
+        &:hover {
+          color: $dark-orange;
+        }
+      }
+    }
   }
 }

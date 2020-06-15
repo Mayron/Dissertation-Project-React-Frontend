@@ -1,0 +1,23 @@
+#userPage {
+  width: 630px;
+}
+
+#userBanner {
+  header {
+    margin-left: 130px;
+    margin-top: 10px;
+  }
+
+  h1 {
+    margin-right: 15px;
+    font-size: 18px;
+    line-height: 18px;
+    color: $black;
+    text-transform: capitalize;
+  }
+
+  .banner-title {
+    display: flex;
+    align-items: flex-end;
+  }
+}

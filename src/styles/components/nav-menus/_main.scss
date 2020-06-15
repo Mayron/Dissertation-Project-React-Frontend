@@ -1,8 +1,10 @@
+$main-nav-width: 200px;
+
 #mainNav {
-  width: 200px;
+  width: $main-nav-width;
 
   & > section {
-    margin: $item-spacing-large 0;
+    margin: $page-gutter-spacing 0;
   }
 }
 
@@ -39,4 +41,14 @@
       }
     }
   }
+}
+
+#mainNav.sub:not(.collapsed) {
+  background-color: $white;
+  margin-left: -$page-gutter-spacing;
+  margin-top: -$page-gutter-spacing;
+  padding-left: $page-gutter-spacing;
+  padding-right: $page-gutter-spacing;
+  width: $main-nav-width + (2 * $page-gutter-spacing);
+  padding-top: $page-gutter-spacing;
 }

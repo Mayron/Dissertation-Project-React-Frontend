@@ -247,6 +247,59 @@ a.user:hover {
   border-radius: 4px;
 }
 
+.user-points {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.user-points span {
+  font-weight: 600;
+}
+
+.user-points img {
+  margin-left: 5px;
+}
+
+.banner {
+  position: relative;
+  width: 630px;
+  margin-bottom: 40px;
+}
+
+.banner header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.banner .banner-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.banner .profile-pic {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: 20px;
+  bottom: -10px;
+  border-radius: 50px;
+  border: 2px solid #f8f8f8;
+}
+
+.banner .banner-img {
+  width: 630px;
+  height: 190px;
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -455,7 +508,17 @@ textarea {
 }
 
 #banner > :first-child .burger-icon {
-  margin-right: 30px;
+  padding: 30px;
+  margin-left: -30px;
+}
+
+#banner > :first-child .burger-icon:hover svg {
+  -webkit-filter: brightness(1);
+          filter: brightness(1);
+}
+
+#banner > :first-child .burger-icon:hover line {
+  stroke: #f24d2b !important;
 }
 
 #banner > :first-child header {
@@ -488,14 +551,21 @@ textarea {
   border: 1px solid #d9d9d9;
   border-radius: 4px;
   padding: 4px 15px;
+  width: 200px;
+  position: relative;
+}
+
+#profileSelect header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 200px;
-  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 #profileSelect .profile-pic {
@@ -507,27 +577,55 @@ textarea {
   cursor: pointer;
 }
 
+#profileSelect:hover ul {
+  border-color: #ff6f00;
+}
+
+#profileSelect:hover .arrow-icon svg {
+  -webkit-filter: brightness(1) !important;
+          filter: brightness(1) !important;
+}
+
+#profileSelect:hover .arrow-icon svg path {
+  stroke: #f24d2b;
+}
+
 #profileSelect p {
   font-weight: 600;
   font-size: 13px;
 }
 
-#profileSelect p + div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-#profileSelect p + div img {
-  margin-left: 5px;
-}
-
 #profileSelect .arrow-icon {
   position: absolute;
   right: 15px;
+}
+
+#profileSelect ul {
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding-top: 8px;
+}
+
+#profileSelect ul li:last-child {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+#profileSelect ul li a {
+  padding: 8px 20px;
+  color: #212121;
+  display: block;
+}
+
+#profileSelect ul li a:hover {
+  color: #f24d2b;
 }
 
 .menu-header {
@@ -549,6 +647,15 @@ textarea {
   color: #707070;
   font-weight: 600;
   font-size: 14px;
+  width: 100%;
+}
+
+.menu-header .arrow-icon {
+  height: auto !important;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 #toolBar {
@@ -750,7 +857,7 @@ div.edit-icon:hover span {
 }
 
 #mainNav > section {
-  margin: 20px 0;
+  margin: 30px 0;
 }
 
 #mainNav.collapsed {
@@ -789,6 +896,16 @@ div.edit-icon:hover span {
   width: auto;
   font-size: 10px;
   margin-top: 5px;
+}
+
+#mainNav.sub:not(.collapsed) {
+  background-color: #fff;
+  margin-left: -30px;
+  margin-top: -30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  width: 260px;
+  padding-top: 30px;
 }
 
 #groupNav {
@@ -1549,34 +1666,17 @@ footer.post-footer > p {
   margin-top: 10px;
 }
 
-#groupBanner {
-  width: 630px;
-  margin-bottom: 20px;
-}
-
 #groupBanner h1 {
-  line-height: 16px;
   padding-bottom: 5px;
+  line-height: 16px;
 }
 
 #groupBanner header {
   margin-bottom: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
 }
 
 #groupBanner .banner-title > div {
   margin-right: 20px;
-}
-
-#groupBanner .banner-title {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 #groupBanner .banner-title p {
@@ -1607,20 +1707,6 @@ footer.post-footer > p {
 #groupBanner .banner-category span:last-child {
   padding-top: 4px;
   font-weight: 600;
-}
-
-#groupBanner .banner {
-  position: relative;
-}
-
-#groupBanner .banner .group-profile {
-  width: 80px;
-  height: 80px;
-  position: absolute;
-  bottom: 0;
-  left: 10px;
-  border: 2px solid #f8f8f8;
-  border-radius: 40px;
 }
 
 #groupBanner .social {
@@ -1892,4 +1978,30 @@ footer.post-footer > p {
           justify-content: flex-end;
   -ms-flex-item-align: center;
       align-self: center;
+}
+
+#userPage {
+  width: 630px;
+}
+
+#userBanner header {
+  margin-left: 130px;
+  margin-top: 10px;
+}
+
+#userBanner h1 {
+  margin-right: 15px;
+  font-size: 18px;
+  line-height: 18px;
+  color: #212121;
+  text-transform: capitalize;
+}
+
+#userBanner .banner-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }

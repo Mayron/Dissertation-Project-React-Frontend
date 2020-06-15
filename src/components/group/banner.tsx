@@ -22,7 +22,7 @@ const Banner: React.FC<IBannerProps> = ({
   children,
 }) => {
   return (
-    <section id="groupBanner" role="banner">
+    <section id="groupBanner" role="banner" className="banner">
       <header>
         <div className="banner-title">
           <div>
@@ -40,8 +40,8 @@ const Banner: React.FC<IBannerProps> = ({
         </div>
       </header>
       <div className="banner">
-        <img src={BannerImagePlaceholder} alt="banner" />
-        <img src={ProfilePicPlaceholder} alt="group profile" className="group-profile" />
+        <img src={BannerImagePlaceholder} alt="banner" className="banner-img" />
+        <img src={ProfilePicPlaceholder} alt="group profile" className="profile-pic" />
         {children}
       </div>
     </section>

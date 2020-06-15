@@ -11,4 +11,9 @@ exports.onCreatePage = async ({ page, actions }) => {
     page.matchPath = "/p/*";
     createPage(page);
   }
+
+  if (page.path.match(/^\/u/)) {
+    page.matchPath = "/u/*";
+    createPage(page);
+  }
 };
