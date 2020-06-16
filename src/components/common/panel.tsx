@@ -7,18 +7,24 @@ interface IPanelProps {
   meta?: string;
   headerIcon?: () => React.ReactNode;
   highlight?: boolean;
+  className?: string;
 }
 
 const Panel: React.FC<IPanelProps> = ({
   title,
+  className,
   children,
   editable,
   meta,
   headerIcon,
   highlight,
 }) => {
+  const classList = ["panel"];
+  if (className) classList.push(className);
+  if (highlight) classList.push("highlight");
+
   return (
-    <div className={`panel${highlight ? " highlight" : ""}`}>
+    <div className={classList.join(" ")}>
       {editable && <Icons.Edit text="Edit" />}
       {title && (
         <header>

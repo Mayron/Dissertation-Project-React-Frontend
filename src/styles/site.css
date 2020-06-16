@@ -740,6 +740,10 @@ textarea {
           user-select: none;
 }
 
+[class*="-icon"] span + svg {
+  margin-left: 5px;
+}
+
 [class*="-icon"] svg {
   width: 19px;
   height: 19px;
@@ -853,7 +857,48 @@ div.edit-icon:hover span {
 }
 
 #mainNav {
-  width: 200px;
+  overflow: hidden;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 80px;
+  overflow-y: auto;
+  height: calc(100vh - 80px);
+  width: 210px;
+}
+
+#mainNav::-webkit-scrollbar {
+  width: 8px;
+  background-color: none;
+}
+
+#mainNav::-webkit-scrollbar:horizontal {
+  height: 8px;
+}
+
+#mainNav::-webkit-scrollbar-track {
+  border: none;
+}
+
+#mainNav::-webkit-scrollbar-thumb {
+  background-color: none;
+  border: none;
+  border-radius: 4px;
+}
+
+#mainNav:hover::-webkit-scrollbar-thumb {
+  background-color: #f24d2b;
+}
+
+#mainNav::-webkit-scrollbar-thumb:hover {
+  background-color: #ff6f00;
+}
+
+#mainNav::-webkit-scrollbar-thumb:active {
+  background-color: #f24d2b;
+}
+
+#mainNav:not(.collapsed) {
+  padding-right: 10px;
 }
 
 #mainNav > section {
@@ -865,6 +910,7 @@ div.edit-icon:hover span {
   margin-top: -30px;
   width: 80px;
   background-color: #fff;
+  height: calc(100vh - 50px);
 }
 
 #mainNav.collapsed .menu-item:last-of-type {
@@ -904,8 +950,9 @@ div.edit-icon:hover span {
   margin-top: -30px;
   padding-left: 30px;
   padding-right: 30px;
-  width: 260px;
+  width: 270px;
   padding-top: 30px;
+  height: calc(100vh - 50px);
 }
 
 #groupNav {
@@ -958,8 +1005,47 @@ div.edit-icon:hover span {
 }
 
 #recommendMenu {
-  width: 280px;
-  min-width: 280px;
+  overflow: hidden;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 80px;
+  overflow-y: auto;
+  height: calc(100vh - 80px);
+  width: 290px;
+  min-width: 290px;
+  padding-right: 10px;
+  margin-right: -10px;
+}
+
+#recommendMenu::-webkit-scrollbar {
+  width: 8px;
+  background-color: none;
+}
+
+#recommendMenu::-webkit-scrollbar:horizontal {
+  height: 8px;
+}
+
+#recommendMenu::-webkit-scrollbar-track {
+  border: none;
+}
+
+#recommendMenu::-webkit-scrollbar-thumb {
+  background-color: none;
+  border: none;
+  border-radius: 4px;
+}
+
+#recommendMenu:hover::-webkit-scrollbar-thumb {
+  background-color: #f24d2b;
+}
+
+#recommendMenu::-webkit-scrollbar-thumb:hover {
+  background-color: #ff6f00;
+}
+
+#recommendMenu::-webkit-scrollbar-thumb:active {
+  background-color: #f24d2b;
 }
 
 #recommendMenu > section {
@@ -1539,9 +1625,13 @@ footer.post-footer > p {
 }
 
 .text-area .textbox-wrapper textarea::-webkit-scrollbar-thumb {
-  background-color: #f24d2b;
+  background-color: none;
   border: none;
   border-radius: 4px;
+}
+
+.text-area .textbox-wrapper textarea:hover::-webkit-scrollbar-thumb {
+  background-color: #f24d2b;
 }
 
 .text-area .textbox-wrapper textarea::-webkit-scrollbar-thumb:hover {
@@ -1633,6 +1723,7 @@ footer.post-footer > p {
   background-color: #fff;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
+  margin-bottom: 20px;
 }
 
 .post header {
@@ -1658,6 +1749,20 @@ footer.post-footer > p {
 
 .post .post-body {
   margin: 10px 0;
+}
+
+.post .post-body.shared {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.post .post-body.shared > :last-child {
+  padding-top: 10px;
+}
+
+.post .post-body.shared > :last-child .meta {
+  margin-left: 5px;
 }
 
 .post .post-contents {
@@ -2004,4 +2109,45 @@ footer.post-footer > p {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+}
+
+.comment-history header {
+  margin-bottom: 15px;
+}
+
+.comment-history header .meta {
+  margin-left: 5px;
+}
+
+.comment-history footer {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.comment-history .reply {
+  margin-top: 10px;
+  border-top: 1px solid #f8f8f8;
+  padding-top: 10px;
+  padding-left: 15px;
+  border-left: 1px solid #b6b6b6;
+}
+
+.panel.compact header {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 10px;
+}
+
+.panel.compact footer {
+  padding-top: 10px;
+}
+
+.panel.compact svg {
+  margin-right: 10px;
 }

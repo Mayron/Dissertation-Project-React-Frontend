@@ -10,6 +10,13 @@ const IndexPage: React.FC<RouteComponentProps> = () => (
     <PostBox />
     <ToolBar />
     <Post />
+    <Post />
+    <Post />
+    <Post />
+    <Post />
+    <Post />
+    <Post />
+    <Post />
   </Layout>
 );
 

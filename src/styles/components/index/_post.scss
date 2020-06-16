@@ -3,13 +3,14 @@
   background-color: #fff;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
+  margin-bottom: $item-spacing-large;
 
   header {
     display: flex;
     align-items: center;
 
     img {
-      margin-right: 10px;
+      margin-right: $item-spacing;
     }
   }
 
@@ -22,11 +23,24 @@
   }
 
   .post-body {
-    margin: 10px 0;
+    margin: $item-spacing 0;
+
+    &.shared {
+      @include ui-border;
+      padding: $item-spacing;
+
+      & > :last-child {
+        padding-top: $item-spacing;
+
+        .meta {
+          margin-left: $item-spacing-small;
+        }
+      }
+    }
   }
 
   .post-contents {
     @include text-content;
-    margin-top: 10px;
+    margin-top: $item-spacing;
   }
 }

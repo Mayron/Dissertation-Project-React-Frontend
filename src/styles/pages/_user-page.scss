@@ -21,3 +21,42 @@
     align-items: flex-end;
   }
 }
+
+.comment-history {
+  header {
+    margin-bottom: 15px;
+
+    .meta {
+      margin-left: 5px;
+    }
+  }
+
+  footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .reply {
+    margin-top: 10px;
+    border-top: 1px solid #f8f8f8;
+    padding-top: 10px;
+    padding-left: 15px;
+    border-left: 1px solid #b6b6b6;
+  }
+}
+
+.panel.compact {
+  header {
+    align-items: center;
+    padding-bottom: 10px;
+  }
+
+  footer {
+    padding-top: 10px;
+  }
+
+  svg {
+    margin-right: 10px;
+  }
+}

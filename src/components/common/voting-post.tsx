@@ -1,26 +1,15 @@
 import React from "react";
 import { Icons } from "../icons";
 import ProfilePic from "../../images/placeholder-profile-pic-lg.png";
+import Vote from "./vote";
 
-interface IVoteProps {
-  value: number;
+interface IVotingPostProps {
+  shared?: {
+    author: string;
+    when: string;
+  };
 }
-
-const Vote: React.FC<IVoteProps> = ({ value }) => {
-  return (
-    <div className="vote">
-      <button>
-        <Icons.Arrow direction="up" />
-      </button>
-      <span>{value}</span>
-      <button>
-        <Icons.Arrow direction="down" />
-      </button>
-    </div>
-  );
-};
-
-const VotingPost = () => {
+const VotingPost: React.FC<IVotingPostProps> = ({ shared }) => {
   return (
     <article className="post">
       <header>
@@ -29,11 +18,11 @@ const VotingPost = () => {
           <img src={ProfilePic} alt="profile" />
           <div className="post-user">
             <a className="user">John Smith</a>
-            <p>16 hours ago</p>
+            <p>{shared && "Shared a post "}16 hours ago</p>
           </div>
         </div>
       </header>
-      <div className="post-body">
+      <div className={`post-body${shared ? " shared" : ""}`}>
         <h4>This is the Title of this post! Why do they all do it?</h4>
         <div className="post-contents">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque elit
@@ -42,6 +31,12 @@ const VotingPost = () => {
           condimentum. Suspendisse molestie mauris ac ligula molestie malesuada. Duis sed
           tellus ipsum.
         </div>
+        {shared && (
+          <div>
+            <a className="user">{shared.author}</a>
+            <span className="meta">{shared.when}</span>
+          </div>
+        )}
       </div>
       <footer className="post-footer">
         <ul>
@@ -53,9 +48,6 @@ const VotingPost = () => {
           </li>
           <li>
             <Icons.Save />
-          </li>
-          <li>
-            <Icons.Arrow text="more" />
           </li>
         </ul>
       </footer>

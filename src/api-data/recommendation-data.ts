@@ -48,6 +48,20 @@ const recommendationData: IRecommendationData = {
       type: "project",
       url: "/p/elvui",
     },
+    {
+      name: "CoxCon",
+      amount: "61.9k",
+      description: "Some crazy stuff relating to London in 2021 happening!",
+      type: "project",
+      url: "/p/coxcon-2021",
+    },
+    {
+      name: "SleepySack",
+      amount: "102.5k",
+      description: "Warhammer lore and more. Come and join!",
+      type: "project",
+      url: "/p/sleepy-sack",
+    },
   ],
   opportunities: [
     {
@@ -56,6 +70,13 @@ const recommendationData: IRecommendationData = {
       type: "opportunity",
       role: "Developer",
       url: "/o/minecraft-builder-mod/developer",
+    },
+    {
+      name: "MayronUI Gen6 Dev Recruitment!",
+      description: "Due to popular demand, we need all the help we can get!",
+      type: "opportunity",
+      role: "Developer",
+      url: "/o/mayronui-gen6/developer",
     },
   ],
 };

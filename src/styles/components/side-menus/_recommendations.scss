@@ -1,6 +1,9 @@
 #recommendMenu {
-  width: 280px;
-  min-width: 280px;
+  @include fixed-menu;
+  width: 290px;
+  min-width: 290px;
+  padding-right: 10px;
+  margin-right: -10px;
 
   & > section {
     margin-bottom: $item-spacing-large;

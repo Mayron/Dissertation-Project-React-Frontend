@@ -62,6 +62,26 @@ const menuData: IMenuData = {
       name: "Some YouTube Channel",
       url: "/p/some-youtube-channel",
     },
+    {
+      name: "University Project CE1021",
+      url: "/p/university-project-ce1021",
+    },
+    {
+      name: "SleepySack",
+      url: "/p/sleepy-sack",
+    },
+    {
+      name: "Content Workshop",
+      url: "/p/content-workshop",
+    },
+    {
+      name: "CoxCon 2021",
+      url: "/p/coxcon-2021",
+    },
+    {
+      name: "Building OpenSpark.io",
+      url: "/p/building-openspark-io",
+    },
   ],
 
   chatChannels: [

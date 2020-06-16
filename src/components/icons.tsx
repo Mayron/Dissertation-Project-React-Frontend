@@ -16,6 +16,7 @@ import EditIcon from "../images/icons/edit.inline.svg";
 
 export interface IIconProps {
   text?: string;
+  textDirection?: "left" | "right";
   className?: string;
   onClick?: () => void;
 }
@@ -28,6 +29,7 @@ interface IBaseIconProps extends IIconProps {
 
 const BaseIcon: React.FC<IBaseIconProps> = ({
   text,
+  textDirection = "right",
   className,
   iconType,
   icon,
@@ -50,8 +52,9 @@ const BaseIcon: React.FC<IBaseIconProps> = ({
       }}
     >
       {children}
+      {textDirection === "left" && text && <span>{text}</span>}
       {icon()}
-      {text && <span>{text}</span>}
+      {textDirection === "right" && text && <span>{text}</span>}
     </div>
   );
 };
@@ -60,10 +63,12 @@ export interface IArrowIconProps extends IIconProps {
   large?: boolean;
   open?: boolean;
   direction?: "up" | "down";
+  textDirection?: "left" | "right";
 }
 
 export const Arrow: React.FC<IArrowIconProps> = ({
   text,
+  textDirection,
   className,
   onClick,
   large,
@@ -83,6 +88,7 @@ export const Arrow: React.FC<IArrowIconProps> = ({
       className={classes.join(" ")}
       iconType="arrow"
       onClick={onClick}
+      textDirection={textDirection}
       icon={() => <ArrowIcon />}
     >
       {children}
