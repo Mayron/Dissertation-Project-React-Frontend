@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import TextareaAutosize from "react-autosize-textarea";
 
 interface ITextAreaProps {
@@ -15,6 +15,9 @@ const TextArea: React.FC<ITextAreaProps> = ({
   max,
   children,
 }) => {
+  const [focused, setFocused] = useState(false);
+  let textAreaRef = useRef<HTMLTextAreaElement>(null);
+
   return (
     <div id={id} className="text-area">
       {title && (
@@ -22,13 +25,20 @@ const TextArea: React.FC<ITextAreaProps> = ({
           <h4>{title}</h4>
         </header>
       )}
-      <div className="ui-inner">
+      <div
+        className={`ui-inner${focused ? " focused" : ""}`}
+        style={{ cursor: "text" }}
+        onClick={() => textAreaRef.current?.focus()}
+      >
         <div className={max ? "textbox-wrapper has-max" : "textbox-wrapper"}>
           <TextareaAutosize
+            ref={textAreaRef}
             placeholder={placeholder}
             rows={1}
             maxRows={5}
             maxLength={max}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
           />
         </div>
         {max && <div className="counter">0/{max}</div>}

@@ -60,33 +60,42 @@ interface IRecommendationSectionProps {
   id: string;
   title: string;
   items: IRecommendationItemData[];
+  defaultOpen?: boolean;
 }
 
 const RecommendationSection: React.FC<IRecommendationSectionProps> = ({
   id,
   title,
   items,
-}) => (
-  <section id={id}>
-    <MenuHeader title={title} />
-    <ul>
-      {items.map((item, key) => (
-        <li key={key}>
-          <Recommendation
-            url={item.url}
-            name={item.name}
-            amount={item.amount}
-            role={item.role}
-            description={item.description}
-            canJoin={item.type === "group" || item.type === "community"}
-            canSubscribe={item.type === "project"}
-            canView={item.type === "opportunity"}
-          />
-        </li>
-      ))}
-    </ul>
-  </section>
-);
+  defaultOpen = true,
+}) => {
+  const [open, setOpen] = useState(defaultOpen);
+
+  return (
+    <section id={id}>
+      <MenuHeader title={title} open={open} onClick={() => setOpen(!open)} />
+
+      {open && (
+        <ul>
+          {items.map((item, key) => (
+            <li key={key}>
+              <Recommendation
+                url={item.url}
+                name={item.name}
+                amount={item.amount}
+                role={item.role}
+                description={item.description}
+                canJoin={item.type === "group" || item.type === "community"}
+                canSubscribe={item.type === "project"}
+                canView={item.type === "opportunity"}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
+};
 
 const RecommendationsMenu: React.FC = () => {
   const [groups, setGroups] = useState<IRecommendationItemData[]>([]);

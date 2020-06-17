@@ -32,6 +32,7 @@
 @import "./components/widgets/dropdown";
 @import "./components/widgets/text-area";
 @import "./components/widgets/multi-dropdown";
+@import "./components/widgets/tags-editbox";
 
 // Components > Index
 @import "./components/index/post-box";
@@ -44,6 +45,7 @@
 // Pages
 @import "./pages/index-page";
 @import "./pages/create-group-page";
+@import "./pages/create-project-page";
 @import "./pages/group-page";
 @import "./pages/project-page";
 @import "./pages/user-page";

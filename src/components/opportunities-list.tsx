@@ -70,7 +70,7 @@ const OpportunitiesList: React.FC<IOpportunitiesListProps> = ({
                   url={op.url}
                   key={key}
                   title={op.title}
-                  meta={showMeta && `Project: ${op.projectTitle}`}
+                  meta={showMeta ? `Project: ${op.projectTitle}` : undefined}
                 >
                   <p>{op.description}</p>
                   <PostFooter

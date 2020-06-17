@@ -28,6 +28,7 @@ const Layout: React.FC<ILayoutProps> = ({ id, title, children, collapsed, menuTy
     <>
       <SEO title={title} />
       <Banner onBurgerMenuClick={handleBannerBurgerMenuClicked} />
+      <div id="__text-resize-handler" />
       <div id="app">
         <MainNav collapsed={isCollapsed} menuType={menuType} />
 

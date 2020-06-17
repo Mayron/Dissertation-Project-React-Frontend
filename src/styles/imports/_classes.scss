@@ -102,8 +102,14 @@ a.user {
 .ui-inner {
   @include ui-border;
   background: $text-input-light-grey;
+  transition: border-color ease-in-out 0.1s;
   display: flex;
   position: relative;
+
+  &.focused {
+    transition: border-color ease-in-out 0.1s;
+    border-color: $dark-orange;
+  }
 }
 
 .counter {
@@ -242,4 +248,20 @@ a.user {
     width: 630px;
     height: 190px;
   }
+}
+
+#__text-resize-handler {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  visibility: hidden;
+  height: 0px;
+  overflow: scroll;
+  white-space: pre;
+  font-size: 14px !important;
+  font-family: $font-standard !important;
+  font-weight: $fw-standard-default !important;
+  font-style: normal;
+  letter-spacing: normal;
+  text-transform: none;
 }

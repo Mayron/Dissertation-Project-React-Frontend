@@ -1,0 +1,38 @@
+.tags-editbox {
+  width: 100%;
+
+  header {
+    padding-bottom: 5px;
+  }
+
+  .editbox {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    cursor: pointer;
+  }
+
+  .tag {
+    @include ui-border;
+    display: inline-block;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 4px;
+    margin: 4px;
+    background-color: #fff;
+    flex: none;
+  }
+
+  span.tag {
+    cursor: pointer;
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  input.tag {
+    width: 30px;
+    min-width: 30px;
+  }
+}

@@ -112,10 +112,18 @@ a.user:hover {
   border: 1px solid #d9d9d9;
   border-radius: 4px;
   background: #fafafa;
+  -webkit-transition: border-color ease-in-out 0.1s;
+  transition: border-color ease-in-out 0.1s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   position: relative;
+}
+
+.ui-inner.focused {
+  -webkit-transition: border-color ease-in-out 0.1s;
+  transition: border-color ease-in-out 0.1s;
+  border-color: #f24d2b;
 }
 
 .counter {
@@ -298,6 +306,22 @@ a.user:hover {
 .banner .banner-img {
   width: 630px;
   height: 190px;
+}
+
+#__text-resize-handler {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  visibility: hidden;
+  height: 0px;
+  overflow: scroll;
+  white-space: pre;
+  font-size: 14px !important;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 400 !important;
+  font-style: normal;
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 * {
@@ -1536,7 +1560,6 @@ footer.post-footer > p {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  margin-right: 30px;
 }
 
 .text-field header {
@@ -1666,6 +1689,56 @@ footer.post-footer > p {
 
 .multi-dropdown select {
   display: none;
+}
+
+.tags-editbox {
+  width: 100%;
+}
+
+.tags-editbox header {
+  padding-bottom: 5px;
+}
+
+.tags-editbox .editbox {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  cursor: pointer;
+}
+
+.tags-editbox .tag {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  display: inline-block;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 4px;
+  margin: 4px;
+  background-color: #fff;
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+}
+
+.tags-editbox span.tag {
+  cursor: pointer;
+}
+
+.tags-editbox span.tag.hidden {
+  display: none;
+}
+
+.tags-editbox input.tag {
+  width: 30px;
+  min-width: 30px;
 }
 
 #postBox {
@@ -1847,6 +1920,10 @@ footer.post-footer > p {
 }
 
 #createGroup {
+  max-width: 620px;
+}
+
+#createProject {
   max-width: 620px;
 }
 

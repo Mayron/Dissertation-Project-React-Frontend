@@ -8,6 +8,7 @@ import Dropdown from "../../components/widgets/dropdown";
 import MultiSelectDropdown from "../../components/widgets/multi-select-dropdown";
 import ProjectConnectionList from "../../components/project-connection-list";
 import PanelSection from "../../components/common/panel-section";
+import TagsEditBox from "../../components/widgets/tags-editbox";
 
 const CreateGroupPage: React.FC = () => {
   return (
@@ -37,11 +38,10 @@ const CreateGroupPage: React.FC = () => {
           />
         </div>
         <div className="row">
-          <MultiSelectDropdown
+          <TagsEditBox
             title="Tags"
             max={50}
             placeholder="Tags help users discover your group."
-            items={[]}
           />
         </div>
 
