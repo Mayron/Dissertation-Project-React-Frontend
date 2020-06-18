@@ -113,9 +113,53 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({ title, placeholder, max }) =
     setFocused(true);
   };
 
+  const removeDuplicates = (tags: ITag[]) => {
+    return tags.filter(
+      (data, index, self) =>
+        self.findIndex(
+          (d) => d.value.toLocaleLowerCase() === data.value.toLocaleLowerCase(),
+        ) === index,
+    );
+  };
+
+  const removeEmpty = (tags: ITag[]) => {
+    return tags.filter((t) => t.value && t.value.length > 0);
+  };
+
+  const breakTag = (value: string, tagsBucket: ITag[]) => {
+    // break a tag into multiple if they contain \n or ,
+    value.split("\n").forEach((e) => {
+      e.split(",").forEach((tag) => {
+        const newTag = tag.trim();
+        newTag.length > 0 && tagsBucket.push({ value: newTag });
+      });
+    });
+  };
+
+  const limitTags = (tags: ITag[]) => {
+    if (tags.length > max) {
+      // greater than max length allowed
+      tags = tags.slice(0, max);
+    }
+
+    return tags;
+  };
+
   const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    const nextTags = [...tags.filter((t) => t.value.length > 0)];
+    let nextTags: ITag[] = [];
+
+    removeEmpty(tags).forEach((t) => {
+      if (t.value.indexOf("\n") >= 0 || t.value.indexOf(",") >= 0) {
+        breakTag(t.value, nextTags);
+      } else {
+        nextTags.push(t);
+      }
+    });
+
+    nextTags = removeDuplicates(nextTags);
+    nextTags = limitTags(nextTags);
+
     nextTags.forEach((t) => (t.editing = false));
     setTags(nextTags);
     setFocused(false);
@@ -130,13 +174,7 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({ title, placeholder, max }) =
 
     if (newValue && newValue.trim().length > 0) {
       if (newValue.indexOf("\n") >= 0 || newValue.indexOf(",") >= 0) {
-        // break a tag into multiple if they contain \n or ,
-        newValue.split("\n").forEach((e) => {
-          e.split(",").forEach((tag) => {
-            const newTag = tag.trim();
-            newTag.length > 0 && nextTags.push({ value: newTag });
-          });
-        });
+        breakTag(newValue, nextTags);
         // remove old value being replaced
         nextTags = nextTags.filter((t) => t.value !== newValue);
       } else {
@@ -154,21 +192,9 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({ title, placeholder, max }) =
       return;
     }
 
-    // remove duplicates:
-    nextTags = nextTags.filter(
-      (data, index, self) =>
-        self.findIndex(
-          (d) => d.value.toLocaleLowerCase() === data.value.toLocaleLowerCase(),
-        ) === index,
-    );
-
-    // remove invalid
-    nextTags = nextTags.filter((t) => t.value && t.value.length > 0);
-
-    if (nextTags.length > max) {
-      // greater than max length allowed
-      nextTags = nextTags.slice(0, max);
-    }
+    nextTags = removeDuplicates(nextTags);
+    nextTags = removeEmpty(nextTags);
+    nextTags = limitTags(nextTags);
 
     if (nextTags.length < max) {
       nextTags.push({ value: "", editing: true });
