@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Icons } from "../icons";
 
 interface ITagsEditBoxProps {
   title?: string;
@@ -13,12 +14,19 @@ interface ITag {
 
 interface ITagBoxProps {
   tag: ITag;
-  onChange: (oldValue: string, e: React.ChangeEvent<HTMLInputElement>) => void;
-  stopEditing: (value: string, cancel?: boolean) => void;
-  startEditing: (value: string) => void;
+  onChange: (tag: ITag, newValue: string) => void;
+  onPaste: (tag: ITag, newValue: string) => void;
+  stopEditing: (tag: ITag, cancel?: boolean) => void;
+  startEditing: (tag: ITag) => void;
 }
 
-const TagBox: React.FC<ITagBoxProps> = ({ tag, onChange, startEditing, stopEditing }) => {
+const TagBox: React.FC<ITagBoxProps> = ({
+  tag,
+  onChange,
+  onPaste,
+  startEditing,
+  stopEditing,
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -35,12 +43,12 @@ const TagBox: React.FC<ITagBoxProps> = ({ tag, onChange, startEditing, stopEditi
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
-    onChange(tag.value, e);
+    onChange(tag, e.currentTarget.value);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLSpanElement>) => {
     e.stopPropagation();
-    startEditing(tag.value);
+    startEditing(tag);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -48,13 +56,23 @@ const TagBox: React.FC<ITagBoxProps> = ({ tag, onChange, startEditing, stopEditi
 
     if (e.keyCode === 13 || e.keyCode === 9) {
       // enter or Tab
-      stopEditing(tag.value);
+      stopEditing(tag);
     }
 
     if (e.keyCode === 27) {
       // Esc
-      stopEditing(tag.value, true);
+      stopEditing(tag, true);
     }
+  };
+
+  const handleCloseButtonClicked = () => {
+    stopEditing(tag, true);
+  };
+
+  const handleInputOnPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+    const newValue = e.clipboardData.getData("Text");
+    onPaste(tag, newValue);
   };
 
   return (
@@ -67,12 +85,14 @@ const TagBox: React.FC<ITagBoxProps> = ({ tag, onChange, startEditing, stopEditi
           value={tag.value}
           onKeyDown={handleKeyDown}
           onChange={handleChange}
+          onPaste={handleInputOnPaste}
           maxLength={30}
         />
       ) : (
-        <span className="tag" onClick={handleClick}>
-          {tag.value}
-        </span>
+        <div className="tag">
+          <span onClick={handleClick}>{tag.value}</span>
+          <Icons.Close onClick={handleCloseButtonClicked} />
+        </div>
       )}
     </>
   );
@@ -101,13 +121,61 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({ title, placeholder, max }) =
     setFocused(false);
   };
 
-  const handleTagValueChanged = (
+  const handleValidationOfTagsAfterFinishEditing = (
+    newValue: string,
     oldValue: string,
-    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    const newValue = e.currentTarget.value;
+    newValue = newValue ? newValue.trim() : "";
+    let nextTags = [...tags];
+
+    if (newValue && newValue.trim().length > 0) {
+      if (newValue.indexOf("\n") >= 0 || newValue.indexOf(",") >= 0) {
+        // break a tag into multiple if they contain \n or ,
+        newValue.split("\n").forEach((e) => {
+          e.split(",").forEach((tag) => {
+            const newTag = tag.trim();
+            newTag.length > 0 && nextTags.push({ value: newTag });
+          });
+        });
+        // remove old value being replaced
+        nextTags = nextTags.filter((t) => t.value !== newValue);
+      } else {
+        // update old value with new if it was pasted but not split
+        let currentTag = nextTags.find((t) => t.value === oldValue);
+        if (currentTag) {
+          currentTag.value = newValue;
+          currentTag.editing = false;
+        }
+      }
+    } else {
+      nextTags = nextTags.filter((t) => t.value && t.value.length > 0);
+      setTags(nextTags);
+      setFocused(false);
+      return;
+    }
+
+    // remove duplicates:
+    nextTags = nextTags.filter(
+      (data, index, self) =>
+        self.findIndex(
+          (d) => d.value.toLocaleLowerCase() === data.value.toLocaleLowerCase(),
+        ) === index,
+    );
+
+    // remove invalid
+    nextTags = nextTags.filter((t) => t.value && t.value.length > 0);
+
+    if (nextTags.length > max) {
+      // greater than max length allowed
+      nextTags = nextTags.slice(0, max);
+    }
+
+    nextTags.push({ value: "", editing: true });
+    setTags(nextTags);
+  };
+
+  const handleTagValueChanged = (tag: ITag, newValue: string) => {
     const nextTags = [...tags];
-    const tag = nextTags.find((t) => t.value == oldValue);
 
     if (tag) {
       tag.value = newValue;
@@ -116,22 +184,24 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({ title, placeholder, max }) =
     setTags(nextTags);
   };
 
-  const handleStopEditing = (value: string, cancel?: boolean) => {
-    const nextTags = [...tags.filter((t) => t.value !== value)];
-
-    if (!cancel && value.length > 0) {
-      nextTags.push({ value: value, editing: false });
-    }
-
-    setTags(nextTags);
-    setFocused(false);
+  const handleTagValuePasted = (tag: ITag, newValue: string) => {
+    handleValidationOfTagsAfterFinishEditing(newValue, tag.value);
   };
 
-  const handleStartEditing = (value: string) => {
+  const handleStopEditing = (tag: ITag, cancel?: boolean) => {
+    if (cancel) {
+      setTags(tags.filter((t) => t !== tag));
+      setFocused(false);
+    } else {
+      handleValidationOfTagsAfterFinishEditing(tag.value, tag.value);
+    }
+  };
+
+  const handleStartEditing = (tag: ITag) => {
     const nextTags = [...tags];
     nextTags.forEach((t) => {
-      if (t.editing && t.value !== value) t.editing = false;
-      if (t.value === value) t.editing = true;
+      if (t.editing && t !== tag) t.editing = false;
+      if (t === tag) t.editing = true;
     });
 
     setTags(nextTags);
@@ -158,6 +228,7 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({ title, placeholder, max }) =
               onChange={handleTagValueChanged}
               startEditing={handleStartEditing}
               stopEditing={handleStopEditing}
+              onPaste={handleTagValuePasted}
             />
           ))}
         </div>

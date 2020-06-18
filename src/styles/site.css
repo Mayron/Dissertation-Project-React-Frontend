@@ -813,25 +813,32 @@ div.arrow-icon.lg svg {
   width: 19px;
 }
 
-div.arrow-icon:hover svg {
+div.arrow-icon:hover svg,
+div.close-icon:hover svg {
   -webkit-filter: brightness(1) !important;
           filter: brightness(1) !important;
 }
 
-div.arrow-icon:hover svg path {
+div.arrow-icon:hover svg path,
+div.arrow-icon:hover svg line,
+div.close-icon:hover svg path,
+div.close-icon:hover svg line {
   stroke: #f24d2b;
 }
 
-div.arrow-icon.active svg {
+div.arrow-icon.active svg,
+div.close-icon.active svg {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
 }
 
-div.arrow-icon > h4 {
+div.arrow-icon > h4,
+div.close-icon > h4 {
   margin-right: 10px;
 }
 
-div.arrow-icon svg {
+div.arrow-icon svg,
+div.close-icon svg {
   width: 14px;
 }
 
@@ -1720,7 +1727,7 @@ footer.post-footer > p {
           align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  padding: 4px;
+  padding: 0;
   margin: 4px;
   background-color: #fff;
   -webkit-box-flex: 0;
@@ -1728,17 +1735,29 @@ footer.post-footer > p {
           flex: none;
 }
 
-.tags-editbox span.tag {
+.tags-editbox div.tag {
   cursor: pointer;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
-.tags-editbox span.tag.hidden {
-  display: none;
+.tags-editbox div.tag span {
+  padding: 4px;
+}
+
+.tags-editbox div.tag .close-icon {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  padding: 7px 4px 7px 6px;
+  width: 14px !important;
+  height: 14px !important;
 }
 
 .tags-editbox input.tag {
   width: 30px;
   min-width: 30px;
+  padding: 4px;
 }
 
 #postBox {

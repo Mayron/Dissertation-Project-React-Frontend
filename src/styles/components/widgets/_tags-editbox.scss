@@ -17,22 +17,31 @@
     display: inline-block;
     align-items: center;
     flex-wrap: wrap;
-    padding: 4px;
+    padding: 0;
     margin: 4px;
     background-color: #fff;
     flex: none;
   }
 
-  span.tag {
+  div.tag {
     cursor: pointer;
+    display: inline-flex;
 
-    &.hidden {
-      display: none;
+    span {
+      padding: 4px;
+    }
+
+    .close-icon {
+      box-sizing: content-box;
+      padding: 7px 4px 7px 6px;
+      width: 14px !important;
+      height: 14px !important;
     }
   }
 
   input.tag {
     width: 30px;
     min-width: 30px;
+    padding: 4px;
   }
 }

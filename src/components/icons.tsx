@@ -13,6 +13,7 @@ import TickIcon from "../images/icons/tick.inline.svg";
 import PlusIcon from "../images/icons/plus.inline.svg";
 import SettingsIcon from "../images/icons/settings.inline.svg";
 import EditIcon from "../images/icons/edit.inline.svg";
+import CloseIcon from "../images/icons/close.inline.svg";
 
 export interface IIconProps {
   text?: string;
@@ -216,6 +217,15 @@ export const Edit: React.FC<IIconProps> = ({ text, className, onClick }) => (
   />
 );
 
+export const Close: React.FC<IIconProps> = ({ className, onClick }) => (
+  <BaseIcon
+    className={className}
+    onClick={onClick}
+    iconType="close"
+    icon={() => <CloseIcon />}
+  />
+);
+
 export const Icons = {
   Arrow,
   Heart,
@@ -230,4 +240,5 @@ export const Icons = {
   Plus,
   Settings,
   Edit,
+  Close,
 };

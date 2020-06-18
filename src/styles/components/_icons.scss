@@ -54,11 +54,13 @@ div.arrow-icon.lg svg {
   width: 19px;
 }
 
-div.arrow-icon {
+div.arrow-icon,
+div.close-icon {
   &:hover svg {
     filter: brightness(1) !important;
 
-    path {
+    path,
+    line {
       stroke: $dark-orange;
     }
   }
