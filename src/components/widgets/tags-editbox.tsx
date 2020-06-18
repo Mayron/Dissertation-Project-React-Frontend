@@ -170,7 +170,10 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({ title, placeholder, max }) =
       nextTags = nextTags.slice(0, max);
     }
 
-    nextTags.push({ value: "", editing: true });
+    if (nextTags.length < max) {
+      nextTags.push({ value: "", editing: true });
+    }
+
     setTags(nextTags);
   };
 
