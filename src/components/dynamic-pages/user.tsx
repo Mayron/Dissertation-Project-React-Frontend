@@ -10,7 +10,7 @@ interface IUserPageProps extends RouteComponentProps {
 const UserPage: React.FC<IUserPageProps> = ({ user, children }) => {
   return (
     <Layout id="userPage" title="User">
-      <User.Banner name={user} points="14.6k" />
+      <User.Banner name={user || ""} points="14.6k" />
       {children}
     </Layout>
   );

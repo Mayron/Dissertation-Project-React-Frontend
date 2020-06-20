@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Icons } from "../icons";
 
 interface IFilterProps {
@@ -10,9 +10,30 @@ interface IFilterProps {
 
 const Filter: React.FC<IFilterProps> = ({ label, tooltip, selected, items }) => {
   const [shown, setShown] = useState<boolean>(false);
+  const [mouseInside, setMouseInside] = useState<boolean>(false);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null;
+
+    if (shown) {
+      interval = setInterval(() => {
+        if (!mouseInside && interval) {
+          setShown(false);
+        }
+      }, 500);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [shown, mouseInside]);
 
   return (
-    <div className="filter">
+    <div
+      className="filter"
+      onMouseEnter={() => setMouseInside(true)}
+      onMouseLeave={() => setMouseInside(false)}
+    >
       <header>
         <Icons.Arrow onClick={() => setShown(!shown)} direction={shown ? "up" : "down"}>
           <p>

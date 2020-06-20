@@ -1,8 +1,8 @@
 import React from "react";
 import { Router, Redirect } from "@reach/router";
-import NotFoundPage from "./404";
 import UserPage from "../components/dynamic-pages/user";
-import UserPostsView from "../components/user/views/user-posts";
+import UserAllPostsView from "../components/user/views/user-all-posts";
+import UserPostView from "../components/user/views/user-post";
 import UserCommentsView from "../components/user/views/user-comments";
 import UserMembershipsView from "../components/user/views/user-memberships";
 import UserSubscriptionsView from "../components/user/views/user-subscriptions";
@@ -12,16 +12,15 @@ const App = () => {
   return (
     <Router>
       <UserPage path="/u/:user">
-        <UserPostsView path="/" />
+        <UserAllPostsView path="/" />
         <UserCommentsView path="/comments" />
         <UserMembershipsView path="/memberships" />
         <UserSubscriptionsView path="/subscriptions" />
         <UserSettingsView path="/settings" />
-        <Redirect default to="/p/404" />
       </UserPage>
 
-      <NotFoundPage path="/p/404" />
-      <NotFoundPage default />
+      <UserPostView path="/u/:user/post/:slug" />
+      <Redirect default to="/404" />
     </Router>
   );
 };

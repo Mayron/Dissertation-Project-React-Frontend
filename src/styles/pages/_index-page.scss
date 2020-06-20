@@ -1,3 +1,54 @@
 #index {
   max-width: 632px;
+
+  .fader {
+    position: absolute;
+    z-index: 10;
+    top: -30px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .comment-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+    h4 {
+      font-weight: 600;
+    }
+  }
+
+  .create-post {
+    position: absolute;
+    z-index: 20;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    .body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .title-input {
+      font-size: 18px;
+      line-height: 24px;
+      margin-bottom: $item-spacing-large;
+    }
+
+    .more-input {
+      font-size: 16px;
+      line-height: 21px;
+    }
+
+    .more-input,
+    .title-input {
+      padding: 0 10px;
+    }
+  }
 }

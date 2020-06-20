@@ -4,6 +4,7 @@
       -ms-flex: 1;
           flex: 1;
   margin: 0 30px;
+  position: relative;
 }
 
 #app > [class*="-wrapper"].project-wrapper {
@@ -47,6 +48,7 @@ a.user {
 }
 
 a.user:hover {
+  cursor: pointer;
   text-decoration: underline;
   color: #ff8c33;
 }
@@ -75,7 +77,7 @@ a.user:hover {
 }
 
 .btn-primary {
-  padding: 5px 15px;
+  padding: 6px 15px;
   border-radius: 4px;
   background-color: #f24d2b;
   color: #fff;
@@ -322,6 +324,16 @@ a.user:hover {
   font-style: normal;
   letter-spacing: normal;
   text-transform: none;
+}
+
+.right {
+  margin-left: auto;
+}
+
+.panel-link:hover {
+  -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 * {
@@ -1158,22 +1170,13 @@ div.edit-icon:hover span {
   min-width: 200px;
 }
 
-.panel-link > .panel:hover {
-  -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-}
-
-.panel-link:not(:last-child) {
-  margin-bottom: 15px;
-}
-
 .panel {
   border: 1px solid #d9d9d9;
   border-radius: 4px;
   padding: 20px;
   background-color: #fff;
   position: relative;
+  margin-bottom: 15px;
 }
 
 .panel.highlight {
@@ -1535,32 +1538,30 @@ footer.post-footer > p {
   padding-right: 10px;
 }
 
-.comment {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  margin-bottom: 20px;
-}
-
-.comment > img:first-child {
-  margin-right: 10px;
-}
-
 .comment header {
+  margin-bottom: 15px;
+}
+
+.comment header .meta {
+  margin-left: 5px;
+}
+
+.comment footer {
+  margin-top: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin-bottom: 2px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-.comment header span:first-of-type {
-  margin: 0 5px;
+.comment .reply {
+  margin-top: 10px;
+  border-top: 1px solid #f8f8f8;
+  padding-top: 10px;
+  padding-left: 15px;
+  border-left: 1px solid #b6b6b6;
 }
 
 .text-field {
@@ -1768,6 +1769,7 @@ footer.post-footer > p {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
 }
 
 #postBox header {
@@ -1777,8 +1779,6 @@ footer.post-footer > p {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-right: 1px solid #d9d9d9;
-  padding-right: 20px;
 }
 
 #postBox header img {
@@ -1786,28 +1786,32 @@ footer.post-footer > p {
 }
 
 #postBox header p {
-  font-size: 12px;
   color: #707070;
 }
 
-#postBox header + div {
+#postBox > header {
+  border-right: 1px solid #d9d9d9;
+  padding-right: 20px;
+}
+
+#postBox .btn-create-post {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-left: 10px;
+  margin-left: 10px;
 }
 
-#postBox input {
-  height: calc(100% + 20px);
-  width: calc(100% + 15px);
-  border: 0;
-  margin-top: -10px;
-  padding-right: 15px;
-  padding-left: 20px;
+#postBox .btn-create-post:hover {
   cursor: pointer;
-}
-
-#postBox input:focus {
-  outline: none;
+  background-color: #f8f8f8;
+  border-radius: 4px;
 }
 
 .post {
@@ -1815,7 +1819,7 @@ footer.post-footer > p {
   background-color: #fff;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .post header {
@@ -1832,7 +1836,7 @@ footer.post-footer > p {
 }
 
 .post .post-user {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .post .post-user p {
@@ -1860,6 +1864,30 @@ footer.post-footer > p {
 .post .post-contents {
   font-size: 14px;
   line-height: 20px;
+  margin-top: 10px;
+}
+
+.post .comment-box header {
+  margin: 10px 0;
+  border-top: 1px solid #f8f8f8;
+  padding-top: 10px;
+}
+
+.post .comment-box header .meta {
+  margin-right: 5px;
+}
+
+.post .comment-box textarea {
+  width: 100%;
+}
+
+.post .comment-box footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   margin-top: 10px;
 }
 
@@ -1936,6 +1964,68 @@ footer.post-footer > p {
 
 #index {
   max-width: 632px;
+}
+
+#index .fader {
+  position: absolute;
+  z-index: 10;
+  top: -30px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#index .comment-toolbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#index .comment-toolbar h4 {
+  font-weight: 600;
+}
+
+#index .create-post {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#index .create-post .body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#index .create-post .title-input {
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom: 20px;
+}
+
+#index .create-post .more-input {
+  font-size: 16px;
+  line-height: 21px;
+}
+
+#index .create-post .more-input,
+#index .create-post .title-input {
+  padding: 0 10px;
 }
 
 #createGroup {
@@ -2205,32 +2295,6 @@ footer.post-footer > p {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
-}
-
-.comment-history header {
-  margin-bottom: 15px;
-}
-
-.comment-history header .meta {
-  margin-left: 5px;
-}
-
-.comment-history footer {
-  margin-top: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.comment-history .reply {
-  margin-top: 10px;
-  border-top: 1px solid #f8f8f8;
-  padding-top: 10px;
-  padding-left: 15px;
-  border-left: 1px solid #b6b6b6;
 }
 
 .panel.compact header {

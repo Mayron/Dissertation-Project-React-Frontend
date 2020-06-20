@@ -1,19 +1,9 @@
-.panel-link > .panel {
-  &:hover {
-    @include card-shadow;
-    cursor: pointer;
-  }
-}
-
-.panel-link:not(:last-child) {
-  margin-bottom: 15px;
-}
-
 .panel {
   @include ui-border;
   padding: $item-spacing-large;
   background-color: $white;
   position: relative;
+  margin-bottom: $section-spacing;
 
   &.highlight {
     border-color: $dark-orange;

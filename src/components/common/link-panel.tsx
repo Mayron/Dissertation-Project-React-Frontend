@@ -1,6 +1,5 @@
 import React from "react";
-import { Icons } from "../icons";
-import { Link, navigateTo } from "gatsby";
+import { navigateTo } from "gatsby";
 import Panel from "./panel";
 
 interface IPanelProps {
@@ -23,7 +22,6 @@ const LinkPanel: React.FC<IPanelProps> = ({
 }) => {
   const handleClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
-    console.log(e.target);
 
     if (target.nodeName === "A") return;
     navigateTo(url);

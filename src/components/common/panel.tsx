@@ -24,7 +24,7 @@ const Panel: React.FC<IPanelProps> = ({
   if (highlight) classList.push("highlight");
 
   return (
-    <div className={classList.join(" ")}>
+    <article className={classList.join(" ")}>
       {editable && <Icons.Edit text="Edit" />}
       {title && (
         <header>
@@ -36,7 +36,7 @@ const Panel: React.FC<IPanelProps> = ({
         </header>
       )}
       {children}
-    </div>
+    </article>
   );
 };
 

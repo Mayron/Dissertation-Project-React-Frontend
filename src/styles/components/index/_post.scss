@@ -3,7 +3,7 @@
   background-color: #fff;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
-  margin-bottom: $item-spacing-large;
+  margin-bottom: $section-spacing;
 
   header {
     display: flex;
@@ -15,7 +15,7 @@
   }
 
   .post-user {
-    font-size: 12px;
+    font-size: 14px;
 
     p {
       color: #707070;
@@ -42,5 +42,27 @@
   .post-contents {
     @include text-content;
     margin-top: $item-spacing;
+  }
+
+  .comment-box {
+    header {
+      margin: 10px 0;
+      border-top: 1px solid #f8f8f8;
+      padding-top: 10px;
+
+      .meta {
+        margin-right: 5px;
+      }
+    }
+
+    textarea {
+      width: 100%;
+    }
+
+    footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
   }
 }

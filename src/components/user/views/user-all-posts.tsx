@@ -5,7 +5,7 @@ import SearchBox from "../../common/search-box";
 import Filter from "../../common/filter";
 import VotingPost from "../../common/voting-post";
 
-const UserPostsView: React.FC<RouteComponentProps> = () => {
+const UserAllPostsView: React.FC<RouteComponentProps> = () => {
   return (
     <>
       <User.MenuBars.UserMenuBar />
@@ -18,15 +18,11 @@ const UserPostsView: React.FC<RouteComponentProps> = () => {
             items={["All Posts", "My Posts", "Shared Posts", "Saved Posts"]}
           />
         </div>
-        <div className="row">
-          <VotingPost />
-        </div>
-        <div className="row">
-          <VotingPost shared={{ author: "Mike Richards", when: "4 days ago" }} />
-        </div>
+        <VotingPost />
+        <VotingPost shared={{ author: "Mike Richards", when: "4 days ago" }} />
       </section>
     </>
   );
 };
 
-export default UserPostsView;
+export default UserAllPostsView;

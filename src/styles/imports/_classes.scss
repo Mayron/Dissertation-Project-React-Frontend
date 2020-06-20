@@ -3,6 +3,7 @@
 #app > [class*="-wrapper"] {
   flex: 1;
   margin: 0 $page-gutter-spacing;
+  position: relative;
 
   &.project-wrapper {
     display: grid;
@@ -40,6 +41,7 @@ a.user {
   text-decoration: none;
 
   &:hover {
+    cursor: pointer;
     text-decoration: underline;
     color: lighten($primary-orange, 10);
   }
@@ -49,7 +51,7 @@ a.user {
   @include ui-border;
   color: $dark-orange;
   font-weight: 600;
-  padding: 6px 15px;
+  padding: 6px $section-spacing;
   font-size: 14px;
 
   &.sm {
@@ -67,7 +69,7 @@ a.user {
 }
 
 .btn-primary {
-  padding: $item-spacing-small $section-spacing;
+  padding: 6px $section-spacing;
   border-radius: $border-radius;
   background-color: $dark-orange;
   color: $white;
@@ -264,4 +266,15 @@ a.user {
   font-style: normal;
   letter-spacing: normal;
   text-transform: none;
+}
+
+.right {
+  margin-left: auto;
+}
+
+.panel-link {
+  &:hover {
+    @include card-shadow;
+    cursor: pointer;
+  }
 }

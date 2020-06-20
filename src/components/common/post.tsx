@@ -1,10 +1,23 @@
 import React from "react";
 import ProfilePic from "../../images/placeholder-profile-pic-lg.png";
 import PostFooter from "./post-footer";
+import { navigateTo } from "gatsby";
 
-const Post = () => {
+interface IPostProps {
+  url?: string;
+}
+
+const Post: React.FC<IPostProps> = ({ url, children }) => {
+  const handleClick = (e: React.MouseEvent) => {
+    if (!url) return;
+    const target = e.target as HTMLElement;
+
+    if (target.nodeName === "A") return;
+    navigateTo(url);
+  };
+
   return (
-    <article className="post">
+    <article className={`post${url ? " panel-link" : ""}`} onClick={handleClick}>
       <header>
         <img src={ProfilePic} alt="profile" />
         <div className="post-user">
@@ -23,6 +36,7 @@ const Post = () => {
         </div>
       </div>
       <PostFooter />
+      {children}
     </article>
   );
 };
