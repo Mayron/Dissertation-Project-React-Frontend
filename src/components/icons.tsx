@@ -46,11 +46,14 @@ const BaseIcon: React.FC<IBaseIconProps> = ({
   return (
     <div
       className={className}
-      onClick={(e) => {
-        e.stopPropagation();
-        console.log(onClick);
-        if (onClick) onClick();
-      }}
+      onClick={
+        onClick
+          ? (e) => {
+              e.stopPropagation();
+              onClick();
+            }
+          : undefined
+      }
     >
       {children}
       {textDirection === "left" && text && <span>{text}</span>}
@@ -63,7 +66,7 @@ const BaseIcon: React.FC<IBaseIconProps> = ({
 export interface IArrowIconProps extends IIconProps {
   large?: boolean;
   open?: boolean;
-  direction?: "up" | "down";
+  direction?: "up" | "down" | "left";
   textDirection?: "left" | "right";
 }
 

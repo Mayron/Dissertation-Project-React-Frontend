@@ -46,6 +46,10 @@ div.arrow-icon.up svg {
   transform: rotate(180deg) !important;
 }
 
+div.arrow-icon.left svg {
+  transform: rotate(90deg) !important;
+}
+
 div.arrow-icon.down svg {
   transform: rotate(0deg) !important;
 }

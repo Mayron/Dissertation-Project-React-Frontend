@@ -53,6 +53,7 @@ a.user {
   font-weight: 600;
   padding: 6px $section-spacing;
   font-size: 14px;
+  white-space: nowrap;
 
   &.sm {
     padding: 4px 12px;
@@ -69,6 +70,7 @@ a.user {
 }
 
 .btn-primary {
+  white-space: nowrap;
   padding: 6px $section-spacing;
   border-radius: $border-radius;
   background-color: $dark-orange;
@@ -277,5 +279,47 @@ a.user {
   &:hover {
     @include card-shadow;
     cursor: pointer;
+  }
+}
+
+.fader {
+  position: absolute;
+  z-index: 10;
+  top: -30px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#fullscreenFader {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  .content {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.back-btn[class*="-icon"] {
+  span {
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  svg path {
+    stroke: $dark-orange;
+  }
+
+  &:hover span {
+    text-decoration: underline;
   }
 }

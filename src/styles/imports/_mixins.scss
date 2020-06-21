@@ -7,6 +7,13 @@
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+@mixin card-shadow-on-hover {
+  &:hover {
+    @include card-shadow;
+    cursor: pointer;
+  }
+}
+
 @mixin text-content {
   font-size: 14px;
   line-height: 20px;
