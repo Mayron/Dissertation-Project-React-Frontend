@@ -21,8 +21,19 @@ const GroupNav = () => {
           <Icons.Settings text="Group Settings" className="btn-secondary" />
         </MenuListItem>
       </ul>
-      <NavSection id="projects" title="Projects" items={menuData.projects} more />
-      <NavSection id="channels" title="Chat Channels" items={menuData.chatChannels} />
+      <NavSection
+        id="projects"
+        defaultOpen
+        title="Projects"
+        items={menuData.projects}
+        moreUrl="/g/mayronui-gen6/projects"
+      />
+      <NavSection
+        id="channels"
+        defaultOpen
+        title="Chat Channels"
+        items={menuData.chatChannels}
+      />
     </nav>
   );
 };

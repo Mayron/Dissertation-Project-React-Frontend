@@ -11,7 +11,7 @@ const ConnectView: React.FC<RouteComponentProps> = () => {
         <ProjectConnectionList />
 
         <footer className="sep">
-          <p>You can also create and connect to a new group:</p>
+          <p>Alternatively, you can create and connect to a new group:</p>
           <button className="btn-secondary">Create Group</button>
         </footer>
       </Panel>

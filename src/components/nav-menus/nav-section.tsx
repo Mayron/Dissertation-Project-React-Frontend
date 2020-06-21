@@ -8,7 +8,8 @@ interface INavSectionProps {
   id: string;
   title: string;
   items: ILinkData[];
-  more?: boolean;
+  moreOnClick?: () => void;
+  moreUrl?: string;
   create?: string;
   defaultOpen?: boolean;
 }
@@ -17,7 +18,8 @@ const NavSection: React.FC<INavSectionProps> = ({
   id,
   title,
   items,
-  more,
+  moreOnClick,
+  moreUrl,
   create,
   defaultOpen = false,
 }) => {
@@ -47,8 +49,8 @@ const NavSection: React.FC<INavSectionProps> = ({
                   <Icons.Plus text={`Create ${create}`} className="action" />
                 </MenuListItem>
               )}
-              {more && (
-                <MenuListItem url={`/create/${create}`}>
+              {(moreOnClick || moreUrl) && (
+                <MenuListItem url={moreUrl}>
                   <Icons.Arrow text="Show more" className="action" open />
                 </MenuListItem>
               )}

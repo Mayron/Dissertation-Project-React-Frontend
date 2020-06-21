@@ -9,6 +9,8 @@ import AnnouncementsProjectView from "../components/group/views/announcements-pr
 import OpportunitiesView from "../components/group/views/opportunities";
 import ChatChannelView from "../components/group/views/chat-channel";
 import SettingsView from "../components/group/views/settings";
+import ProjectsView from "../components/group/views/projects";
+import ProjectsInCategoryView from "../components/group/views/projects-in-category";
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
         <Redirect default to="/g/404" />
       </GroupPage>
 
+      <ProjectsView path="/g/:slug/projects" />
+      <ProjectsInCategoryView path="/g/:slug/projects/:category" />
       <NotFoundPage path="/g/404" />
       <NotFoundPage default />
     </Router>

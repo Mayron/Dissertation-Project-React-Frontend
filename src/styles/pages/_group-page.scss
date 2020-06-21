@@ -2,6 +2,28 @@
   width: 630px;
 }
 
+#group_pjs {
+  max-width: 800px;
+
+  .cat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .card {
+    max-width: 370px;
+  }
+
+  .category {
+    padding-bottom: $item-spacing-large;
+
+    h3 {
+      padding-bottom: $item-spacing;
+    }
+  }
+}
+
 #group_cc {
   & > header {
     display: flex;
@@ -15,6 +37,25 @@
 
     p {
       font-size: 12px;
+    }
+  }
+}
+
+#featured,
+#allProjects {
+  margin-bottom: $section-spacing-large;
+
+  & > header {
+    border-bottom: 1px solid $ui-border-grey;
+    padding-bottom: $item-spacing-small;
+    margin-bottom: $item-spacing-large;
+    line-height: 16px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    .edit-icon {
+      position: initial;
     }
   }
 }

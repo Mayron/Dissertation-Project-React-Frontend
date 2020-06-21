@@ -2,19 +2,32 @@ import { Link } from "gatsby";
 import React from "react";
 
 interface IMenuListItemProps {
-  url: string;
+  url?: string;
+  onClick?: () => void;
   button?: "tertiary" | "secondary" | "primary";
 }
 
-const MenuListItem: React.FC<IMenuListItemProps> = ({ url, children, button }) => (
+const MenuListItem: React.FC<IMenuListItemProps> = ({
+  url,
+  onClick,
+  children,
+  button,
+}) => (
   <li className="menu-item">
-    <Link
-      to={url}
-      className={button ? "btn" : ""}
-      activeClassName={button ? "" : "active"}
-    >
-      {children}
-    </Link>
+    {url && (
+      <Link
+        to={url}
+        className={button ? "btn" : ""}
+        activeClassName={button ? "" : "active"}
+      >
+        {children}
+      </Link>
+    )}
+    {onClick && (
+      <button type="button" className={button ? "btn" : ""} onClick={onClick}>
+        {children}
+      </button>
+    )}
   </li>
 );
 

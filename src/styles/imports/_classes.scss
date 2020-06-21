@@ -156,18 +156,19 @@ a.user {
   user-select: none;
 }
 
-.row-20,
-.row-10 {
-  display: flex;
-  align-items: center;
-}
+@each $gap in (5, 10, 20) {
+  .row-#{$gap} {
+    display: flex;
+    align-items: center;
 
-.row-20 > *:not(:last-child) {
-  margin-right: 20px;
-}
+    &.end {
+      align-items: flex-end;
+    }
 
-.row-10 > *:not(:last-child) {
-  margin-right: 10px;
+    & > *:not(:last-child) {
+      margin-right: #{$gap}px;
+    }
+  }
 }
 
 .spaced {
