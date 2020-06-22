@@ -4,7 +4,8 @@ import Panel from "./panel";
 
 interface IPanelProps {
   title?: string;
-  editable?: boolean;
+  titleStyle?: React.CSSProperties;
+  extraIcon?: () => React.ReactNode;
   meta?: string;
   headerIcon?: () => React.ReactNode;
   highlight?: boolean;
@@ -13,8 +14,9 @@ interface IPanelProps {
 
 const LinkPanel: React.FC<IPanelProps> = ({
   title,
+  titleStyle,
   children,
-  editable,
+  extraIcon,
   meta,
   headerIcon,
   highlight,
@@ -23,7 +25,7 @@ const LinkPanel: React.FC<IPanelProps> = ({
   const handleClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
 
-    if (target.nodeName === "A") return;
+    if (target.nodeName === "A" || target.nodeName === "BUTTON") return;
     navigateTo(url);
   };
 
@@ -31,7 +33,8 @@ const LinkPanel: React.FC<IPanelProps> = ({
     <div className="panel-link" onClick={handleClick}>
       <Panel
         title={title}
-        editable={editable}
+        titleStyle={titleStyle}
+        extraIcon={extraIcon}
         meta={meta}
         headerIcon={headerIcon}
         highlight={highlight}

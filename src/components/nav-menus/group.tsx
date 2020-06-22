@@ -27,6 +27,7 @@ const GroupNav = () => {
         title="Projects"
         items={menuData.projects}
         moreUrl="/g/mayronui-gen6/projects"
+        moreText="Show all projects"
       />
       <NavSection
         id="channels"

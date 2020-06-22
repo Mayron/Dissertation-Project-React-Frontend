@@ -178,3 +178,33 @@
     }
   }
 }
+
+.project-wrapper.team {
+  #projectPage {
+    margin-top: -80px;
+  }
+}
+
+#project_t {
+  h2 {
+    margin-bottom: $item-spacing-large;
+  }
+
+  .panel header {
+    padding-bottom: $item-spacing;
+  }
+
+  .panel header > div {
+    display: flex;
+    align-items: flex-end;
+
+    h3 {
+      line-height: 16px;
+    }
+
+    .meta {
+      margin-left: $item-spacing;
+      line-height: 12px;
+    }
+  }
+}

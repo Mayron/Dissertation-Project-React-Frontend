@@ -6,7 +6,7 @@ interface IProjectPageTemplateProps extends RouteComponentProps {
   slug?: string;
 }
 
-const ProjectPage: React.FC<IProjectPageTemplateProps> = ({ slug, children }) => {
+const ProjectPage: React.FC<IProjectPageTemplateProps> = ({ children }) => {
   return (
     <Layout id="projectPage" title="Test" collapsed menuType="project">
       {children}

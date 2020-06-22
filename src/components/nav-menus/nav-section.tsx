@@ -12,6 +12,7 @@ interface INavSectionProps {
   moreUrl?: string;
   create?: string;
   defaultOpen?: boolean;
+  moreText?: string;
 }
 
 const NavSection: React.FC<INavSectionProps> = ({
@@ -22,6 +23,7 @@ const NavSection: React.FC<INavSectionProps> = ({
   moreUrl,
   create,
   defaultOpen = false,
+  moreText = "Show more",
 }) => {
   const [open, setOpen] = useState(defaultOpen);
 
@@ -51,7 +53,7 @@ const NavSection: React.FC<INavSectionProps> = ({
               )}
               {(moreOnClick || moreUrl) && (
                 <MenuListItem url={moreUrl}>
-                  <Icons.Arrow text="Show more" className="action" open />
+                  <Icons.Arrow text={moreText} className="action" open />
                 </MenuListItem>
               )}
             </ul>

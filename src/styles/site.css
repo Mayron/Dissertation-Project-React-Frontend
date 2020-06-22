@@ -1271,6 +1271,20 @@ div.edit-icon:hover span {
   margin-bottom: 15px;
 }
 
+.panel .settings-icon {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+
+.panel .settings-icon:hover span {
+  color: #ff6f00;
+}
+
+.panel .settings-icon span {
+  text-decoration: underline;
+}
+
 .panel.highlight {
   border-color: #f24d2b;
 }
@@ -1708,6 +1722,40 @@ footer.post-footer > p {
   border-left: 1px solid #b6b6b6;
 }
 
+.create-post {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.create-post .body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.create-post .title-input {
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom: 20px;
+}
+
+.create-post .more-input {
+  font-size: 16px;
+  line-height: 21px;
+}
+
+.create-post .more-input,
+.create-post .title-input {
+  padding: 0 10px;
+}
+
 .text-field {
   -webkit-box-flex: 1;
       -ms-flex: 1;
@@ -2126,40 +2174,6 @@ footer.post-footer > p {
 
 #index .comment-toolbar h4 {
   font-weight: 600;
-}
-
-#index .create-post {
-  position: absolute;
-  z-index: 20;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-#index .create-post .body {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-#index .create-post .title-input {
-  font-size: 18px;
-  line-height: 24px;
-  margin-bottom: 20px;
-}
-
-#index .create-post .more-input {
-  font-size: 16px;
-  line-height: 21px;
-}
-
-#index .create-post .more-input,
-#index .create-post .title-input {
-  padding: 0 10px;
 }
 
 #createGroup {
@@ -2620,6 +2634,36 @@ footer.post-footer > p {
           justify-content: flex-end;
   -ms-flex-item-align: center;
       align-self: center;
+}
+
+.project-wrapper.team #projectPage {
+  margin-top: -80px;
+}
+
+#project_t h2 {
+  margin-bottom: 20px;
+}
+
+#project_t .panel header {
+  padding-bottom: 10px;
+}
+
+#project_t .panel header > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+#project_t .panel header > div h3 {
+  line-height: 16px;
+}
+
+#project_t .panel header > div .meta {
+  margin-left: 10px;
+  line-height: 12px;
 }
 
 #userPage {

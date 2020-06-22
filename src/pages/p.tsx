@@ -10,7 +10,10 @@ import IssuesView from "../components/project/views/issues";
 import AllDownloadsView from "../components/project/views/all-downloads";
 import ConnectView from "../components/project/views/connect";
 import GeneralSettingsView from "../components/project/views/general-settings";
-import TeamSettingsView from "../components/project/views/team-settings";
+import TeamPermissionsView from "../components/project/views/team-permissions";
+import TeamMembersView from "../components/project/views/team-members";
+import TeamsView from "../components/project/views/teams";
+import TeamHeader from "../components/project/team-header";
 
 const App = () => {
   return (
@@ -25,9 +28,15 @@ const App = () => {
         <IssuesView path="/issues/closed" closed />
         <AllDownloadsView path="/all-downloads" />
         <GeneralSettingsView path="/settings" />
-        <TeamSettingsView path="/settings/teams" />
+        <TeamsView path="/teams" />
+
         <Redirect default to="/p/404" />
       </ProjectPage>
+
+      <TeamHeader path="/p/:slug/t/:teamId">
+        <TeamMembersView path="/members" />
+        <TeamPermissionsView path="/permissions" />
+      </TeamHeader>
 
       <NotFoundPage path="/p/404" />
       <NotFoundPage default />

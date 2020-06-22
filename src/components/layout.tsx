@@ -16,13 +16,31 @@ interface ILayoutProps {
   id: string; // the main id
   collapsed?: boolean;
   menuType?: "group" | "project";
+  subPage?: string;
 }
 
-const Layout: React.FC<ILayoutProps> = ({ id, title, children, collapsed, menuType }) => {
+const Layout: React.FC<ILayoutProps> = ({
+  id,
+  title,
+  children,
+  collapsed,
+  menuType,
+  subPage,
+}) => {
   const [isCollapsed, setIsCollapsed] = useState(collapsed);
   const handleBannerBurgerMenuClicked = () => {
     setIsCollapsed(!isCollapsed);
   };
+
+  const wrapperClasses: string[] = [];
+
+  if (menuType) {
+    wrapperClasses.push(`${menuType}-wrapper`);
+  } else {
+    wrapperClasses.push(`page-wrapper`);
+  }
+
+  if (subPage) wrapperClasses.push(subPage);
 
   return (
     <>
@@ -32,8 +50,8 @@ const Layout: React.FC<ILayoutProps> = ({ id, title, children, collapsed, menuTy
       <div id="app">
         <MainNav collapsed={isCollapsed} menuType={menuType} />
 
-        <div className={menuType ? `${menuType}-wrapper` : "page-wrapper"}>
-          {menuType === "project" && <ProjectHeader />}
+        <div className={wrapperClasses.join(" ")}>
+          {menuType === "project" && <ProjectHeader subPage={subPage} />}
           {menuType === "group" && <GroupNav />}
           {menuType === "project" && <ProjectNav />}
 

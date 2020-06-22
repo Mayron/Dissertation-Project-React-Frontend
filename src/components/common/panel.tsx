@@ -3,7 +3,8 @@ import { Icons } from "../icons";
 
 interface IPanelProps {
   title?: string;
-  editable?: boolean;
+  titleStyle?: React.CSSProperties;
+  extraIcon?: () => React.ReactNode;
   meta?: string;
   headerIcon?: () => React.ReactNode;
   highlight?: boolean;
@@ -12,9 +13,10 @@ interface IPanelProps {
 
 const Panel: React.FC<IPanelProps> = ({
   title,
+  titleStyle,
   className,
   children,
-  editable,
+  extraIcon,
   meta,
   headerIcon,
   highlight,
@@ -25,12 +27,12 @@ const Panel: React.FC<IPanelProps> = ({
 
   return (
     <article className={classList.join(" ")}>
-      {editable && <Icons.Edit text="Edit" />}
+      {extraIcon && extraIcon()}
       {title && (
         <header>
           {headerIcon && headerIcon()}
           <div>
-            <h3>{title}</h3>
+            <h3 style={titleStyle}>{title}</h3>
             {meta && <span className="meta">{meta}</span>}
           </div>
         </header>

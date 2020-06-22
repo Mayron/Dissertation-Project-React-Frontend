@@ -5,7 +5,7 @@ import SearchBox from "../common/search-box";
 const ToolBar = () => {
   return (
     <div id="toolBar" role="toolbar">
-      <SearchBox text="Search posts" />
+      <SearchBox placeholder="Search posts" />
       <div>
         <Filter
           label="Show"

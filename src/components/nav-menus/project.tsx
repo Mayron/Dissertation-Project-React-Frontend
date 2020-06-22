@@ -34,6 +34,9 @@ const ProjectNav = () => {
         <MenuListItem url="/p/mayronui-gen6/all-downloads">
           <span>All Downloads</span>
         </MenuListItem>
+        <MenuListItem url="/p/mayronui-gen6/teams">
+          <span>Teams</span>
+        </MenuListItem>
         <MenuListItem url="/p/mayronui-gen6/settings" button="secondary">
           <Icons.Settings text="Project Settings" className="btn-secondary" />
         </MenuListItem>
