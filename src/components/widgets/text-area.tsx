@@ -16,7 +16,13 @@ const TextArea: React.FC<ITextAreaProps> = ({
   children,
 }) => {
   const [focused, setFocused] = useState(false);
+  const [count, setCount] = useState<number>(0);
+
   let textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setCount(e.target.value.length);
+  };
 
   return (
     <div id={id} className="text-area">
@@ -39,9 +45,14 @@ const TextArea: React.FC<ITextAreaProps> = ({
             maxLength={max}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
+            onChange={handleChange}
           />
         </div>
-        {max && <div className="counter">0/{max}</div>}
+        {max && (
+          <div className="counter">
+            {count}/{max}
+          </div>
+        )}
         {children}
       </div>
     </div>

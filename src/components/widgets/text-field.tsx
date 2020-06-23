@@ -5,10 +5,22 @@ interface ITextFieldProps {
   placeholder: string;
   required?: boolean;
   max?: number;
+  style?: React.CSSProperties;
 }
 
-const TextField: React.FC<ITextFieldProps> = ({ title, placeholder, max, required }) => {
+const TextField: React.FC<ITextFieldProps> = ({
+  title,
+  placeholder,
+  max,
+  required,
+  style,
+}) => {
   const [focused, setFocused] = useState(false);
+  const [count, setCount] = useState<number>(0);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCount(e.target.value.length);
+  };
 
   return (
     <div className="text-field">
@@ -25,8 +37,14 @@ const TextField: React.FC<ITextFieldProps> = ({ title, placeholder, max, require
           placeholder={placeholder}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
+          onChange={handleChange}
+          style={style}
         />
-        {max && <span className="counter">0/{max}</span>}
+        {max && (
+          <span className="counter">
+            {count}/{max}
+          </span>
+        )}
       </div>
     </div>
   );

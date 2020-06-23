@@ -14,6 +14,7 @@ import PlusIcon from "../images/icons/plus.inline.svg";
 import SettingsIcon from "../images/icons/settings.inline.svg";
 import EditIcon from "../images/icons/edit.inline.svg";
 import CloseIcon from "../images/icons/close.inline.svg";
+import MoreIcon from "../images/icons/more.inline.svg";
 
 export interface IIconProps {
   text?: string;
@@ -180,6 +181,16 @@ export const Notification: React.FC<IIconProps> = ({ text, className, onClick })
   />
 );
 
+export const More: React.FC<IIconProps> = ({ text, className, onClick }) => (
+  <BaseIcon
+    text={text}
+    className={className}
+    onClick={onClick}
+    iconType="more"
+    icon={() => <MoreIcon />}
+  />
+);
+
 export const Placeholder: React.FC<IIconProps> = ({ text, className, onClick }) => (
   <BaseIcon
     text={text}
@@ -241,6 +252,7 @@ export const Icons = {
   Notification,
   Placeholder,
   Plus,
+  More,
   Settings,
   Edit,
   Close,

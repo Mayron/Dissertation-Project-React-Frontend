@@ -807,6 +807,12 @@ textarea {
           align-items: center;
 }
 
+.search-box.focused {
+  -webkit-transition: border-color ease-in-out 0.1s;
+  transition: border-color ease-in-out 0.1s;
+  border-color: #f24d2b;
+}
+
 .search-box + div {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -972,6 +978,25 @@ div.edit-icon:hover svg {
 
 div.edit-icon:hover span {
   color: #ff6f00;
+}
+
+.more-icon {
+  padding: 5px 0;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+}
+
+.more-icon:hover svg {
+  -webkit-filter: brightness(1);
+          filter: brightness(1);
+}
+
+.more-icon:hover circle {
+  fill: #f24d2b;
+}
+
+.filter > .more-icon + .filter-dropdown {
+  top: 40px;
 }
 
 .role {
@@ -2664,6 +2689,121 @@ footer.post-footer > p {
 #project_t .panel header > div .meta {
   margin-left: 10px;
   line-height: 12px;
+}
+
+.project-wrapper.team .name {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.project-wrapper.team .name input {
+  font-weight: 700;
+}
+
+.project-wrapper.team .ui-inner,
+.project-wrapper.team .textbox-wrapper {
+  background-color: #fff;
+}
+
+.project-wrapper.team .color {
+  margin-left: 40px;
+  max-width: 194px;
+}
+
+.project-wrapper.team .color-selection h4 {
+  padding-bottom: 5px;
+}
+
+.project-wrapper.team .color-selection .btns {
+  margin: -5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.project-wrapper.team .color-selection button {
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  margin: 5px;
+}
+
+#generalTeamSettings {
+  margin: 40px 0;
+}
+
+#project_tm h5 {
+  font-size: 12px;
+  color: #707070;
+  font-weight: 400;
+}
+
+#project_tm h5:first-child {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+  font-size: 12px;
+}
+
+#project_tm h5:not(:first-child) {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  text-align: center;
+}
+
+#project_tm .members header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-bottom: 15px;
+}
+
+#project_tm .members .member-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#project_tm .members .member-row:not(:last-child) {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f8f8f8;
+  margin-bottom: 10px;
+}
+
+#project_tm .members .member-row > p {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  text-align: center;
+  font-size: 12px;
+}
+
+#project_tm .team-user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+}
+
+#project_tm .team-user img {
+  margin-right: 10px;
+  margin-left: 5px;
+}
+
+#project_tm .team-user p:last-child {
+  font-size: 12px;
 }
 
 #userPage {

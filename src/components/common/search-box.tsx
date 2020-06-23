@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Icons } from "../icons";
 
 interface ISearchBoxProps {
@@ -7,13 +7,17 @@ interface ISearchBoxProps {
 }
 
 const SearchBox: React.FC<ISearchBoxProps> = ({ placeholder, disableAnimation }) => {
+  const [focused, setFocused] = useState(false);
+
   return (
-    <div className="search-box">
+    <div className={`search-box${focused ? " focused" : ""}`}>
       <Icons.Search />
       <input
         type="search"
         placeholder={placeholder}
         className={disableAnimation ? "no-anim" : undefined}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
       />
     </div>
   );

@@ -17,7 +17,7 @@ const AnnouncementsCommunityView: React.FC<RouteComponentProps> = () => {
             selected={0}
             items={["Newest", "Oldest"]}
           />
-          <SearchBox text="Search announcements" disableAnimation />
+          <SearchBox placeholder="Search announcements" disableAnimation />
         </div>
       </Group.MenuBars.AnnouncementsMenuBar>
 

@@ -105,15 +105,11 @@ a.user {
 
 .ui-inner {
   @include ui-border;
+  @include focusable;
   background: $text-input-light-grey;
   transition: border-color ease-in-out 0.1s;
   display: flex;
   position: relative;
-
-  &.focused {
-    transition: border-color ease-in-out 0.1s;
-    border-color: $dark-orange;
-  }
 }
 
 .counter {

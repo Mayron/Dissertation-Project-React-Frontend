@@ -110,3 +110,22 @@ div.edit-icon:hover {
     color: $primary-orange;
   }
 }
+
+.more-icon {
+  padding: $item-spacing-small 0;
+  box-sizing: content-box;
+
+  &:hover {
+    svg {
+      filter: brightness(1);
+    }
+
+    circle {
+      fill: $dark-orange;
+    }
+  }
+}
+
+.filter > .more-icon + .filter-dropdown {
+  top: 40px;
+}
