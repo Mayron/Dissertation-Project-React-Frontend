@@ -15,7 +15,7 @@ const IssuesView: React.FC<IIssuesViewProps> = ({ closed }) => {
     <>
       <Project.MenuBars.IssuesMenuBar>
         <div className="row-20">
-          <SearchBox text="Search announcements" disableAnimation />
+          <SearchBox placeholder="Search announcements" disableAnimation />
           <Link to="/p/mayronui-gen6/issues/new" className="btn-secondary btn sm">
             New Issue
           </Link>
@@ -52,7 +52,7 @@ const IssuesView: React.FC<IIssuesViewProps> = ({ closed }) => {
         <IssuePost
           author="Mayron"
           when="3 days ago"
-          closed={closed && "Closed by Mayron 1 day ago"}
+          closed={(closed && "Closed by Mayron 1 day ago") || undefined}
           labels={["Bug"]}
           header={`1# Cannot load the installer without a Lua bug occuring - this is some really really really long title that I need to be aware of`}
         />

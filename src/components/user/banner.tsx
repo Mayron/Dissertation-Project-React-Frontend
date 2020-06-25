@@ -3,6 +3,7 @@ import BannerImagePlaceholder from "../../images/placeholder-banner.png";
 import ProfilePicPlaceholder from "../../images/placeholder-profile-pic-lg.png";
 import { Icons } from "../icons";
 import UserPoints from "../user-points";
+import { Link } from "gatsby";
 
 interface IBannerProps {
   name: string;
@@ -20,7 +21,9 @@ const Banner: React.FC<IBannerProps> = ({ name, points }) => {
           <UserPoints amount={points} />
         </div>
         <div>
-          <Icons.Settings text="Settings" />
+          <Link to="/u/mayron/settings">
+            <Icons.Settings text="Settings" />
+          </Link>
         </div>
       </header>
     </section>

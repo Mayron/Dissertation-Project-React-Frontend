@@ -5,16 +5,41 @@
     padding-bottom: $item-spacing-small;
   }
 
+  .label {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+
+    span {
+      @include text-content;
+      flex: 1;
+      padding: $input-vertical-spacing $input-horizontal-spacing;
+      user-select: none;
+    }
+
+    &:hover {
+      svg path {
+        stroke: $dark-orange;
+      }
+    }
+  }
+
   .ui-inner {
     cursor: pointer;
     align-items: center;
     background-color: $white;
-  }
+    position: relative;
 
-  .placeholder {
-    @include text-content;
-    flex: 1;
-    padding: $input-vertical-spacing $input-horizontal-spacing;
+    &.focused {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-color: $ui-border-grey;
+
+      .menu {
+        border-color: $dark-orange;
+      }
+    }
   }
 
   .arrow-icon {
@@ -25,8 +50,32 @@
     }
   }
 
-  // TODO: Remove this when I add state:
-  select {
-    display: none;
+  .menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    background-color: $white;
+    width: calc(100% + 2px);
+    margin: 0 -1px;
+    border: 1px solid $ui-border-grey;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    border-top: none;
+    margin-top: 1px;
+  }
+
+  .item {
+    padding: 8px 10px;
+    border-bottom: 1px solid $light-divider;
+    user-select: none;
+
+    &:hover {
+      background-color: $light-divider;
+    }
+
+    &.selected {
+      background-color: $selected-item;
+    }
   }
 }

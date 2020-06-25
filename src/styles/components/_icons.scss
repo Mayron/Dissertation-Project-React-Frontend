@@ -4,6 +4,10 @@
   height: 19px;
   user-select: none;
 
+  &:hover span {
+    text-decoration: underline;
+  }
+
   span {
     color: $dark-orange;
     font-weight: 600;
@@ -13,6 +17,11 @@
     & + svg {
       margin-left: 5px;
     }
+  }
+
+  label {
+    cursor: pointer;
+    margin-right: 5px;
   }
 
   svg {

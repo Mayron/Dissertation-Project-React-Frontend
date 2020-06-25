@@ -6,6 +6,7 @@ import { navigate } from "gatsby";
 import Layout from "../layout";
 import TextArea from "../widgets/text-area";
 import TextField from "../widgets/text-field";
+import Panel from "../common/panel";
 
 const supportedColors = [
   "#212121",
@@ -46,10 +47,61 @@ const ColorSelection: React.FC<IColorSelectionProps> = ({ title, onSelected }) =
   );
 };
 
+interface IEditableGeneralSettingsProps {
+  teamColor: string;
+  onSelected: (selectedColor: string) => void;
+}
+
+const EditableGeneralSettings: React.FC<IEditableGeneralSettingsProps> = ({
+  teamColor,
+  onSelected,
+}) => {
+  return (
+    <section id="generalTeamSettings">
+      <div className="row">
+        <div className="name">
+          <TextField
+            placeholder="Team name"
+            style={{ color: teamColor }}
+            title="Team Name"
+            required
+            max={50}
+          />
+        </div>
+        <div className="color">
+          <ColorSelection title="Team Color" onSelected={onSelected} />
+        </div>
+      </div>
+
+      <div className="row">
+        <TextArea placeholder="Team description" title="Description" max={250} />
+      </div>
+    </section>
+  );
+};
+
+interface IPublicGeneralSettingsProps {
+  teamColor: string;
+}
+const PublicGeneralSettings: React.FC<IPublicGeneralSettingsProps> = ({ teamColor }) => {
+  return (
+    <header id="generalTeamSettings">
+      <h2 style={{ color: teamColor }}>Admins Team</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, neque
+        veritatis dignissimos nemo laboriosam, obcaecati architecto nihil quo voluptatum
+        qui nesciunt voluptatem nobis expedita eos aperiam mollitia quasi rem adipisci.
+      </p>
+    </header>
+  );
+};
+
 interface ITeamHeaderProps extends RouteComponentProps {}
 
 const TeamHeader: React.FC<ITeamHeaderProps> = ({ children }) => {
   const [teamColor, setTeamColor] = useState("#212121");
+
+  const editable = false;
 
   const handleColorSelected = (selectedColor: string) => {
     setTeamColor(selectedColor);
@@ -66,31 +118,18 @@ const TeamHeader: React.FC<ITeamHeaderProps> = ({ children }) => {
           onClick={() => navigate("/p/mayronui-gen6/teams")}
         />
 
-        <button className="btn-tertiary" type="button">
-          Delete Team
-        </button>
+        {editable && (
+          <button className="btn-tertiary" type="button">
+            Delete Team
+          </button>
+        )}
       </div>
 
-      <section id="generalTeamSettings">
-        <div className="row">
-          <div className="name">
-            <TextField
-              placeholder="Team name"
-              style={{ color: teamColor }}
-              title="Team Name"
-              required
-              max={50}
-            />
-          </div>
-          <div className="color">
-            <ColorSelection title="Team Color" onSelected={handleColorSelected} />
-          </div>
-        </div>
-
-        <div className="row">
-          <TextArea placeholder="Team description" title="Description" max={250} />
-        </div>
-      </section>
+      {editable ? (
+        <EditableGeneralSettings teamColor={teamColor} onSelected={handleColorSelected} />
+      ) : (
+        <PublicGeneralSettings teamColor={teamColor} />
+      )}
 
       <Project.MenuBars.TeamsMenuBar />
       {children}

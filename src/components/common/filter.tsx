@@ -37,7 +37,7 @@ const Filter: React.FC<IFilterProps> = ({ label, tooltip, selected, items }) => 
       <header>
         <Icons.Arrow onClick={() => setShown(!shown)} direction={shown ? "up" : "down"}>
           <p>
-            {label && <span>{label}</span>}
+            {label && <label>{label}</label>}
             {selected != undefined && <strong>{items[selected]}</strong>}
           </p>
         </Icons.Arrow>

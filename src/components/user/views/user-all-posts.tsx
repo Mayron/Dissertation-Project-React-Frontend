@@ -11,7 +11,7 @@ const UserAllPostsView: React.FC<RouteComponentProps> = () => {
       <User.MenuBars.UserMenuBar />
       <section id="user_p">
         <div className="row spaced">
-          <SearchBox text="Search posts" />
+          <SearchBox placeholder="Search posts" />
           <Filter
             label="Show"
             selected={0}

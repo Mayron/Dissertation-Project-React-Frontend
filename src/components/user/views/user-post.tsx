@@ -40,7 +40,7 @@ const UserPostView: React.FC<IUserPostViewProps> = ({ user, slug }) => {
       <div className="comment-toolbar" role="toolbar">
         <div className="row-10">
           <h4>Comments (3)</h4>
-          <SearchBox text="Search comments" />
+          <SearchBox placeholder="Search comments" />
         </div>
 
         <Filter

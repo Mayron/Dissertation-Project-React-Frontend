@@ -249,6 +249,10 @@
 
 #generalTeamSettings {
   margin: $section-spacing-large 0;
+
+  h2 {
+    margin-bottom: 5px;
+  }
 }
 
 #project_tm {
@@ -304,6 +308,39 @@
 
     p:last-child {
       font-size: 12px;
+    }
+  }
+}
+
+#project_tp {
+  h5 {
+    font-size: 16px;
+    font-weight: 400;
+
+    & + p {
+      margin-top: $item-spacing-small;
+    }
+  }
+
+  .perm-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $item-spacing-large 0;
+    border-bottom: 1px solid $light-divider;
+
+    &:first-of-type {
+      padding-top: 0;
+    }
+
+    &:last-of-type {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    button {
+      margin-left: $item-spacing-large;
+      min-width: 100px;
     }
   }
 }

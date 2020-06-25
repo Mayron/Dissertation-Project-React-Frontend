@@ -35,7 +35,7 @@ const PostFooter: React.FC<IPostFooterProps> = ({ postedBy, when, showIcons = tr
             <Icons.Save />
           </li>
           <li>
-            <Icons.Arrow text="more" />
+            <Icons.Arrow text="more" textDirection="left" />
           </li>
         </ul>
       )}

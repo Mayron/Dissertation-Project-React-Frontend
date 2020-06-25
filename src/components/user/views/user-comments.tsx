@@ -11,7 +11,7 @@ const UserCommentsView: React.FC<RouteComponentProps> = () => {
       <User.MenuBars.UserMenuBar />
       <section id="user_c">
         <div className="row spaced">
-          <SearchBox text="Search comments" />
+          <SearchBox placeholder="Search comments" />
           <Filter label="Show" selected={0} items={["All Comments", "Saved Comments"]} />
         </div>
 
