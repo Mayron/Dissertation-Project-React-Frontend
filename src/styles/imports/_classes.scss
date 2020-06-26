@@ -183,7 +183,9 @@ a.user {
 .count {
   display: inline-block;
   width: 20px;
+  min-width: 20px;
   height: 20px;
+  min-height: 20px;
   text-align: center;
   background-color: #f24d2b;
   border-radius: 10px;

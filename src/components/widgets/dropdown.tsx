@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Icons } from "../icons";
 
 interface IDropdownProps {
@@ -11,14 +11,40 @@ interface IDropdownProps {
 const Dropdown: React.FC<IDropdownProps> = ({ title, placeholder, items, required }) => {
   const [shown, setShown] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (shown && menuRef.current && dropdownRef.current) {
+      const bounds = menuRef.current.getBoundingClientRect();
+      const outsideViewPoint = window.innerHeight < bounds.bottom;
+      const dropdownBounds = dropdownRef.current.getBoundingClientRect();
+
+      const noRoom =
+        dropdownBounds.bottom + menuRef.current.offsetHeight > window.innerHeight;
+
+      if (outsideViewPoint || noRoom) {
+        dropdownRef.current.classList.add("up");
+      } else {
+        dropdownRef.current.classList.remove("up");
+      }
+    }
+  }, [shown]);
 
   const handleOptionClicked = (e: React.MouseEvent<HTMLDivElement>) => {
     setSelected(e.currentTarget.dataset.value || null);
     setShown(false);
   };
 
+  const handleLoad = (e: React.SyntheticEvent<HTMLDivElement>) => {};
+
   return (
-    <div className="dropdown">
+    <div
+      className="dropdown"
+      ref={dropdownRef}
+      onMouseLeave={() => setShown(false)}
+      onLoad={handleLoad}
+    >
       {title && (
         <header>
           <h4>{title}</h4>
@@ -41,7 +67,7 @@ const Dropdown: React.FC<IDropdownProps> = ({ title, placeholder, items, require
         </div>
 
         {shown && (
-          <div className="menu">
+          <div className="menu" ref={menuRef}>
             {items.map((item, key) => {
               const isSelected = selected && selected === item.value;
 

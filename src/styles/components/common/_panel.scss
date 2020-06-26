@@ -65,3 +65,15 @@
     }
   }
 }
+
+.warning {
+  display: flex;
+  padding: $section-spacing $item-spacing-large;
+  border-color: $dark-orange;
+
+  .count {
+    cursor: default;
+    margin-right: $item-spacing;
+    margin-top: $item-spacing-small;
+  }
+}

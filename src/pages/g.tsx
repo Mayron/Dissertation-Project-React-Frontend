@@ -11,6 +11,7 @@ import ChatChannelView from "../components/group/views/chat-channel";
 import SettingsView from "../components/group/views/settings";
 import ProjectsView from "../components/group/views/projects";
 import ProjectsInCategoryView from "../components/group/views/projects-in-category";
+import ListProjectView from "../components/group/views/list-project";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
       </GroupPage>
 
       <ProjectsView path="/g/:slug/projects" />
+      <ListProjectView path="/g/:slug/list-project" />
       <ProjectsInCategoryView path="/g/:slug/projects/:category" />
       <NotFoundPage path="/g/404" />
       <NotFoundPage default />

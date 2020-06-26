@@ -1,7 +1,6 @@
 import React from "react";
 import { RouteComponentProps } from "@reach/router";
 import Panel from "../../common/panel";
-import { Icons } from "../../icons";
 import ProjectConnectionList from "../../project-connection-list";
 
 const ConnectView: React.FC<RouteComponentProps> = () => {
