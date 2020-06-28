@@ -53,15 +53,17 @@ const IssuesView: React.FC<IIssuesViewProps> = ({ closed }) => {
           author="Mayron"
           when="3 days ago"
           closed={(closed && "Closed by Mayron 1 day ago") || undefined}
-          labels={["Bug"]}
+          flags={["Bug"]}
           header={`1# Cannot load the installer without a Lua bug occuring - this is some really really really long title that I need to be aware of`}
+          issueId={1}
         />
         <IssuePost
           author="Kreza"
           when="8 hours ago"
-          labels={["Bug", "Performance", "Raid"]}
+          flags={["Bug", "Performance", "Raid"]}
           header={`2# Game freezes with this UI during raids.`}
           totalComments={3}
+          issueId={2}
         />
       </section>
     </>

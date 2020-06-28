@@ -47,3 +47,12 @@
     }
   }
 }
+
+#authOptions {
+  font-size: 16px;
+  display: flex;
+
+  a:not(:last-child) {
+    margin-right: $item-spacing;
+  }
+}

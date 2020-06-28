@@ -6,7 +6,7 @@ import NavSection from "./nav-section";
 
 interface IMainNavProps {
   collapsed?: boolean;
-  menuType?: "group" | "project";
+  menuType?: "group" | "project" | "auth";
 }
 
 const MainNav: React.FC<IMainNavProps> = ({ collapsed, menuType }) => {
@@ -51,7 +51,7 @@ const MainNav: React.FC<IMainNavProps> = ({ collapsed, menuType }) => {
             items={projects}
             create="project"
             defaultOpen={true}
-            more
+            moreOnClick={() => {}}
           />
           <NavSection
             id="groups"
@@ -60,7 +60,7 @@ const MainNav: React.FC<IMainNavProps> = ({ collapsed, menuType }) => {
             defaultOpen={true}
             create="group"
           />
-          <NavSection id="memberships" title="Memberships" items={memberships} more />
+          <NavSection id="memberships" title="Memberships" items={memberships} moreOnClick={() => {}} />
           <NavSection id="subs" title="Subscriptions" items={subscriptions} />
         </>
       )}

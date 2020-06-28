@@ -3,6 +3,7 @@ import ProfilePic from "../images/placeholder-profile-pic.jpg";
 import { Icons } from "./icons";
 import { Link } from "gatsby";
 import UserPoints from "./user-points";
+import { auth } from "../firebase/firebase.utils";
 
 const ProfileSelect: React.FC = () => {
   const [shown, setShown] = useState<boolean>(false);
@@ -54,7 +55,7 @@ const ProfileSelect: React.FC = () => {
             </Link>
           </li>
           <li>
-            <Link to="/logout" onClick={handleLinkClicked}>
+            <Link to="/" onClick={() => auth.signOut()}>
               Log Out
             </Link>
           </li>

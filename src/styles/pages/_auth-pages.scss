@@ -1,0 +1,76 @@
+#login,
+#signUp {
+  max-width: 304px;
+
+  & > header {
+    margin-top: $section-spacing-large;
+    margin-bottom: $page-gutter-spacing;
+
+    h1 {
+      color: $black;
+      font-size: 24px;
+      margin-bottom: $item-spacing-large;
+    }
+  }
+
+  .text-field {
+    margin-bottom: $item-spacing-large;
+
+    .ui-inner {
+      background-color: $white;
+    }
+  }
+
+  .btn-primary {
+    width: 140px;
+  }
+
+  .btn-login {
+    margin-bottom: $item-spacing-large;
+  }
+
+  .btn-signup {
+    margin-top: $item-spacing-large;
+  }
+
+  footer {
+    margin-top: $section-spacing-large;
+  }
+}
+
+.divider {
+  font-weight: $fw-standard-bold;
+  color: $secondary-text-dark-grey;
+  display: flex;
+  align-items: center;
+  margin: $item-spacing-large 0;
+
+  p {
+    padding: 0 $item-spacing;
+  }
+
+  &::before,
+  &::after {
+    content: " ";
+    height: 1px;
+    background-color: $ui-border-grey;
+    flex: 1;
+  }
+}
+
+#socialSignIn {
+  .btn-secondary {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: $white;
+
+    img {
+      margin-right: $item-spacing-large;
+    }
+  }
+}
+
+#recaptcha {
+  margin-bottom: $item-spacing-large;
+}

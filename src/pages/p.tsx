@@ -15,6 +15,7 @@ import TeamMembersView from "../components/project/views/team-members";
 import TeamsView from "../components/project/views/teams";
 import TeamHeader from "../components/project/team-header";
 import NewIssueView from "../components/project/views/new-issue";
+import ViewIssueView from "../components/project/views/view-issue";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <KnowledgeBaseView path="/knowledge-base" />
         <IssuesView path="/issues" />
         <IssuesView path="/issues/closed" closed />
+        <ViewIssueView path="/issues/:issueId" />
         <NewIssueView path="/issues/new" />
         <AllDownloadsView path="/all-downloads" />
         <GeneralSettingsView path="/settings" />

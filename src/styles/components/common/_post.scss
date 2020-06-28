@@ -23,7 +23,17 @@
   }
 
   .post-body {
-    margin: $item-spacing 0;
+    margin-top: $item-spacing-large;
+
+    h4 {
+      display: flex;
+      align-items: center;
+      margin-bottom: $item-spacing;
+    }
+
+    p {
+      @include text-content;
+    }
 
     &.shared {
       @include ui-border;
@@ -39,8 +49,7 @@
     }
   }
 
-  .post-contents {
-    @include text-content;
+  footer {
     margin-top: $item-spacing;
   }
 

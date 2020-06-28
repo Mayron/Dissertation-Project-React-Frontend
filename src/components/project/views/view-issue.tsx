@@ -6,18 +6,20 @@ import ProfilePic from "../../../images/placeholder-profile-pic-lg.png";
 import Filter from "../../common/filter";
 import SearchBox from "../../common/search-box";
 import Comment from "../../common/comment";
-import PostFooter from "../../common/post-footer";
 
-interface IUserPostViewProps extends RouteComponentProps {
-  user?: string;
+interface IViewIssueViewProps extends RouteComponentProps {
+  issue?: string;
   slug?: string;
 }
 
-const UserPostView: React.FC<IUserPostViewProps> = ({ user, slug }) => {
+const ViewIssueView: React.FC<IViewIssueViewProps> = ({ issue, slug }) => {
   return (
-    <Layout id="index" title={slug}>
-      <Post>
-        <h4>This is the Title of this post! Why do they all do it?</h4>
+    <>
+      <Post defaultFooter={false} flags={["Bug", "Performance", "Raid"]}>
+        <h4>
+          <span className="flag open">Open</span> This is the Title of this post! Why do
+          they all do it?
+        </h4>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque elit
           arcu, et fringilla mauris dignissim sit amet. Maecenas facilisis dignissim erat.
@@ -67,8 +69,8 @@ const UserPostView: React.FC<IUserPostViewProps> = ({ user, slug }) => {
           <p>16 hours ago</p>
         </div>
       </Comment>
-    </Layout>
+    </>
   );
 };
 
-export default UserPostView;
+export default ViewIssueView;

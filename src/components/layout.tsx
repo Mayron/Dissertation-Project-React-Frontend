@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Banner from "./banner";
 import SEO from "./seo";
 import MainNav from "./nav-menus/main";
@@ -10,12 +10,13 @@ import ProjectNav from "./nav-menus/project";
 
 import "../styles/site.min.css";
 import ProjectHeader from "./project/project-header";
+import AuthProvider from "./auth-provider";
 
 interface ILayoutProps {
   title?: string; // title of the page
   id: string; // the main id
   collapsed?: boolean;
-  menuType?: "group" | "project";
+  menuType?: "group" | "project" | "auth";
   subPage?: string;
 }
 
@@ -28,6 +29,7 @@ const Layout: React.FC<ILayoutProps> = ({
   subPage,
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(collapsed);
+
   const handleBannerBurgerMenuClicked = () => {
     setIsCollapsed(!isCollapsed);
   };
@@ -45,26 +47,28 @@ const Layout: React.FC<ILayoutProps> = ({
   return (
     <>
       <SEO title={title} />
-      <Banner onBurgerMenuClick={handleBannerBurgerMenuClicked} />
-      <div id="__text-resize-handler" />
-      <div id="app">
-        <MainNav collapsed={isCollapsed} menuType={menuType} />
+      <AuthProvider>
+        <Banner onBurgerMenuClick={handleBannerBurgerMenuClicked} />
+        <div id="__text-resize-handler" />
+        <div id="app">
+          <MainNav collapsed={isCollapsed} menuType={menuType} />
 
-        <div className={wrapperClasses.join(" ")}>
-          {menuType === "project" && <ProjectHeader subPage={subPage} />}
-          {menuType === "group" && <GroupNav />}
-          {menuType === "project" && <ProjectNav />}
+          <div className={wrapperClasses.join(" ")}>
+            {menuType === "project" && <ProjectHeader subPage={subPage} />}
+            {menuType === "group" && <GroupNav />}
+            {menuType === "project" && <ProjectNav />}
 
-          <main id={id}>{children}</main>
+            <main id={id}>{children}</main>
+          </div>
+
+          {(!menuType || (isCollapsed && menuType === "project")) && (
+            <RecommendationsMenu />
+          )}
+          {isCollapsed && menuType === "group" && <GroupSideMenu />}
+          {/* {menuType === "project" && <ProjectSideMenu />} */}
+          {/* <footer>©OpenSpark.io {new Date().getFullYear()}</footer> */}
         </div>
-
-        {(!menuType || (isCollapsed && menuType === "project")) && (
-          <RecommendationsMenu />
-        )}
-        {isCollapsed && menuType === "group" && <GroupSideMenu />}
-        {/* {menuType === "project" && <ProjectSideMenu />} */}
-        {/* <footer>©OpenSpark.io {new Date().getFullYear()}</footer> */}
-      </div>
+      </AuthProvider>
     </>
   );
 };

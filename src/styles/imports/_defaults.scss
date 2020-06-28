@@ -150,7 +150,8 @@ img {
   color: $ui-border-grey !important;
 }
 
-p a {
+p a,
+footer a {
   text-decoration: underline;
   color: $dark-orange;
 

@@ -2,12 +2,22 @@ import React from "react";
 import ProfilePic from "../../images/placeholder-profile-pic-lg.png";
 import PostFooter from "./post-footer";
 import { navigateTo } from "gatsby";
+import CommentBox from "./comment-box";
 
 interface IPostProps {
   url?: string;
+  includeCommentBox?: boolean;
+  defaultFooter?: boolean;
+  flags?: string[];
 }
 
-const Post: React.FC<IPostProps> = ({ url, children }) => {
+const Post: React.FC<IPostProps> = ({
+  url,
+  children,
+  includeCommentBox,
+  defaultFooter = true,
+  flags,
+}) => {
   const handleClick = (e: React.MouseEvent) => {
     if (!url) return;
     const target = e.target as HTMLElement;
@@ -22,21 +32,20 @@ const Post: React.FC<IPostProps> = ({ url, children }) => {
         <img src={ProfilePic} alt="profile" />
         <div className="post-user">
           <a className="user">John Smith</a>
-          <p>16 hours ago</p>
+          <p>
+            16 hours ago{" "}
+            {flags?.map((flag, key) => (
+              <span key={key} className="flag">
+                {flag}
+              </span>
+            ))}
+          </p>
         </div>
       </header>
-      <div className="post-body">
-        <h4>This is the Title of this post! Why do they all do it?</h4>
-        <div className="post-contents">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque elit
-          arcu, et fringilla mauris dignissim sit amet. Maecenas facilisis dignissim erat.
-          Praesent faucibus facilisis tortor vel ornare. Sed lacinia eu urna nec
-          condimentum. Suspendisse molestie mauris ac ligula molestie malesuada. Duis sed
-          tellus ipsum.
-        </div>
-      </div>
-      <PostFooter />
-      {children}
+      <div className="post-body">{children}</div>
+
+      {defaultFooter && <PostFooter />}
+      {includeCommentBox && <CommentBox />}
     </article>
   );
 };

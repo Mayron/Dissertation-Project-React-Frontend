@@ -27,6 +27,8 @@
 @import "./components/common/filter-box";
 @import "./components/common/comment";
 @import "./components/common/create-post-popup";
+@import "./components/common/post-box";
+@import "./components/common/post";
 
 // Components > Widgets
 @import "./components/widgets/text-field";
@@ -34,10 +36,6 @@
 @import "./components/widgets/text-area";
 @import "./components/widgets/multi-dropdown";
 @import "./components/widgets/tags-editbox";
-
-// Components > Index
-@import "./components/index/post-box";
-@import "./components/index/post";
 
 // Components > Group
 @import "./components/group/banner";
@@ -50,3 +48,4 @@
 @import "./pages/group-page";
 @import "./pages/project-page";
 @import "./pages/user-page";
+@import "./pages/auth-pages";

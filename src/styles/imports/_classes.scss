@@ -321,3 +321,32 @@ a.user {
     text-decoration: underline;
   }
 }
+
+.flag {
+  font-size: 10px;
+  background: $default-issue-flag-background;
+  color: $white;
+  border-radius: 2px;
+  padding: 2px $item-spacing-small;
+  user-select: none;
+  margin-left: $item-spacing-small;
+
+  &.open {
+    background-color: $open-issue-flag-background;
+    font-size: 12px;
+    margin-left: 0;
+    margin-right: $item-spacing;
+  }
+}
+
+.comment-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+  h4 {
+    font-weight: 600;
+  }
+}
