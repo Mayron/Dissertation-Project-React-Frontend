@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../components/layout";
 import PostBox from "../components/post-box";
 import ToolBar from "../components/index/tool-bar";
 import { RouteComponentProps } from "@reach/router";
 import Post from "../components/common/post";
 import CreatePostPopup from "../components/common/create-post-popup";
+import { getProtected } from "../api/test";
 
 const IndexPage: React.FC<RouteComponentProps> = () => {
   const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    getProtected();
+  }, []);
 
   return (
     <Layout id="index">

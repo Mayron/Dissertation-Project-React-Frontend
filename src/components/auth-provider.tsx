@@ -1,21 +1,40 @@
 import React, { createContext, useState, useEffect } from "react";
 import { auth, createUserProfileDocument } from "../firebase/firebase.utils";
 
-export const AuthContext = createContext<firebase.User | null>(null);
+export const AuthContext = createContext<IAppUser | null>(null);
 
 interface IAuthProviderProps {}
 
 const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
+  const [appUser, setAppUser] = useState<IAppUser | null>(null);
 
   useEffect(() => {
-    return auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-      createUserProfileDocument(user);
+    return auth.onAuthStateChanged((userAuth) => {
+      if (userAuth === null) {
+        setAppUser(null);
+        return;
+      }
+
+      (async () => {
+        const userRef = await createUserProfileDocument(userAuth);
+        // const token = await userAuth.getIdToken();
+
+        userRef?.onSnapshot((snapshot) => {
+          const { displayName, email, createdAt } = snapshot.data() as IAppUser;
+
+          setAppUser({
+            id: snapshot.id,
+            displayName,
+            email,
+            createdAt,
+            // token,
+          });
+        });
+      })();
     });
   }, []);
 
-  return <AuthContext.Provider value={currentUser}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={appUser}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

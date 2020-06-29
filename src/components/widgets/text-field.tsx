@@ -6,6 +6,7 @@ interface ITextFieldProps {
   required?: boolean;
   max?: number;
   style?: React.CSSProperties;
+  name?: string;
 }
 
 const TextField: React.FC<ITextFieldProps> = ({
@@ -14,12 +15,13 @@ const TextField: React.FC<ITextFieldProps> = ({
   max,
   required,
   style,
+  name,
 }) => {
   const [focused, setFocused] = useState(false);
-  const [count, setCount] = useState<number>(0);
+  const [value, setValue] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCount(e.target.value.length);
+    setValue(e.target.value);
   };
 
   return (
@@ -39,10 +41,12 @@ const TextField: React.FC<ITextFieldProps> = ({
           onBlur={() => setFocused(false)}
           onChange={handleChange}
           style={style}
+          value={value}
+          name={name}
         />
         {max && (
           <span className="counter">
-            {count}/{max}
+            {value.length}/{max}
           </span>
         )}
       </div>

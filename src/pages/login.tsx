@@ -5,7 +5,7 @@ import TextField from "../components/widgets/text-field";
 import { Link, navigate } from "gatsby";
 import GoogleAccountIcon from "../images/google-account-icon.png";
 
-import { signInWithGoogle } from "../firebase/firebase.utils";
+import { signInWithGoogle, auth } from "../firebase/firebase.utils";
 import { AuthContext } from "../components/auth-provider";
 
 interface IDividerProps {
@@ -29,6 +29,21 @@ const LogInPage: React.FC<RouteComponentProps> = ({}) => {
     }
   }, [user]);
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // get state
+    const email = "";
+    const password = "";
+
+    try {
+      const userAuth = await auth.signInWithEmailAndPassword(email, password);
+      //TODO: Clear state or redirect?
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Layout title="Log In" id="login" menuType="auth" collapsed>
       <header>
@@ -39,11 +54,14 @@ const LogInPage: React.FC<RouteComponentProps> = ({}) => {
           <Link to="/cookie-policy">Cookie Policy</Link>.
         </p>
       </header>
-      <TextField title="Email" placeholder="Enter your email" required />
-      <TextField title="Password" placeholder="Enter a strong password" required />
+      <form onSubmit={handleSubmit}>
+        <TextField title="Email" placeholder="Enter your email" required />
+        <TextField title="Password" placeholder="Enter your password" required />
+      </form>
+
       <button className="btn-primary lg btn-login">Log In</button>
       <p>
-        For your <Link to="/recover/email">email</Link> or{" "}
+        Forgotten your <Link to="/recover/email">email</Link> or{" "}
         <Link to="/recover/email">password</Link>?
       </p>
       <Divider text="OR" />

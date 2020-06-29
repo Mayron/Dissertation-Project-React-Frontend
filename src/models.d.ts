@@ -18,3 +18,11 @@ declare interface IKeyValuePair {
   key: string;
   value: string;
 }
+
+declare interface IAppUser {
+  id: string;
+  displayName: string;
+  createdAt: Date;
+  email: string;
+  // token: string;
+}
