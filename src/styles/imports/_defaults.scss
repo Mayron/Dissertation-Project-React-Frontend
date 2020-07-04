@@ -75,13 +75,20 @@ button,
 input[type="button"],
 input[type="submit"] {
   outline: none;
-  user-select: none;
-  background: none;
   border: none;
+  background: none;
 
   &:hover {
     cursor: pointer;
   }
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  cursor: text;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 input,

@@ -41,16 +41,26 @@
   color: #707070;
 }
 
-a.user {
-  font-weight: 600;
-  color: #ff6f00;
+a.user,
+a.link {
   text-decoration: none;
 }
 
-a.user:hover {
+a.user:hover,
+a.link:hover {
   cursor: pointer;
   text-decoration: underline;
   color: #ff8c33;
+}
+
+a.user {
+  font-weight: 700;
+  color: #ff6f00;
+}
+
+a.link {
+  color: #f24d2b;
+  font-weight: 400;
 }
 
 .btn-secondary {
@@ -81,7 +91,7 @@ a.user:hover {
   white-space: nowrap;
   padding: 6px 15px;
   border-radius: 4px;
-  background-color: #f24d2b;
+  background-color: #f24d2b !important;
   color: #fff;
   font-size: 14px;
   font-weight: 600;
@@ -93,7 +103,7 @@ a.user:hover {
 }
 
 .btn-primary:hover {
-  background-color: #ff6f00;
+  background-color: #ff6f00 !important;
 }
 
 .btn-tertiary {
@@ -458,6 +468,11 @@ a.user:hover {
   font-weight: 600;
 }
 
+.error {
+  color: red;
+  margin-bottom: 20px;
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -533,18 +548,22 @@ button,
 input[type="button"],
 input[type="submit"] {
   outline: none;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  background: none;
   border: none;
+  background: none;
 }
 
 button:hover,
 input[type="button"]:hover,
 input[type="submit"]:hover {
   cursor: pointer;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  cursor: text;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 input,
@@ -1076,6 +1095,43 @@ div.edit-icon:hover span {
 .role h4 {
   margin-right: 15px;
   font-weight: 700;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+  color: #212121;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  padding-top: 20px;
+  line-height: 1.2;
+}
+
+.markdown h1 {
+  font-size: 2.25rem;
+}
+
+.markdown h2 {
+  font-size: 2rem;
+}
+
+.markdown h3 {
+  font-size: 1.75rem;
+}
+
+.markdown h4 {
+  font-size: 1.5rem;
+}
+
+.markdown h5 {
+  font-size: 1.25rem;
+}
+
+.markdown h6 {
+  font-size: 1rem;
 }
 
 #mainNav {
@@ -1917,10 +1973,10 @@ footer.post-footer > p {
 }
 
 .post {
-  padding: 15px 30px;
-  background-color: #fff;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
+  padding: 15px 30px;
+  background-color: #fff;
   margin-bottom: 15px;
 }
 
@@ -1956,7 +2012,10 @@ footer.post-footer > p {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  line-height: 26px;
+  color: #212121;
 }
 
 .post .post-body p {
@@ -1979,7 +2038,10 @@ footer.post-footer > p {
 }
 
 .post footer {
-  margin-top: 10px;
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .post .comment-box header {

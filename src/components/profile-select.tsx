@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProfilePic from "../images/placeholder-profile-pic.jpg";
+import ProfilePic from "../images/placeholder-profile-pic.svg";
 import { Icons } from "./icons";
 import { Link } from "gatsby";
 import UserPoints from "./user-points";

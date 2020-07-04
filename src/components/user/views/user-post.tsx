@@ -2,7 +2,7 @@ import React from "react";
 import { RouteComponentProps } from "@reach/router";
 import Layout from "../../layout";
 import Post from "../../common/post";
-import ProfilePic from "../../../images/placeholder-profile-pic-lg.png";
+import ProfilePic from "../../../images/placeholder-profile-pic.svg";
 import Filter from "../../common/filter";
 import SearchBox from "../../common/search-box";
 import Comment from "../../common/comment";
@@ -16,7 +16,7 @@ interface IUserPostViewProps extends RouteComponentProps {
 const UserPostView: React.FC<IUserPostViewProps> = ({ user, slug }) => {
   return (
     <Layout id="index" title={slug}>
-      <Post>
+      <Post author="No idea" when="3 days">
         <h4>This is the Title of this post! Why do they all do it?</h4>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque elit

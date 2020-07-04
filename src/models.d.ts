@@ -26,3 +26,18 @@ declare interface IAppUser {
   email: string;
   // token: string;
 }
+
+declare interface IPostModel {
+  url: string;
+  header?: string;
+  body?: string;
+  author: string;
+  when: string;
+}
+
+declare interface INewPostModel {
+  url: string;
+  header?: string;
+  body?: string;
+  author: string;
+}

@@ -1,11 +1,13 @@
 import React from "react";
-import ProfilePic from "../../images/placeholder-profile-pic-lg.png";
+import ProfilePic from "../../images/placeholder-profile-pic.svg";
 import PostFooter from "./post-footer";
 import { navigateTo } from "gatsby";
 import CommentBox from "./comment-box";
 
 interface IPostProps {
   url?: string;
+  author: string;
+  when: string;
   includeCommentBox?: boolean;
   defaultFooter?: boolean;
   flags?: string[];
@@ -13,6 +15,8 @@ interface IPostProps {
 
 const Post: React.FC<IPostProps> = ({
   url,
+  author,
+  when,
   children,
   includeCommentBox,
   defaultFooter = true,
@@ -31,9 +35,9 @@ const Post: React.FC<IPostProps> = ({
       <header>
         <img src={ProfilePic} alt="profile" />
         <div className="post-user">
-          <a className="user">John Smith</a>
+          <a className="user">{author}</a>
           <p>
-            16 hours ago{" "}
+            {when}{" "}
             {flags?.map((flag, key) => (
               <span key={key} className="flag">
                 {flag}
@@ -44,7 +48,7 @@ const Post: React.FC<IPostProps> = ({
       </header>
       <div className="post-body">{children}</div>
 
-      {defaultFooter && <PostFooter />}
+      {defaultFooter && <PostFooter when={when} postedBy={author} />}
       {includeCommentBox && <CommentBox />}
     </article>
   );

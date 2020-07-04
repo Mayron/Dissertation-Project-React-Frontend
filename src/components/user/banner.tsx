@@ -1,6 +1,6 @@
 import React from "react";
 import BannerImagePlaceholder from "../../images/placeholder-banner.png";
-import ProfilePicPlaceholder from "../../images/placeholder-profile-pic-lg.png";
+import ProfilePicPlaceholder from "../../images/placeholder-profile-pic.svg";
 import { Icons } from "../icons";
 import UserPoints from "../user-points";
 import { Link } from "gatsby";

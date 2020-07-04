@@ -1,7 +1,7 @@
 import React from "react";
 import Vote from "./vote";
 import { Icons } from "../icons";
-import PlaceholderProfilePic from "../../images/placeholder-profile-pic-lg.png";
+import PlaceholderProfilePic from "../../images/placeholder-profile-pic.svg";
 
 const CommentReply: React.FC = () => {
   return (

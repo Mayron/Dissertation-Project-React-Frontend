@@ -1,4 +1,4 @@
-import ProfilePic from "../../images/placeholder-profile-pic-lg.png";
+import ProfilePic from "../../images/placeholder-profile-pic.svg";
 import TextareaAutosize from "react-autosize-textarea";
 import React from "react";
 

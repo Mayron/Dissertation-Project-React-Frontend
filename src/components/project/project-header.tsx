@@ -1,5 +1,5 @@
 import React from "react";
-import PlaceholderProfilePic from "../../images/placeholder-profile-pic-lg.png";
+import PlaceholderProfilePic from "../../images/placeholder-profile-pic.svg";
 
 interface IProjectHeaderProps {
   subPage?: string;

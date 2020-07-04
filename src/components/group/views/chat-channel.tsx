@@ -3,7 +3,7 @@ import { RouteComponentProps } from "@reach/router";
 import Panel from "../../common/panel";
 import TextArea from "../../widgets/text-area";
 
-import ProfilePic from "../../../images/placeholder-profile-pic.jpg";
+import ProfilePic from "../../../images/placeholder-profile-pic.svg";
 import { Icons } from "../../icons";
 
 const Comment = () => {

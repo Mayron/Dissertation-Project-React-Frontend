@@ -3,9 +3,7 @@ import { auth, createUserProfileDocument } from "../firebase/firebase.utils";
 
 export const AuthContext = createContext<IAppUser | null>(null);
 
-interface IAuthProviderProps {}
-
-const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
+const AuthProvider: React.FC = ({ children }) => {
   const [appUser, setAppUser] = useState<IAppUser | null>(null);
 
   useEffect(() => {

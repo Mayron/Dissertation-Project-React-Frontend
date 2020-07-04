@@ -1,6 +1,6 @@
 import React from "react";
 import BannerImagePlaceholder from "../../images/placeholder-banner.png";
-import ProfilePicPlaceholder from "../../images/placeholder-profile-pic-lg.png";
+import ProfilePicPlaceholder from "../../images/placeholder-profile-pic.svg";
 import _ from "lodash";
 
 interface IBannerProps {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Icons } from "../icons";
-import ProfilePic from "../../images/placeholder-profile-pic-lg.png";
+import ProfilePic from "../../images/placeholder-profile-pic.svg";
 import Vote from "./vote";
 
 interface IVotingPostProps {

@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Michael Richards",
   "dependencies": {
+    "@types/marked": "^1.1.0",
     "@types/react-google-recaptcha": "^1.1.2",
     "axios": "^0.19.2",
     "firebase": "^7.15.5",
@@ -17,12 +18,14 @@
     "gatsby-plugin-sharp": "^2.6.4",
     "gatsby-source-filesystem": "^2.3.4",
     "gatsby-transformer-sharp": "^2.5.2",
+    "marked": "^1.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-autosize-textarea": "^7.0.0",
     "react-dom": "^16.12.0",
     "react-google-recaptcha": "^2.1.0",
-    "react-helmet": "^6.0.0"
+    "react-helmet": "^6.0.0",
+    "slugify": "^1.4.4"
   },
   "devDependencies": {
     "@types/reach__router": "^1.3.5",

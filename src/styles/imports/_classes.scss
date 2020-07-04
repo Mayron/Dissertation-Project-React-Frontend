@@ -35,9 +35,8 @@
   color: $secondary-text-dark-grey;
 }
 
-a.user {
-  font-weight: 600;
-  color: $primary-orange;
+a.user,
+a.link {
   text-decoration: none;
 
   &:hover {
@@ -45,6 +44,16 @@ a.user {
     text-decoration: underline;
     color: lighten($primary-orange, 10);
   }
+}
+
+a.user {
+  font-weight: $fw-standard-bold;
+  color: $primary-orange;
+}
+
+a.link {
+  color: $dark-orange;
+  font-weight: $fw-standard-default;
 }
 
 .btn-secondary {
@@ -73,7 +82,7 @@ a.user {
   white-space: nowrap;
   padding: 6px $section-spacing;
   border-radius: $border-radius;
-  background-color: $dark-orange;
+  background-color: $dark-orange !important;
   color: $white;
   font-size: 14px;
   font-weight: 600;
@@ -84,7 +93,7 @@ a.user {
   }
 
   &:hover {
-    background-color: $primary-orange;
+    background-color: $primary-orange !important;
   }
 }
 
@@ -343,10 +352,15 @@ a.user {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: $item-spacing-large;
   margin-bottom: 10px;
 
   h4 {
     font-weight: 600;
   }
+}
+
+.error {
+  color: red;
+  margin-bottom: $item-spacing-large;
 }

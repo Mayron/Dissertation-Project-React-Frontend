@@ -10,7 +10,6 @@ import ProjectNav from "./nav-menus/project";
 
 import "../styles/site.min.css";
 import ProjectHeader from "./project/project-header";
-import AuthProvider from "./auth-provider";
 
 interface ILayoutProps {
   title?: string; // title of the page
@@ -47,28 +46,26 @@ const Layout: React.FC<ILayoutProps> = ({
   return (
     <>
       <SEO title={title} />
-      <AuthProvider>
-        <Banner onBurgerMenuClick={handleBannerBurgerMenuClicked} />
-        <div id="__text-resize-handler" />
-        <div id="app">
-          <MainNav collapsed={isCollapsed} menuType={menuType} />
+      <Banner onBurgerMenuClick={handleBannerBurgerMenuClicked} />
+      <div id="__text-resize-handler" />
+      <div id="app">
+        <MainNav collapsed={isCollapsed} menuType={menuType} />
 
-          <div className={wrapperClasses.join(" ")}>
-            {menuType === "project" && <ProjectHeader subPage={subPage} />}
-            {menuType === "group" && <GroupNav />}
-            {menuType === "project" && <ProjectNav />}
+        <div className={wrapperClasses.join(" ")}>
+          {menuType === "project" && <ProjectHeader subPage={subPage} />}
+          {menuType === "group" && <GroupNav />}
+          {menuType === "project" && <ProjectNav />}
 
-            <main id={id}>{children}</main>
-          </div>
-
-          {(!menuType || (isCollapsed && menuType === "project")) && (
-            <RecommendationsMenu />
-          )}
-          {isCollapsed && menuType === "group" && <GroupSideMenu />}
-          {/* {menuType === "project" && <ProjectSideMenu />} */}
-          {/* <footer>©OpenSpark.io {new Date().getFullYear()}</footer> */}
+          <main id={id}>{children}</main>
         </div>
-      </AuthProvider>
+
+        {(!menuType || (isCollapsed && menuType === "project")) && (
+          <RecommendationsMenu />
+        )}
+        {isCollapsed && menuType === "group" && <GroupSideMenu />}
+        {/* {menuType === "project" && <ProjectSideMenu />} */}
+        {/* <footer>©OpenSpark.io {new Date().getFullYear()}</footer> */}
+      </div>
     </>
   );
 };

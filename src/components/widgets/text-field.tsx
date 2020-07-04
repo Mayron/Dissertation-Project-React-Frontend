@@ -6,7 +6,11 @@ interface ITextFieldProps {
   required?: boolean;
   max?: number;
   style?: React.CSSProperties;
-  name?: string;
+  name: string;
+  type?: string;
+  value: string;
+  onChange: (name: string, value: string) => void;
+  min?: number;
 }
 
 const TextField: React.FC<ITextFieldProps> = ({
@@ -16,13 +20,12 @@ const TextField: React.FC<ITextFieldProps> = ({
   required,
   style,
   name,
+  type = "text",
+  value,
+  onChange,
+  min,
 }) => {
   const [focused, setFocused] = useState(false);
-  const [value, setValue] = useState("");
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
 
   return (
     <div className="text-field">
@@ -33,16 +36,17 @@ const TextField: React.FC<ITextFieldProps> = ({
       )}
       <div className={`ui-inner${focused ? " focused" : ""}`}>
         <input
-          type="text"
+          type={type}
           maxLength={max}
           required={required}
           placeholder={placeholder}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          onChange={handleChange}
+          onChange={(e) => onChange(name, e.target.value)}
           style={style}
           value={value}
           name={name}
+          minLength={min}
         />
         {max && (
           <span className="counter">

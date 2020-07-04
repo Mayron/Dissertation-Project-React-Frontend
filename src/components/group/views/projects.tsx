@@ -2,7 +2,7 @@ import React from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Icons } from "../../icons";
 import PlaceholderBanner from "../../../images/placeholder-banner.png";
-import PlaceholderLogo from "../../../images/placeholder-profile-pic.jpg";
+import PlaceholderLogo from "../../../images/placeholder-profile-pic.svg";
 import { Link } from "gatsby";
 import Layout from "../../layout";
 import Card from "../../common/card";

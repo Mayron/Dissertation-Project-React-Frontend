@@ -5,12 +5,21 @@ import Panel from "../../components/common/panel";
 import TextArea from "../../components/widgets/text-area";
 import TextField from "../../components/widgets/text-field";
 import Dropdown from "../../components/widgets/dropdown";
-import MultiSelectDropdown from "../../components/widgets/multi-select-dropdown";
 import ProjectConnectionList from "../../components/project-connection-list";
 import PanelSection from "../../components/common/panel-section";
 import TagsEditBox from "../../components/widgets/tags-editbox";
 
 const CreateGroupPage: React.FC = () => {
+  const [error, setError] = useState<string>("");
+  const [formValues, setFormValues] = useState({
+    name: "",
+    password: "",
+  });
+
+  const handleFormInputChanged = (name: string, value: string) => {
+    setFormValues({ ...formValues, [name]: value });
+  };
+
   return (
     <Layout id="createGroup">
       <Panel title="Create a Group">
@@ -27,6 +36,9 @@ const CreateGroupPage: React.FC = () => {
             placeholder="What should your group be called?"
             required
             max={20}
+            name="name"
+            value={formValues.name}
+            onChange={handleFormInputChanged}
           />
           <Dropdown title="Category" placeholder="Select category" required items={[]} />
         </div>

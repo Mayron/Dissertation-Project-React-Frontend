@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Layout from "../components/layout";
 import { RouteComponentProps } from "@reach/router";
 import TextField from "../components/widgets/text-field";
@@ -21,26 +21,27 @@ const Divider: React.FC<IDividerProps> = ({ text }) => {
 };
 
 const LogInPage: React.FC<RouteComponentProps> = ({}) => {
-  const user = useContext(AuthContext);
+  const [error, setError] = useState<string>("");
+  const [formValues, setFormValues] = useState({
+    email: "",
+    password: "",
+  });
 
-  useEffect(() => {
-    if (user !== null) {
-      navigate("/");
-    }
-  }, [user]);
+  const handleFormInputChanged = (name: string, value: string) => {
+    setFormValues({ ...formValues, [name]: value });
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // get state
-    const email = "";
-    const password = "";
-
     try {
-      const userAuth = await auth.signInWithEmailAndPassword(email, password);
-      //TODO: Clear state or redirect?
-    } catch (error) {
-      console.error(error);
+      const userAuth = await auth.signInWithEmailAndPassword(
+        formValues.email,
+        formValues.password,
+      );
+      navigate("/");
+    } catch (e) {
+      setError((e as firebase.FirebaseError).message);
     }
   };
 
@@ -54,15 +55,31 @@ const LogInPage: React.FC<RouteComponentProps> = ({}) => {
           <Link to="/cookie-policy">Cookie Policy</Link>.
         </p>
       </header>
+      {error.length > 0 && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
-        <TextField title="Email" placeholder="Enter your email" required />
-        <TextField title="Password" placeholder="Enter your password" required />
-      </form>
+        <TextField
+          title="Email"
+          name="email"
+          placeholder="Enter your email"
+          type="email"
+          required
+          value={formValues.email}
+          onChange={handleFormInputChanged}
+        />
+        <TextField
+          title="Password"
+          name="password"
+          type="password"
+          placeholder="Enter your password"
+          required
+          value={formValues.password}
+          onChange={handleFormInputChanged}
+        />
 
-      <button className="btn-primary lg btn-login">Log In</button>
+        <input type="submit" className="btn-primary lg btn-login" value="Log In" />
+      </form>
       <p>
-        Forgotten your <Link to="/recover/email">email</Link> or{" "}
-        <Link to="/recover/email">password</Link>?
+        Forgotten your <Link to="/recover/password">password</Link>?
       </p>
       <Divider text="OR" />
       <div id="socialSignIn">

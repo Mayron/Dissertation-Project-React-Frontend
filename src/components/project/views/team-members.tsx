@@ -3,7 +3,7 @@ import { RouteComponentProps } from "@reach/router";
 import Filter from "../../common/filter";
 import SearchBox from "../../common/search-box";
 import Panel from "../../common/panel";
-import PlaceholderProfilePic from "../../../images/placeholder-profile-pic.jpg";
+import PlaceholderProfilePic from "../../../images/placeholder-profile-pic.svg";
 import { Link } from "gatsby";
 import MoreDropdown from "../../common/more-dropdown";
 

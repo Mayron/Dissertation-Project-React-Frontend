@@ -1,8 +1,7 @@
 import React from "react";
 import { RouteComponentProps } from "@reach/router";
-import Layout from "../../layout";
 import Post from "../../common/post";
-import ProfilePic from "../../../images/placeholder-profile-pic-lg.png";
+import ProfilePic from "../../../images/placeholder-profile-pic.svg";
 import Filter from "../../common/filter";
 import SearchBox from "../../common/search-box";
 import Comment from "../../common/comment";
@@ -15,7 +14,12 @@ interface IViewIssueViewProps extends RouteComponentProps {
 const ViewIssueView: React.FC<IViewIssueViewProps> = ({ issue, slug }) => {
   return (
     <>
-      <Post defaultFooter={false} flags={["Bug", "Performance", "Raid"]}>
+      <Post
+        author="ad"
+        when="3 das"
+        defaultFooter={false}
+        flags={["Bug", "Performance", "Raid"]}
+      >
         <h4>
           <span className="flag open">Open</span> This is the Title of this post! Why do
           they all do it?
