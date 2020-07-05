@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Michael Richards",
   "dependencies": {
+    "@microsoft/signalr": "^3.1.5",
     "@types/marked": "^1.1.0",
     "@types/react-google-recaptcha": "^1.1.2",
     "axios": "^0.19.2",
