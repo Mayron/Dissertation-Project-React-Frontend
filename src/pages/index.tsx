@@ -9,9 +9,11 @@ import api, { getAuthConfig } from "../api";
 import Marked from "marked";
 import slugify from "slugify";
 import { AuthContext } from "../components/auth-provider";
+import { SignalRContext } from "../components/signalr-provider";
 
 const IndexPage: React.FC<RouteComponentProps> = () => {
   const user = useContext(AuthContext);
+  const connection = useContext(SignalRContext);
 
   const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState<IPostModel[]>([]);
@@ -51,12 +53,16 @@ const IndexPage: React.FC<RouteComponentProps> = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      await api.get<IPostModel[]>("/posts").then((response) => {
-        const newPosts = response.data;
-        setPosts(newPosts);
-      });
-    })();
+    debugger;
+    const data = connection?.send("FetchNewsFeed");
+    console.log(data);
+    // TODO: No longer get posts via API - use hub!
+    // (async () => {
+    //   await api.get<IPostModel[]>("/posts").then((response) => {
+    //     const newPosts = response.data;
+    //     setPosts(newPosts);
+    //   });
+    // })();
   }, [user]);
 
   return (

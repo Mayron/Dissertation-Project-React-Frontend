@@ -6,7 +6,6 @@ export const wrapRootElement = ({ element }) => {
   return (
     <AuthProvider>
       <SignalRProvider>{element}</SignalRProvider>
-      {/* {element} */}
     </AuthProvider>
   );
 };

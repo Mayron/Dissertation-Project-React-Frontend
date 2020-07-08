@@ -19,13 +19,12 @@ const SignalRProvider: React.FC = ({ children }) => {
         .withAutomaticReconnect()
         .build();
 
-      setConnection(connection);
-      await connection.start().catch((error) => console.error(error));
-
-      debugger;
-      if (connection.state === signalR.HubConnectionState.Connected && appUser) {
-        connection.send("ProtectedEndpoint");
-      }
+      await connection
+        .start()
+        .then(() => {
+          setConnection(connection);
+        })
+        .catch((error) => console.error(error));
     })();
 
     return () => {
@@ -34,7 +33,7 @@ const SignalRProvider: React.FC = ({ children }) => {
     };
   }, [appUser]);
 
-  return <SignalRContext.Provider value={null}>{children}</SignalRContext.Provider>;
+  return <SignalRContext.Provider value={connection}>{children}</SignalRContext.Provider>;
 };
 
 export default SignalRProvider;
