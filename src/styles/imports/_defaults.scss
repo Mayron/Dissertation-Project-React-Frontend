@@ -181,3 +181,13 @@ textarea {
   outline: none;
   background: none;
 }
+
+// Override SemanticUI colors:
+.ui.selection.active.dropdown,
+.ui.selection.active.dropdown .menu {
+  border-color: $dark-orange !important;
+
+  &:hover {
+    border-color: $primary-orange !important;
+  }
+}

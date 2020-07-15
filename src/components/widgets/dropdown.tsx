@@ -40,7 +40,7 @@ const Dropdown: React.FC<IDropdownProps> = ({ title, placeholder, items, require
 
   return (
     <div
-      className="dropdown"
+      className="basic-dropdown"
       ref={dropdownRef}
       onMouseLeave={() => setShown(false)}
       onLoad={handleLoad}

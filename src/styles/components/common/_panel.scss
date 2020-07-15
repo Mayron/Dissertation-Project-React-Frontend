@@ -24,7 +24,7 @@
     border-color: $dark-orange;
   }
 
-  & > header {
+  header {
     padding-bottom: $item-spacing-large;
     display: flex;
     align-items: flex-start;
@@ -35,7 +35,7 @@
     }
   }
 
-  & > footer {
+  footer {
     padding-top: $page-gutter-spacing;
     display: flex;
     justify-content: space-between;

@@ -1,21 +1,19 @@
 import React from "react";
-import { RouteComponentProps } from "@reach/router";
-import Layout from "../../layout";
 import Post from "../../common/post";
-import ProfilePic from "../../../images/placeholder-profile-pic.svg";
-import Filter from "../../common/filter";
 import SearchBox from "../../common/search-box";
+import Filter from "../../common/filter";
+import { RouteComponentProps } from "@reach/router";
 import Comment from "../../common/comment";
-import PostFooter from "../../common/post-footer";
+import ProfilePic from "../../../images/placeholder-profile-pic.svg";
 
-interface IUserPostViewProps extends RouteComponentProps {
-  user?: string;
-  slug?: string;
+interface IViewPostViewProps extends RouteComponentProps {
+  postId?: string;
+  postSlug?: string;
 }
 
-const UserPostView: React.FC<IUserPostViewProps> = ({ user, slug }) => {
+const ViewPostView: React.FC<IViewPostViewProps> = ({ postId, postSlug }) => {
   return (
-    <Layout id="index" title={slug}>
+    <>
       <Post author="No idea" when="3 days">
         <h4>This is the Title of this post! Why do they all do it?</h4>
         <p>
@@ -67,8 +65,8 @@ const UserPostView: React.FC<IUserPostViewProps> = ({ user, slug }) => {
           <p>16 hours ago</p>
         </div>
       </Comment>
-    </Layout>
+    </>
   );
 };
 
-export default UserPostView;
+export default ViewPostView;

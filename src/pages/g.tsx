@@ -12,6 +12,7 @@ import SettingsView from "../components/group/views/settings";
 import ProjectsView from "../components/group/views/projects";
 import ProjectsInCategoryView from "../components/group/views/projects-in-category";
 import ListProjectView from "../components/group/views/list-project";
+import ViewPostView from "../components/group/views/view-post-view";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <OpportunitiesView path="/opportunities" />
         <ChatChannelView path="/chat/:channel" />
         <SettingsView path="/settings" />
+        <ViewPostView path="/post/:postId/:postSlug" />
 
         <Redirect default to="/g/404" />
       </GroupPage>

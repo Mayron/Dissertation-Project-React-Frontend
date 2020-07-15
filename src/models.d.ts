@@ -27,17 +27,32 @@ declare interface IAppUser {
   // token: string;
 }
 
+declare interface IApiResponse {
+  isValid: boolean;
+  message: string;
+}
+
 declare interface IPostModel {
-  url: string;
-  header?: string;
+  id: string;
+  groupId: string;
+  title: string;
   body?: string;
   author: string;
   when: string;
 }
 
 declare interface INewPostModel {
-  url: string;
-  header?: string;
+  title: string;
   body?: string;
-  author: string;
+  groupId: string;
+  authorUserId: string;
 }
+
+declare type FormValue = {
+  value?: string;
+  error?: string;
+};
+
+declare type FormValues = {
+  [key: string]: FormValue;
+};

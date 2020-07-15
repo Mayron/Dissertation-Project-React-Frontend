@@ -2,20 +2,28 @@ import React from "react";
 import Panel from "./panel";
 import ProfilePic from "../../images/placeholder-profile-pic.svg";
 import TextareaAutosize from "react-autosize-textarea";
+import { Dropdown } from "semantic-ui-react";
+
+import "semantic-ui-css/components/transition.min.css";
+import "semantic-ui-css/components/dropdown.min.css";
 
 interface ICreatePostPopupProps {
   displayName: string;
+  group: FormValue;
+  selectGroup?: boolean;
   onCancel: () => void;
-  onPost: () => void;
-  title: string;
-  body: string;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  title: FormValue;
+  body: FormValue;
   onChange: (name: string, value: string) => void;
 }
 
 const CreatePostPopup: React.FC<ICreatePostPopupProps> = ({
   displayName,
+  group,
+  selectGroup,
   onCancel,
-  onPost,
+  onSubmit,
   title,
   body,
   onChange,
@@ -30,34 +38,49 @@ const CreatePostPopup: React.FC<ICreatePostPopupProps> = ({
           </p>
         </div>
       </header>
-      <div className="body">
-        <TextareaAutosize
-          placeholder="Title"
-          className="title-input"
-          rows={1}
-          maxLength={200}
-          onChange={(e) => onChange("title", e.currentTarget.value)}
-          value={title}
-        />
-        <TextareaAutosize
-          placeholder="(Optional) Write more..."
-          className="more-input"
-          rows={1}
-          maxLength={2000}
-          onChange={(e) => onChange("body", e.currentTarget.value)}
-          value={body}
-        />
-      </div>
-      <footer>
-        <div className="right row-20">
+      <form onSubmit={onSubmit}>
+        <div className="body">
+          {title.error && <span className="error">{title.error}</span>}
+          <TextareaAutosize
+            placeholder="Title"
+            className="title-input"
+            required
+            rows={1}
+            maxLength={200}
+            onChange={(e) => onChange("title", e.currentTarget.value)}
+            value={title.value}
+          />
+          <TextareaAutosize
+            placeholder="(Optional) Write more..."
+            className="more-input"
+            rows={1}
+            maxLength={2000}
+            onChange={(e) => onChange("body", e.currentTarget.value)}
+            value={body.value}
+          />
+        </div>
+        {group.error && <span className="error">{group.error}</span>}
+        <footer>
+          {selectGroup && (
+            <Dropdown
+              placeholder="Select Group"
+              fluid
+              search
+              error={group.error ? true : false}
+              selection
+              value={group.value}
+              options={[{ key: "mui", value: "mui", text: "MayronUI" }]}
+              onChange={(_, { value }) => onChange("group", `${value}`)}
+            />
+          )}
           <button className="btn-secondary" onClick={onCancel}>
             Cancel
           </button>
-          <button className="btn-primary" onClick={onPost}>
+          <button className="btn-primary" type="submit">
             Post
           </button>
-        </div>
-      </footer>
+        </footer>
+      </form>
     </Panel>
   );
 };

@@ -1,7 +1,6 @@
 {
   "name": "openspark-io",
   "private": true,
-  "description": "TODO",
   "version": "0.1.0",
   "author": "Michael Richards",
   "dependencies": {
@@ -26,6 +25,9 @@
     "react-dom": "^16.12.0",
     "react-google-recaptcha": "^2.1.0",
     "react-helmet": "^6.0.0",
+    "react-toastify": "^6.0.8",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.88.2",
     "slugify": "^1.4.4"
   },
   "devDependencies": {
@@ -41,7 +43,6 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",

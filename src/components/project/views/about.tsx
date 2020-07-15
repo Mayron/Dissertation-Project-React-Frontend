@@ -9,7 +9,7 @@ const AboutView: React.FC<RouteComponentProps> = () => {
     <>
       <section id="projectAbout">
         <div className="row">
-          <Panel title="About" editable>
+          <Panel title="About">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non tellus id
               leo tristique fermentum. Maecenas a orci nec dui porttitor consectetur

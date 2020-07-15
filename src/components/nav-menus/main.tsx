@@ -55,12 +55,17 @@ const MainNav: React.FC<IMainNavProps> = ({ collapsed, menuType }) => {
           />
           <NavSection
             id="groups"
-            title="Your Groups &amp; Communities"
+            title="Your Groups"
             items={groups}
             defaultOpen={true}
             create="group"
           />
-          <NavSection id="memberships" title="Memberships" items={memberships} moreOnClick={() => {}} />
+          <NavSection
+            id="memberships"
+            title="Memberships"
+            items={memberships}
+            moreOnClick={() => {}}
+          />
           <NavSection id="subs" title="Subscriptions" items={subscriptions} />
         </>
       )}

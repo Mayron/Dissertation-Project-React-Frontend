@@ -8,6 +8,11 @@
   .body {
     display: flex;
     flex-direction: column;
+    padding-bottom: $item-spacing-large;
+
+    textarea {
+      padding: 0;
+    }
   }
 
   .title-input {
@@ -24,5 +29,10 @@
   .more-input,
   .title-input {
     padding: 0 10px;
+  }
+
+  footer {
+    padding-top: $item-spacing;
+    align-items: stretch !important;
   }
 }

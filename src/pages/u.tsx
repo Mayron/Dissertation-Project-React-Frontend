@@ -2,7 +2,6 @@ import React from "react";
 import { Router, Redirect } from "@reach/router";
 import UserPage from "../components/dynamic-pages/user";
 import UserAllPostsView from "../components/user/views/user-all-posts";
-import UserPostView from "../components/user/views/user-post";
 import UserCommentsView from "../components/user/views/user-comments";
 import UserMembershipsView from "../components/user/views/user-memberships";
 import UserSubscriptionsView from "../components/user/views/user-subscriptions";
@@ -19,7 +18,6 @@ const App = () => {
         <UserSettingsView path="/settings" />
       </UserPage>
 
-      <UserPostView path="/u/:user/post/:slug" />
       <Redirect default to="/404" />
     </Router>
   );

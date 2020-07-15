@@ -4,12 +4,14 @@ import SEO from "./seo";
 import MainNav from "./nav-menus/main";
 import RecommendationsMenu from "./side-menus/recommendations";
 import GroupSideMenu from "./side-menus/group";
-
 import GroupNav from "./nav-menus/group";
 import ProjectNav from "./nav-menus/project";
 
 import "../styles/site.min.css";
 import ProjectHeader from "./project/project-header";
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 interface ILayoutProps {
   title?: string; // title of the page
@@ -50,6 +52,7 @@ const Layout: React.FC<ILayoutProps> = ({
       <div id="__text-resize-handler" />
       <div id="app">
         <MainNav collapsed={isCollapsed} menuType={menuType} />
+        <ToastContainer />
 
         <div className={wrapperClasses.join(" ")}>
           {menuType === "project" && <ProjectHeader subPage={subPage} />}
