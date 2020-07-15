@@ -52,7 +52,14 @@ const Layout: React.FC<ILayoutProps> = ({
       <div id="__text-resize-handler" />
       <div id="app">
         <MainNav collapsed={isCollapsed} menuType={menuType} />
-        <ToastContainer />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          closeOnClick
+          pauseOnHover
+          draggable
+        />
 
         <div className={wrapperClasses.join(" ")}>
           {menuType === "project" && <ProjectHeader subPage={subPage} />}

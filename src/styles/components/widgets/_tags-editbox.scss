@@ -19,7 +19,7 @@
     flex-wrap: wrap;
     padding: 0;
     margin: 4px;
-    background-color: #fff;
+    background-color: $white;
     flex: none;
   }
 
@@ -28,12 +28,12 @@
     display: inline-flex;
 
     span {
-      padding: 4px;
+      padding: 4px 6px;
     }
 
     .close-icon {
       box-sizing: content-box;
-      padding: 7px 4px 7px 6px;
+      padding: 7px 6px 7px 6px;
       width: 14px !important;
       height: 14px !important;
     }

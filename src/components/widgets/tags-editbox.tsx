@@ -1,12 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Icons } from "../icons";
 
-interface ITagsEditBoxProps {
-  title?: string;
-  placeholder: string;
-  max: number;
-}
-
 interface ITag {
   editing?: boolean;
   value: string;
@@ -98,9 +92,30 @@ const TagBox: React.FC<ITagBoxProps> = ({
   );
 };
 
-const TagsEditBox: React.FC<ITagsEditBoxProps> = ({ title, placeholder, max }) => {
+interface ITagsEditBoxProps {
+  title?: string;
+  placeholder: string;
+  max: number;
+  name: string;
+  data: FormValue<string[]>;
+  onChange: (name: string, value: any) => void;
+}
+
+const TagsEditBox: React.FC<ITagsEditBoxProps> = ({
+  title,
+  placeholder,
+  max,
+  name,
+  data,
+  onChange,
+}) => {
   const [focused, setFocused] = useState(false);
-  const [tags, setTags] = useState<ITag[]>([]);
+
+  const defaultState = data.value?.map<ITag>((v) => {
+    return { value: v };
+  });
+
+  const [tags, setTags] = useState<ITag[]>(defaultState || []);
 
   const handleTagEditBoxClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -201,6 +216,7 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({ title, placeholder, max }) =
     }
 
     setTags(nextTags);
+    onChange(name, [nextTags.map((t) => t.value)]);
   };
 
   const handleTagValueChanged = (tag: ITag, newValue: string) => {

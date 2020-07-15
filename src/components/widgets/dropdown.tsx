@@ -4,13 +4,21 @@ import { Icons } from "../icons";
 interface IDropdownProps {
   title?: string;
   placeholder: string;
-  required?: boolean;
   items: IKeyValuePair[];
+  name: string;
+  data: FormValue<string>;
+  onChange: (name: string, value: string) => void;
 }
 
-const Dropdown: React.FC<IDropdownProps> = ({ title, placeholder, items, required }) => {
+const Dropdown: React.FC<IDropdownProps> = ({
+  title,
+  placeholder,
+  items,
+  name,
+  data,
+  onChange,
+}) => {
   const [shown, setShown] = useState(false);
-  const [selected, setSelected] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -32,22 +40,21 @@ const Dropdown: React.FC<IDropdownProps> = ({ title, placeholder, items, require
   }, [shown]);
 
   const handleOptionClicked = (e: React.MouseEvent<HTMLDivElement>) => {
-    setSelected(e.currentTarget.dataset.value || null);
+    const newValue = e.currentTarget.dataset.value || "";
+    onChange(name, newValue);
     setShown(false);
   };
 
-  const handleLoad = (e: React.SyntheticEvent<HTMLDivElement>) => {};
-
   return (
     <div
-      className="basic-dropdown"
+      className={`basic-dropdown${data.error ? " error " : ""}`}
       ref={dropdownRef}
       onMouseLeave={() => setShown(false)}
-      onLoad={handleLoad}
     >
       {title && (
         <header>
           <h4>{title}</h4>
+          {data.error && <span className="error">{data.error}</span>}
         </header>
       )}
 
@@ -57,8 +64,8 @@ const Dropdown: React.FC<IDropdownProps> = ({ title, placeholder, items, require
         aria-expanded={shown}
       >
         <div className="label" onClick={() => setShown(!shown)}>
-          {selected ? (
-            <span>{selected}</span>
+          {data.value ? (
+            <span>{items.find((item) => item.value === data.value)?.key}</span>
           ) : (
             <>{placeholder && <span className="placeholder">{placeholder}</span>}</>
           )}
@@ -68,8 +75,13 @@ const Dropdown: React.FC<IDropdownProps> = ({ title, placeholder, items, require
 
         {shown && (
           <div className="menu" ref={menuRef}>
+            {items.length === 0 && (
+              <div className="item">
+                <span>No results found</span>
+              </div>
+            )}
             {items.map((item, key) => {
-              const isSelected = selected && selected === item.value;
+              const isSelected = data.value === item.value;
 
               return (
                 <div

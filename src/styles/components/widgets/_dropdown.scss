@@ -1,6 +1,17 @@
 .basic-dropdown {
   width: 200px;
 
+  &.error {
+    .ui-inner {
+      border-color: $error-ui-inner-border;
+      background-color: $error-ui-inner-background;
+
+      .placeholder {
+        color: $error-ui-inner-text;
+      }
+    }
+  }
+
   &.up {
     .ui-inner.focused {
       border-top-left-radius: 0;
@@ -45,6 +56,8 @@
 
   header {
     padding-bottom: $item-spacing-small;
+    display: flex;
+    flex-direction: column;
   }
 
   .label {
@@ -95,6 +108,7 @@
     margin: 0 -1px;
     border: 1px solid $ui-border-grey;
     margin-top: 1px;
+    color: $black;
   }
 
   .item {

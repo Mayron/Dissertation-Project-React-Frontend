@@ -9,12 +9,12 @@ import "semantic-ui-css/components/dropdown.min.css";
 
 interface ICreatePostPopupProps {
   displayName: string;
-  group: FormValue;
+  group: FormValue<string>;
   selectGroup?: boolean;
   onCancel: () => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  title: FormValue;
-  body: FormValue;
+  title: FormValue<string>;
+  body: FormValue<string>;
   onChange: (name: string, value: string) => void;
 }
 

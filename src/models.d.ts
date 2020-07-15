@@ -48,8 +48,8 @@ declare interface INewPostModel {
   authorUserId: string;
 }
 
-declare type FormValue = {
-  value?: string;
+declare type FormValue<T> = {
+  value?: T;
   error?: string;
 };
 

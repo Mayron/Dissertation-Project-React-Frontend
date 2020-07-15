@@ -6,6 +6,9 @@ interface ITextAreaProps {
   title?: string;
   placeholder: string;
   max?: number;
+  data: FormValue<string>;
+  name: string;
+  onChange: (name: string, value?: string) => void;
 }
 
 const TextArea: React.FC<ITextAreaProps> = ({
@@ -14,6 +17,9 @@ const TextArea: React.FC<ITextAreaProps> = ({
   placeholder,
   max,
   children,
+  data,
+  name,
+  onChange,
 }) => {
   const [focused, setFocused] = useState(false);
   const [count, setCount] = useState<number>(0);
@@ -22,6 +28,7 @@ const TextArea: React.FC<ITextAreaProps> = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCount(e.target.value.length);
+    onChange(name, e.target.value);
   };
 
   return (
@@ -36,6 +43,7 @@ const TextArea: React.FC<ITextAreaProps> = ({
         style={{ cursor: "text" }}
         onClick={() => textAreaRef.current?.focus()}
       >
+        {data.error && <span className="error">{data.error}</span>}
         <div className={max ? "textbox-wrapper has-max" : "textbox-wrapper"}>
           <TextareaAutosize
             ref={textAreaRef}
@@ -46,6 +54,7 @@ const TextArea: React.FC<ITextAreaProps> = ({
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             onChange={handleChange}
+            value={data.value}
           />
         </div>
         {max && (

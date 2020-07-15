@@ -157,7 +157,7 @@ a.link {
 }
 
 .placeholder {
-  color: #d9d9d9 !important;
+  color: #d9d9d9;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -2099,8 +2099,21 @@ footer.post-footer > p {
   padding-bottom: 5px;
 }
 
+.text-field input {
+  border-radius: 4px;
+}
+
 .basic-dropdown {
   width: 200px;
+}
+
+.basic-dropdown.error .ui-inner {
+  border-color: #e0b4b4;
+  background-color: #fff6f6;
+}
+
+.basic-dropdown.error .ui-inner .placeholder {
+  color: #9f3a38;
 }
 
 .basic-dropdown.up .ui-inner.focused {
@@ -2144,6 +2157,13 @@ footer.post-footer > p {
 
 .basic-dropdown header {
   padding-bottom: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .basic-dropdown .label {
@@ -2206,6 +2226,7 @@ footer.post-footer > p {
   margin: 0 -1px;
   border: 1px solid #d9d9d9;
   margin-top: 1px;
+  color: #212121;
 }
 
 .basic-dropdown .item {
@@ -2288,7 +2309,7 @@ footer.post-footer > p {
 }
 
 .text-area .textbox-wrapper.has-max {
-  padding-bottom: 20px;
+  padding-bottom: 40px;
 }
 
 .text-area .counter {
@@ -2358,13 +2379,13 @@ footer.post-footer > p {
 }
 
 .tags-editbox div.tag span {
-  padding: 4px;
+  padding: 4px 6px;
 }
 
 .tags-editbox div.tag .close-icon {
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
-  padding: 7px 4px 7px 6px;
+  padding: 7px 6px 7px 6px;
   width: 14px !important;
   height: 14px !important;
 }
@@ -2452,6 +2473,10 @@ footer.post-footer > p {
 
 #createGroup {
   max-width: 620px;
+}
+
+#createGroup #groupName {
+  margin-right: 20px;
 }
 
 #createProject {

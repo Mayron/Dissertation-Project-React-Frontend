@@ -2,38 +2,41 @@ import React, { useState } from "react";
 
 interface ITextFieldProps {
   title?: string;
+  id?: string;
   placeholder: string;
   required?: boolean;
   max?: number;
   style?: React.CSSProperties;
-  name: string;
   type?: string;
-  value: string;
+  name: string;
+  data: FormValue<string>;
   onChange: (name: string, value: string) => void;
   min?: number;
 }
 
 const TextField: React.FC<ITextFieldProps> = ({
   title,
+  id,
   placeholder,
   max,
   required,
   style,
   name,
   type = "text",
-  value,
+  data,
   onChange,
   min,
 }) => {
   const [focused, setFocused] = useState(false);
 
   return (
-    <div className="text-field">
+    <div id={id} className="text-field">
       {title && (
         <header>
           <h4>{title}</h4>
         </header>
       )}
+      {data.error && <span className="error">{data.error}</span>}
       <div className={`ui-inner${focused ? " focused" : ""}`}>
         <input
           type={type}
@@ -44,13 +47,13 @@ const TextField: React.FC<ITextFieldProps> = ({
           onBlur={() => setFocused(false)}
           onChange={(e) => onChange(name, e.target.value)}
           style={style}
-          value={value}
+          value={data.value}
           name={name}
           minLength={min}
         />
         {max && (
           <span className="counter">
-            {value.length}/{max}
+            {data.value ? data.value.length : 0}/{max}
           </span>
         )}
       </div>

@@ -22,6 +22,7 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, group = "" }) => {
 
   const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState<IPostModel[]>([]);
+
   const [newPost, setNewPost] = useState<FormValues>({
     title: {},
     body: {},
@@ -71,27 +72,19 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, group = "" }) => {
           connection?.on("PostAddedCallback", (event) => {
             const { success, message } = event;
 
-            setShowPopup(false);
-            setNewPost({ title: {}, body: {}, group: {} });
-
-            const toastDefaults: ToastOptions = {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            };
+            if (success) {
+              setShowPopup(false);
+              setNewPost({ title: {}, body: {}, group: {} });
+            }
 
             if (success) {
-              toast.success(message, toastDefaults);
+              toast.success(message);
             } else {
-              toast.error(message, toastDefaults);
+              toast.error(message);
             }
           });
         } else {
-          console.error(response.data.message);
+          toast.error(response.data.message);
         }
       });
     })();
@@ -100,7 +93,7 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, group = "" }) => {
   useEffect(() => {
     connection?.invoke(fetchCommand);
     connection?.on("NewsFeedUpdate", (ev) => {
-      console.log(ev);
+      setPosts(ev);
     });
   }, [user]);
 
