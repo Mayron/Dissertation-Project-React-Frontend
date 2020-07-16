@@ -17,7 +17,7 @@ import ViewPostView from "../components/group/views/view-post-view";
 const App = () => {
   return (
     <Router>
-      <GroupPage path="/g/:slug">
+      <GroupPage path="/g/:groupId">
         <PostsView path="/" />
         <AboutView path="/about" />
         <AnnouncementsCommunityView path="/announcements" />

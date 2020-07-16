@@ -56,3 +56,8 @@ declare type FormValue<T> = {
 declare type FormValues = {
   [key: string]: FormValue;
 };
+
+declare type PendingMessage = {
+  success: boolean;
+  message: string;
+};

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import Layout from "../../components/layout";
-import { Link } from "gatsby";
+import { Link, navigateTo } from "gatsby";
 import Panel from "../../components/common/panel";
 import TextArea from "../../components/widgets/text-area";
 import TextField from "../../components/widgets/text-field";
@@ -12,6 +12,8 @@ import { AuthContext } from "../../components/auth-provider";
 import { SignalRContext } from "../../components/signalr-provider";
 import api, { getAuthConfig } from "../../api";
 import { toast } from "react-toastify";
+import Loading from "../../components/common/loading";
+import { addPendingMessage } from "../../utils";
 
 // hard-coded + checked on server
 const groupCategories: IKeyValuePair[] = [
@@ -52,6 +54,7 @@ interface IFormValuesDefaultState extends FormValues {
 }
 
 const CreateGroupPage: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const user = useContext(AuthContext);
   const connection = useContext(SignalRContext);
 
@@ -103,22 +106,25 @@ const CreateGroupPage: React.FC = () => {
       await api.post<IApiResponse>("/groups/create", group, config).then((response) => {
         if (response.status === 202 && response.data.isValid) {
           const token = response.data.message;
-          // connection?.invoke("Subscribe", token, "GroupCreatedCallback");
+          connection?.invoke("Subscribe", token, "GroupCreatedCallback");
 
-          // connection?.on("GroupCreatedCallback", (event) => {
-          //   const { success, message } = event;
+          connection?.on("GroupCreatedCallback", (event) => {
+            const { success, message, args } = event;
+            addPendingMessage(localStorage, { success, message });
 
-          //   if (success) {
-          //     toast.success(message);
-          //   } else {
-          //     toast.error(message);
-          //   }
-          // });
+            if (args?.groupId) {
+              navigateTo(`/g/${args.groupId}`);
+            } else {
+              navigateTo("/");
+            }
+          });
         } else {
           toast.error(response.data.message);
         }
       });
     })();
+
+    setLoading(true);
   };
 
   // useEffect(() => {
@@ -129,6 +135,7 @@ const CreateGroupPage: React.FC = () => {
   return (
     <Layout id="createGroup">
       <form onSubmit={handleNewGroupSubmitted}>
+        {loading && <Loading />}
         <Panel title="Create a Group">
           <div className="row">
             <p>

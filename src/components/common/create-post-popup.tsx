@@ -4,9 +4,6 @@ import ProfilePic from "../../images/placeholder-profile-pic.svg";
 import TextareaAutosize from "react-autosize-textarea";
 import { Dropdown } from "semantic-ui-react";
 
-import "semantic-ui-css/components/transition.min.css";
-import "semantic-ui-css/components/dropdown.min.css";
-
 interface ICreatePostPopupProps {
   displayName: string;
   group: FormValue<string>;

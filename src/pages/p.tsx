@@ -20,7 +20,7 @@ import ViewIssueView from "../components/project/views/view-issue";
 const App = () => {
   return (
     <Router>
-      <ProjectPage path="/p/:slug">
+      <ProjectPage path="/p/:projectId">
         <AboutView path="/" />
         <ConnectView path="/connect" />
         <AnnouncementsView path="/announcements" />

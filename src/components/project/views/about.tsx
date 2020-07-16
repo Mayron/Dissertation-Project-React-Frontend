@@ -1,10 +1,13 @@
 import React from "react";
-import { RouteComponentProps } from "@reach/router";
+import { RouteComponentProps, useParams } from "@reach/router";
 import Panel from "../../common/panel";
 import { Icons } from "../../icons";
 import Card from "../../common/card";
 
 const AboutView: React.FC<RouteComponentProps> = () => {
+  const params = useParams();
+  const projectId = params.projectId as string;
+
   return (
     <>
       <section id="projectAbout">

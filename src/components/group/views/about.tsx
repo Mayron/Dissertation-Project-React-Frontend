@@ -1,16 +1,19 @@
 import React from "react";
-import { RouteComponentProps } from "@reach/router";
+import { RouteComponentProps, useParams } from "@reach/router";
 import Panel from "../../common/panel";
 import { Icons } from "../../icons";
 import Card from "../../common/card";
 import Group from "../group";
 
 const AboutView: React.FC<RouteComponentProps> = () => {
+  // const params = useParams();
+  // const groupId = params.groupId as string;
+
   return (
     <>
       <Group.MenuBars.HomeMenuBar />
       <section id="groupAbout">
-        <Panel title="About" editable>
+        <Panel title="About">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non tellus id
             leo tristique fermentum. Maecenas a orci nec dui porttitor consectetur
@@ -29,7 +32,7 @@ const AboutView: React.FC<RouteComponentProps> = () => {
           </div>
         </Panel>
 
-        <Panel title="Business Info" editable>
+        <Panel title="Business Info">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non tellus id
             leo tristique fermentum. Maecenas a orci nec dui porttitor consectetur

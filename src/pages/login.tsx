@@ -6,7 +6,6 @@ import { Link, navigate } from "gatsby";
 import GoogleAccountIcon from "../images/google-account-icon.png";
 
 import { signInWithGoogle, auth } from "../firebase/firebase.utils";
-import { AuthContext } from "../components/auth-provider";
 
 interface IDividerProps {
   text: string;
@@ -20,25 +19,43 @@ const Divider: React.FC<IDividerProps> = ({ text }) => {
   );
 };
 
+interface IFormState extends FormValues {
+  email: FormValue<string>;
+  password: FormValue<string>;
+}
+
 const LogInPage: React.FC<RouteComponentProps> = ({}) => {
   const [error, setError] = useState<string>("");
-  const [formValues, setFormValues] = useState({
-    email: "",
-    password: "",
+  const [formValues, setFormValues] = useState<IFormState>({
+    email: {},
+    password: {},
   });
 
-  const handleFormInputChanged = (name: string, value: string) => {
-    setFormValues({ ...formValues, [name]: value });
+  const handleFormInputChanged = (name: string, value: any) => {
+    setFormValues({ ...formValues, [name]: { value } });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    debugger;
+    const { email, password } = formValues;
+
+    if (!email.value) {
+      const nextState = { ...formValues };
+      nextState.email.error = "Please enter your email address.";
+      setFormValues(nextState);
+      return;
+    }
+
+    if (!password.value) {
+      const nextState = { ...formValues };
+      nextState.password.error = "Please enter your password.";
+      setFormValues(nextState);
+      return;
+    }
 
     try {
-      const userAuth = await auth.signInWithEmailAndPassword(
-        formValues.email,
-        formValues.password,
-      );
+      const userAuth = await auth.signInWithEmailAndPassword(email.value, password.value);
       navigate("/");
     } catch (e) {
       setError((e as firebase.FirebaseError).message);
@@ -63,7 +80,7 @@ const LogInPage: React.FC<RouteComponentProps> = ({}) => {
           placeholder="Enter your email"
           type="email"
           required
-          value={formValues.email}
+          data={formValues.email}
           onChange={handleFormInputChanged}
         />
         <TextField
@@ -72,7 +89,7 @@ const LogInPage: React.FC<RouteComponentProps> = ({}) => {
           type="password"
           placeholder="Enter your password"
           required
-          value={formValues.password}
+          data={formValues.password}
           onChange={handleFormInputChanged}
         />
 

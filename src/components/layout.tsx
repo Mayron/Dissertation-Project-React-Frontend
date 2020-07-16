@@ -9,9 +9,15 @@ import ProjectNav from "./nav-menus/project";
 
 import "../styles/site.min.css";
 import ProjectHeader from "./project/project-header";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import { usePendingMessages } from "../utils";
+
+import "semantic-ui-css/components/transition.min.css";
+import "semantic-ui-css/components/dropdown.min.css";
+import "semantic-ui-css/components/dimmer.min.css";
+import "semantic-ui-css/components/loader.min.css";
 
 interface ILayoutProps {
   title?: string; // title of the page
@@ -44,6 +50,16 @@ const Layout: React.FC<ILayoutProps> = ({
   }
 
   if (subPage) wrapperClasses.push(subPage);
+
+  useEffect(() => {
+    usePendingMessages(localStorage, (p) => {
+      if (p.success) {
+        toast.success(p.message);
+      } else {
+        toast.error(p.message);
+      }
+    });
+  }, []);
 
   return (
     <>

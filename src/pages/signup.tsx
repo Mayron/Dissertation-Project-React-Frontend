@@ -7,31 +7,31 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { auth, createUserProfileDocument } from "../firebase/firebase.utils";
 
 interface IFormState {
-  displayName: string;
-  email: string;
-  password: string;
+  displayName: FormValue<string>;
+  email: FormValue<string>;
+  password: FormValue<string>;
   token: string | null;
 }
 
 const SignUpPage: React.FC<RouteComponentProps> = () => {
   const [error, setError] = useState<string>("");
   const [formValues, setFormValues] = useState<IFormState>({
-    displayName: "",
-    email: "",
-    password: "",
+    displayName: {},
+    email: {},
+    password: {},
     token: null,
   });
 
   const handleReCaptchaChange = (token: string | null) => {
     setFormValues({ ...formValues, token: token });
 
-    if (token && error.startsWith("Verification")) {
+    if (token) {
       setError("");
     }
   };
 
   const handleFormInputChanged = (name: string, value: string) => {
-    setFormValues({ ...formValues, [name]: value });
+    setFormValues({ ...formValues, [name]: { value } });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,29 +46,40 @@ const SignUpPage: React.FC<RouteComponentProps> = () => {
       return;
     }
 
-    if (displayName.length > 30) {
-      setError("Display name must be less than 30 characters.");
+    if (!displayName.value || displayName.value.length < 3) {
+      const nextState = { ...formValues };
+      nextState.displayName.error = "Display name must be at least 3 characters.";
+      setFormValues(nextState);
       return;
     }
 
-    if (displayName.length < 3) {
-      setError("Display name must be at least 3 characters.");
+    if (displayName.value.length > 30) {
+      const nextState = { ...formValues };
+      nextState.displayName.error = "Display name must be less than 30 characters.";
+      setFormValues(nextState);
       return;
     }
 
-    if (email.length < 2 || email.indexOf("@") === -1) {
-      setError("Invalid email address.");
+    if (!email.value || email.value.length < 2 || email.value.indexOf("@") === -1) {
+      const nextState = { ...formValues };
+      nextState.email.error = "Invalid email address.";
+      setFormValues(nextState);
       return;
     }
 
-    if (password.length < 6) {
-      setError("Password should be at least 6 characters.");
+    if (!password.value || password.value.length < 6) {
+      const nextState = { ...formValues };
+      nextState.password.error = "Password should be at least 6 characters.";
+      setFormValues(nextState);
       return;
     }
 
     try {
       // This will not trigger OnAuthStateChanged because we have not signed in yet.
-      const { user } = await auth.createUserWithEmailAndPassword(email, password);
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email.value,
+        password.value,
+      );
       await createUserProfileDocument(user, { displayName });
       navigate("/");
     } catch (e) {
@@ -91,7 +102,7 @@ const SignUpPage: React.FC<RouteComponentProps> = () => {
           max={30}
           required
           onChange={handleFormInputChanged}
-          value={formValues.displayName}
+          data={formValues.displayName}
         />
         <TextField
           name="email"
@@ -100,7 +111,7 @@ const SignUpPage: React.FC<RouteComponentProps> = () => {
           type="email"
           required
           onChange={handleFormInputChanged}
-          value={formValues.email}
+          data={formValues.email}
         />
         <TextField
           name="password"
@@ -110,7 +121,7 @@ const SignUpPage: React.FC<RouteComponentProps> = () => {
           required
           min={6}
           onChange={handleFormInputChanged}
-          value={formValues.password}
+          data={formValues.password}
         />
 
         <div id="recaptcha">

@@ -3,7 +3,11 @@ import { RouteComponentProps } from "@reach/router";
 import Group from "../group";
 import PostsArea from "../../posts-area";
 
-const PostsView: React.FC<RouteComponentProps> = () => {
+interface IPostsViewProps extends RouteComponentProps {
+  groupId?: string;
+}
+
+const PostsView: React.FC<IPostsViewProps> = ({ groupId }) => {
   return (
     <>
       <Group.MenuBars.HomeMenuBar />
