@@ -6,13 +6,11 @@ import { auth } from "../firebase/firebase.utils";
 export const SignalRContext = createContext<signalR.HubConnection | null>(null);
 
 const SignalRProvider: React.FC = ({ children }) => {
-  const appUser = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
 
   useEffect(() => {
     (async () => {
-      const token = await auth.currentUser?.getIdToken();
-
       const connection = new signalR.HubConnectionBuilder()
         .withUrl("http://localhost:5000/hub", { accessTokenFactory: () => token || "" })
         .configureLogging(signalR.LogLevel.Information)
@@ -31,7 +29,7 @@ const SignalRProvider: React.FC = ({ children }) => {
       if (!connection) return;
       connection.stop();
     };
-  }, [appUser]);
+  }, [token]);
 
   return <SignalRContext.Provider value={connection}>{children}</SignalRContext.Provider>;
 };

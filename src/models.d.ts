@@ -24,7 +24,6 @@ declare interface IAppUser {
   displayName: string;
   createdAt: Date;
   email: string;
-  // token: string;
 }
 
 declare interface IApiResponse {
@@ -41,11 +40,19 @@ declare interface IPostModel {
   when: string;
 }
 
+// retrieve the core group properties (does not include all properties)
+interface IBasicGroupDetailsViewModel {
+  about?: string;
+  name: string;
+  visibility: string;
+  categoryName: string;
+  groupId: string;
+}
+
 declare interface INewPostModel {
   title: string;
   body?: string;
   groupId: string;
-  authorUserId: string;
 }
 
 declare type FormValue<T> = {

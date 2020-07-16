@@ -6,9 +6,8 @@ const api = axios.create({
   timeout: 3000,
 });
 
-export const getAuthConfig = async () => {
-  if (!auth.currentUser) return;
-  const token = await auth.currentUser.getIdToken();
+export const getAuthConfig = async (token?: string) => {
+  if (!token) return;
 
   const config = {
     headers: {

@@ -1,45 +1,45 @@
-import React from "react";
-import { RouteComponentProps, useParams } from "@reach/router";
+import React, { useContext } from "react";
+import { RouteComponentProps } from "@reach/router";
 import Panel from "../../common/panel";
-import { Icons } from "../../icons";
-import Card from "../../common/card";
 import Group from "../group";
+import Loading from "../../common/loading";
+import { GroupContext } from "../../dynamic-pages/group";
 
 const AboutView: React.FC<RouteComponentProps> = () => {
-  // const params = useParams();
-  // const groupId = params.groupId as string;
+  const { group, loading } = useContext(GroupContext);
 
   return (
     <>
       <Group.MenuBars.HomeMenuBar />
       <section id="groupAbout">
         <Panel title="About">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non tellus id
-            leo tristique fermentum. Maecenas a orci nec dui porttitor consectetur
-            interdum id elit. Morbi non velit leo. Fusce interdum purus at vestibulum
-            ultricies. Phasellus laoreet tellus in magna sodales ullamcorper. Lorem ipsum
-            dolor sit amet, consectetur adipiscing elit. Vivamus at suscipit lacus.
-          </p>
-
-          <div className="cards">
-            <Card description="Check out our code base and create pull requests!">
-              <Icons.Placeholder text="GitHub" />
-            </Card>
-            <Card description="New videos released daily where we discuss tips on how to use the UI.">
-              <Icons.Placeholder text="YouTube" />
-            </Card>
-          </div>
+          {loading ? (
+            <div className="loading-container">
+              <Loading />
+            </div>
+          ) : (
+            <>
+              {group?.about && <p>{group.about}</p>}
+              {/* <div className="cards">
+              <Card description="Check out our code base and create pull requests!">
+                <Icons.Placeholder text="GitHub" />
+              </Card>
+              <Card description="New videos released daily where we discuss tips on how to use the UI.">
+                <Icons.Placeholder text="YouTube" />
+              </Card>
+            </div> */}
+            </>
+          )}
         </Panel>
 
-        <Panel title="Business Info">
+        {/* <Panel title="Business Info">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non tellus id
             leo tristique fermentum. Maecenas a orci nec dui porttitor consectetur
             interdum id elit. Morbi non velit leo. Fusce interdum purus at vestibulum
             ultricies.
           </p>
-        </Panel>
+        </Panel> */}
       </section>
     </>
   );

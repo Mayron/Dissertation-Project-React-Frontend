@@ -13,11 +13,11 @@ import { toast, ToastOptions } from "react-toastify";
 
 interface IPostsProps {
   fetchCommand: string;
-  group?: string;
+  groupId?: string;
 }
 
-const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, group = "" }) => {
-  const user = useContext(AuthContext);
+const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId = "" }) => {
+  const { token, appUser } = useContext(AuthContext);
   const connection = useContext(SignalRContext);
 
   const [showPopup, setShowPopup] = useState(false);
@@ -39,7 +39,7 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, group = "" }) => {
 
   const handleNewPostSubmitted = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!user) return;
+    if (!token) return;
 
     if (!newPost.group.value) {
       const nextState = { ...newPost };
@@ -59,11 +59,10 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, group = "" }) => {
       title: newPost.title.value,
       body: newPost.body.value,
       groupId: newPost.group.value,
-      authorUserId: user.id,
     };
 
     (async () => {
-      const config = await getAuthConfig();
+      const config = await getAuthConfig(token);
       await api.post<IApiResponse>("/posts", post, config).then((response) => {
         if (response.status === 202 && response.data.isValid) {
           const token = response.data.message;
@@ -95,18 +94,18 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, group = "" }) => {
     connection?.on("NewsFeedUpdate", (ev) => {
       setPosts(ev);
     });
-  }, [user]);
+  }, [token]);
 
   return (
     <>
       <PostBox
-        displayName={user?.displayName}
+        displayName={appUser?.displayName}
         togglePopup={setShowPopup}
         showPopup={showPopup}
       >
-        {user && (
+        {appUser && (
           <CreatePostPopup
-            displayName={user.displayName}
+            displayName={appUser.displayName}
             title={newPost.title}
             body={newPost.body}
             selectGroup

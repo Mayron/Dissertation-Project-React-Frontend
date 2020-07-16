@@ -191,3 +191,11 @@ textarea {
     border-color: $primary-orange !important;
   }
 }
+
+.ui.active.inverted.dimmer {
+  border-radius: $border-radius;
+
+  .ui.active.loader::after {
+    border-color: $dark-orange transparent transparent;
+  }
+}

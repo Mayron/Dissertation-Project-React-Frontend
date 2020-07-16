@@ -472,6 +472,11 @@ a.link {
   color: red;
 }
 
+.loading-container {
+  position: relative;
+  min-height: 120px;
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -672,6 +677,14 @@ textarea {
 .ui.selection.active.dropdown:hover,
 .ui.selection.active.dropdown .menu:hover {
   border-color: #ff6f00 !important;
+}
+
+.ui.active.inverted.dimmer {
+  border-radius: 4px;
+}
+
+.ui.active.inverted.dimmer .ui.active.loader::after {
+  border-color: #f24d2b transparent transparent;
 }
 
 #banner {

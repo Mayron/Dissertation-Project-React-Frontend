@@ -19,13 +19,13 @@ const App = () => {
     <Router>
       <GroupPage path="/g/:groupId">
         <PostsView path="/" />
-        <AboutView path="/about" />
+        <AboutView path="about" />
         <AnnouncementsCommunityView path="/announcements" />
         <AnnouncementsProjectView path="/announcements/projects" />
         <OpportunitiesView path="/opportunities" />
         <ChatChannelView path="/chat/:channel" />
         <SettingsView path="/settings" />
-        <ViewPostView path="/post/:postId/:postSlug" />
+        <ViewPostView path="/post/:postId" />
 
         <Redirect default to="/g/404" />
       </GroupPage>

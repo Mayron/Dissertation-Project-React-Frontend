@@ -10,7 +10,7 @@ interface IBannerProps {
 }
 
 const Banner: React.FC<IBannerProps> = ({ onBurgerMenuClick }) => {
-  const user = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
   return (
     <div id="banner" role="banner">
@@ -27,7 +27,7 @@ const Banner: React.FC<IBannerProps> = ({ onBurgerMenuClick }) => {
       <div>
         <Icons.Notification />
 
-        {user ? (
+        {token ? (
           <ProfileSelect />
         ) : (
           <div id="authOptions">

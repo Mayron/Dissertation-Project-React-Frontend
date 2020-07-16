@@ -44,7 +44,6 @@ declare interface INewGroupModel {
   about?: string;
   categoryId: string;
   tags?: string[];
-  ownerUserId: string;
   connected?: string[];
 }
 
@@ -55,7 +54,7 @@ interface IFormValuesDefaultState extends FormValues {
 
 const CreateGroupPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const user = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   const connection = useContext(SignalRContext);
 
   const [formValues, setFormValues] = useState<IFormValuesDefaultState>({
@@ -76,7 +75,7 @@ const CreateGroupPage: React.FC = () => {
 
   const handleNewGroupSubmitted = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!user) return;
+    if (!token) return;
 
     if (!formValues.name.value) {
       const nextState = { ...formValues };
@@ -97,12 +96,11 @@ const CreateGroupPage: React.FC = () => {
       about: formValues.about.value,
       categoryId: formValues.categoryId.value,
       tags: formValues.tags.value,
-      ownerUserId: user.id,
       connected: formValues.connected.value,
     };
 
     (async () => {
-      const config = await getAuthConfig();
+      const config = await getAuthConfig(token);
       await api.post<IApiResponse>("/groups/create", group, config).then((response) => {
         if (response.status === 202 && response.data.isValid) {
           const token = response.data.message;
@@ -117,6 +115,8 @@ const CreateGroupPage: React.FC = () => {
             } else {
               navigateTo("/");
             }
+
+            connection.off("GroupCreatedCallback");
           });
         } else {
           toast.error(response.data.message);
@@ -126,11 +126,6 @@ const CreateGroupPage: React.FC = () => {
 
     setLoading(true);
   };
-
-  // useEffect(() => {
-  //   if (user) {
-  //   }
-  // }, [user]);
 
   return (
     <Layout id="createGroup">
