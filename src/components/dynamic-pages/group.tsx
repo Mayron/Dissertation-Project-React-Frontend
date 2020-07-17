@@ -5,6 +5,7 @@ import Group from "../group/group";
 import { SignalRContext } from "../signalr-provider";
 import api, { getAuthConfig } from "../../api";
 import { AuthContext } from "../auth-provider";
+import { invokeApiHub } from "../../utils";
 
 interface IGroupContext {
   group?: IBasicGroupDetailsViewModel;
@@ -27,16 +28,15 @@ const GroupPage: React.FC<RouteComponentProps> = ({ children }) => {
       const config = await getAuthConfig(token);
       await api.get<IApiResponse>(`/groups/${groupId}`, config).then((response) => {
         if (response.status === 202 && response.data.isValid) {
-          const token = response.data.message;
-          connection?.invoke("Subscribe", token, "FetchGroupCallback");
-
-          connection?.on(
+          invokeApiHub<IBasicGroupDetailsViewModel>(
+            connection,
+            "Subscribe",
             "FetchGroupCallback",
-            (response: IBasicGroupDetailsViewModel) => {
+            (response) => {
               setGroup(response);
               setLoading(false);
-              connection.off("FetchGroupCallback");
             },
+            response.data.message,
           );
         }
       });

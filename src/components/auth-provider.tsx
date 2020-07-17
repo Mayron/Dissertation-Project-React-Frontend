@@ -4,47 +4,47 @@ import { auth, createUserProfileDocument } from "../firebase/firebase.utils";
 interface IAuthContext {
   token?: string;
   appUser?: IAppUser;
+  loading: boolean;
 }
 
-export const AuthContext = createContext<IAuthContext>({});
+export const AuthContext = createContext<IAuthContext>({
+  loading: true,
+});
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [value, setValue] = useState<IAuthContext>({});
+  const defaultToken = localStorage.getItem("token");
+
+  const [value, setValue] = useState<IAuthContext>({
+    token: defaultToken || undefined,
+    loading: true,
+  });
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    return auth.onIdTokenChanged((userAuth) => {
+      localStorage.removeItem("token");
 
-    if (token) {
-      setValue({ appUser: value.appUser, token });
-    }
-
-    return auth.onAuthStateChanged((userAuth) => {
-      if (userAuth === null) {
-        setValue({});
-        localStorage.removeItem("token");
+      if (!userAuth) {
+        setValue({ loading: false });
         return;
       }
 
       (async () => {
         const userRef = await createUserProfileDocument(userAuth);
-        let _token = localStorage.getItem("token") || undefined;
-
-        if (!_token) {
-          _token = await userAuth.getIdToken();
-          localStorage.setItem("token", _token);
-          setValue({ appUser: value.appUser, token: _token });
-        }
+        let nextToken = await userAuth.getIdToken();
 
         userRef?.onSnapshot((snapshot) => {
           const { displayName, email, createdAt } = snapshot.data() as IAppUser;
+          localStorage.setItem("token", nextToken);
+
           setValue({
-            token: _token,
+            token: nextToken,
             appUser: {
               id: snapshot.id,
               displayName,
               email,
               createdAt,
             },
+            loading: false,
           });
         });
       })();

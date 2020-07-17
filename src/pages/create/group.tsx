@@ -13,31 +13,7 @@ import { SignalRContext } from "../../components/signalr-provider";
 import api, { getAuthConfig } from "../../api";
 import { toast } from "react-toastify";
 import Loading from "../../components/common/loading";
-import { addPendingMessage } from "../../utils";
-
-// hard-coded + checked on server
-const groupCategories: IKeyValuePair[] = [
-  {
-    key: "Gaming",
-    value: "gaming",
-  },
-  {
-    key: "Educational",
-    value: "educational",
-  },
-  {
-    key: "Entertainment",
-    value: "entertainment",
-  },
-  {
-    key: "Politics",
-    value: "politics",
-  },
-  {
-    key: "Science & Technology",
-    value: "science-tech",
-  },
-];
+import { addPendingMessage, invokeApiHub } from "../../utils";
 
 declare interface INewGroupModel {
   name: string;
@@ -53,6 +29,7 @@ interface IFormValuesDefaultState extends FormValues {
 }
 
 const CreateGroupPage: React.FC = () => {
+  const [categories, setCategories] = useState<IKeyValuePair[]>([]);
   const [loading, setLoading] = useState(false);
   const { token } = useContext(AuthContext);
   const connection = useContext(SignalRContext);
@@ -69,6 +46,17 @@ const CreateGroupPage: React.FC = () => {
     },
   });
 
+  useEffect(() => {
+    invokeApiHub<IPayloadEvent>(
+      connection,
+      "FetchGroupCategories",
+      "GroupCategoriesCallback",
+      (ev) => {
+        setCategories(ev.payload);
+      },
+    );
+  }, [connection]);
+
   const handleFormInputChanged = (name: string, value: any) => {
     setFormValues({ ...formValues, [name]: { value } });
   };
@@ -76,6 +64,13 @@ const CreateGroupPage: React.FC = () => {
   const handleNewGroupSubmitted = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!token) return;
+
+    if (!connection) {
+      toast.error(
+        "Lost connection. Please wait and try again when the connection returns.",
+      );
+      return;
+    }
 
     if (!formValues.name.value) {
       const nextState = { ...formValues };
@@ -102,22 +97,36 @@ const CreateGroupPage: React.FC = () => {
     (async () => {
       const config = await getAuthConfig(token);
       await api.post<IApiResponse>("/groups/create", group, config).then((response) => {
+        let receivedReply = false;
+
         if (response.status === 202 && response.data.isValid) {
-          const token = response.data.message;
-          connection?.invoke("Subscribe", token, "GroupCreatedCallback");
+          const callback = "GroupCreatedCallback";
 
-          connection?.on("GroupCreatedCallback", (event) => {
-            const { success, message, args } = event;
-            addPendingMessage(localStorage, { success, message });
+          invokeApiHub<ISagaMessageEmittedEvent>(
+            connection,
+            "Subscribe",
+            callback,
+            (ev) => {
+              receivedReply = true;
+              const { success, message, args } = ev;
+              addPendingMessage(localStorage, { success, message });
 
-            if (args?.groupId) {
-              navigateTo(`/g/${args.groupId}`);
-            } else {
-              navigateTo("/");
+              if (args?.groupId) {
+                navigateTo(`/g/${args.groupId}`);
+              } else {
+                navigateTo("/");
+              }
+            },
+            response.data.message,
+          );
+
+          setTimeout(() => {
+            if (!receivedReply) {
+              toast.error("Server error - Request timed out.");
+              connection.off(callback);
+              setLoading(false);
             }
-
-            connection.off("GroupCreatedCallback");
-          });
+          }, 8000);
         } else {
           toast.error(response.data.message);
         }
@@ -130,7 +139,7 @@ const CreateGroupPage: React.FC = () => {
   return (
     <Layout id="createGroup">
       <form onSubmit={handleNewGroupSubmitted}>
-        {loading && <Loading />}
+        {loading && <Loading dimmer />}
         <Panel title="Create a Group">
           <div className="row">
             <p>
@@ -153,7 +162,7 @@ const CreateGroupPage: React.FC = () => {
             <Dropdown
               title="Category"
               placeholder="Select category"
-              items={groupCategories}
+              items={categories}
               name="categoryId"
               data={formValues.categoryId}
               onChange={handleFormInputChanged}

@@ -10,6 +10,8 @@ import ToolBar from "./index/tool-bar";
 import Post from "./common/post";
 import Marked from "marked";
 import { toast, ToastOptions } from "react-toastify";
+import Loading from "./common/loading";
+import { invokeApiHub } from "../utils";
 
 interface IPostsProps {
   fetchCommand: string;
@@ -17,11 +19,12 @@ interface IPostsProps {
 }
 
 const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId = "" }) => {
-  const { token, appUser } = useContext(AuthContext);
+  const { token, appUser, loading } = useContext(AuthContext);
   const connection = useContext(SignalRContext);
 
   const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState<IPostModel[]>([]);
+  const [error, setError] = useState<string | undefined>();
 
   const [newPost, setNewPost] = useState<FormValues>({
     title: {},
@@ -63,25 +66,29 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId = "" }) => {
 
     (async () => {
       const config = await getAuthConfig(token);
+
       await api.post<IApiResponse>("/posts", post, config).then((response) => {
         if (response.status === 202 && response.data.isValid) {
-          const token = response.data.message;
-          connection?.invoke("Subscribe", token, "PostAddedCallback");
+          invokeApiHub<ISagaMessageEmittedEvent>(
+            connection,
+            "Subscribe",
+            "PostAddedCallback",
+            (ev) => {
+              const { success, message } = ev;
 
-          connection?.on("PostAddedCallback", (event) => {
-            const { success, message } = event;
+              if (success) {
+                setShowPopup(false);
+                setNewPost({ title: {}, body: {}, group: {} });
+              }
 
-            if (success) {
-              setShowPopup(false);
-              setNewPost({ title: {}, body: {}, group: {} });
-            }
-
-            if (success) {
-              toast.success(message);
-            } else {
-              toast.error(message);
-            }
-          });
+              if (success) {
+                toast.success(message);
+              } else {
+                toast.error(message);
+              }
+            },
+            response.data.message,
+          );
         } else {
           toast.error(response.data.message);
         }
@@ -90,11 +97,16 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId = "" }) => {
   };
 
   useEffect(() => {
-    connection?.invoke(fetchCommand);
-    connection?.on("NewsFeedUpdate", (ev) => {
-      setPosts(ev);
-    });
-  }, [token]);
+    if (!loading) {
+      invokeApiHub<IPayloadEvent>(connection, fetchCommand, "PostAreaCallback", (ev) => {
+        if (ev.error) {
+          setError(ev.error);
+        } else if (ev.payload) {
+          setPosts(ev.payload);
+        }
+      });
+    }
+  }, [loading]);
 
   return (
     <>
@@ -117,20 +129,27 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId = "" }) => {
         )}
       </PostBox>
       <ToolBar />
-      {posts.map((post, key) => {
-        const url = `/g/${post.groupId}/post/${post.id}/${slugify(post.title)}`;
-        return (
-          <Post key={key} url={url} author={post.author} when={post.when}>
-            {post.title && <h4>{post.title}</h4>}
-            {post.body && (
-              <div
-                className="markdown"
-                dangerouslySetInnerHTML={{ __html: Marked.parse(post.body) }}
-              ></div>
-            )}
-          </Post>
-        );
-      })}
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {error && <p>{error}</p>}
+          {posts.map((post, key) => {
+            const url = `/g/${post.groupId}/post/${post.id}/${slugify(post.title)}`;
+            return (
+              <Post key={key} url={url} author={post.author} when={post.when}>
+                {post.title && <h4>{post.title}</h4>}
+                {post.body && (
+                  <div
+                    className="markdown"
+                    dangerouslySetInnerHTML={{ __html: Marked.parse(post.body) }}
+                  ></div>
+                )}
+              </Post>
+            );
+          })}
+        </>
+      )}
     </>
   );
 };

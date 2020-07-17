@@ -1,3 +1,5 @@
+import { HubConnection } from "@microsoft/signalr";
+
 export const addPendingMessage = (storage: Storage, message: PendingMessage) => {
   const messagesRaw = storage.getItem("messages");
   let pendingMessages: PendingMessage[];
@@ -23,4 +25,20 @@ export const usePendingMessages = (
   const pendingMessages = JSON.parse(messagesRaw) as PendingMessage[];
   pendingMessages.forEach(callback);
   storage.removeItem("messages");
+};
+
+export const invokeApiHub = <T>(
+  connection: HubConnection | null,
+  method: string,
+  callback: string,
+  onCallback: (response: T) => void,
+  ...args: any[]
+) => {
+  if (!connection) return;
+
+  connection.invoke(method, callback, ...args);
+  connection.on(callback, (response: T) => {
+    connection.off(callback);
+    onCallback(response);
+  });
 };

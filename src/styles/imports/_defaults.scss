@@ -67,6 +67,10 @@ label {
   }
 }
 
+form {
+  position: relative;
+}
+
 ul {
   list-style-type: none;
 }
@@ -186,16 +190,14 @@ textarea {
 .ui.selection.active.dropdown,
 .ui.selection.active.dropdown .menu {
   border-color: $dark-orange !important;
-
   &:hover {
     border-color: $primary-orange !important;
   }
 }
-
 .ui.active.inverted.dimmer {
   border-radius: $border-radius;
-
-  .ui.active.loader::after {
-    border-color: $dark-orange transparent transparent;
-  }
+}
+.ui.active.inverted.dimmer .ui.active.loader:after,
+.ui.active.loader::after {
+  border-color: $dark-orange transparent transparent;
 }

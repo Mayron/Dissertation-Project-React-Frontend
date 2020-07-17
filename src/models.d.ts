@@ -68,3 +68,14 @@ declare type PendingMessage = {
   success: boolean;
   message: string;
 };
+
+declare interface IPayloadEvent {
+  error?: string;
+  payload?: any;
+}
+
+declare interface ISagaMessageEmittedEvent {
+  message: string;
+  success: boolean;
+  args?: { [key: string]: string };
+}

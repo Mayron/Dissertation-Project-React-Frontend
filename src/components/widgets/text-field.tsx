@@ -47,7 +47,7 @@ const TextField: React.FC<ITextFieldProps> = ({
           onBlur={() => setFocused(false)}
           onChange={(e) => onChange(name, e.target.value)}
           style={style}
-          value={data.value}
+          value={data.value || ""}
           name={name}
           minLength={min}
         />
