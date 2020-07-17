@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Icons } from "../icons";
 import menuData, { ILinkData } from "../../api-data/main-nav-data";
 import MenuListItem from "./menu-list-item";
 import NavSection from "./nav-section";
+import { SignalRContext } from "../signalr-provider";
+import { invokeApiHub } from "../../utils";
+import { AuthContext } from "../auth-provider";
 
 interface IMainNavProps {
   collapsed?: boolean;
@@ -10,18 +13,25 @@ interface IMainNavProps {
 }
 
 const MainNav: React.FC<IMainNavProps> = ({ collapsed, menuType }) => {
-  const [projects, setProjects] = useState<ILinkData[]>([]);
-  const [groups, setGroups] = useState<ILinkData[]>([]);
-  const [memberships, setMemberships] = useState<ILinkData[]>([]);
-  const [subscriptions, setSubscriptions] = useState<ILinkData[]>([]);
+  const connection = useContext(SignalRContext);
+  const { token } = useContext(AuthContext);
+
+  const [state, setState] = useState<IMainNavState>({
+    projects: [],
+    groups: [],
+    memberships: [],
+    subscriptions: [],
+  });
 
   useEffect(() => {
-    setProjects([...menuData.projects]);
-    setGroups([...menuData.groups]);
-    setMemberships(menuData.memberships);
+    if (!token) return;
 
-    setSubscriptions(menuData.subscriptions);
-  }, []);
+    ["Projects", "Groups", "Memberships", "Subscriptions"].forEach((t) => {
+      invokeApiHub<IPayloadEvent>(connection, `FetchUser${t}`, `${t}Callback`, (ev) =>
+        setState({ ...state, [t.toLowerCase()]: ev.payload }),
+      );
+    });
+  }, [connection, token]);
 
   let classList = [];
   if (collapsed) classList.push("collapsed");
@@ -48,25 +58,33 @@ const MainNav: React.FC<IMainNavProps> = ({ collapsed, menuType }) => {
           <NavSection
             id="projects"
             title="Your Projects"
-            items={projects}
+            linkPrefix="/p"
+            items={state.projects}
             create="project"
             defaultOpen={true}
             moreOnClick={() => {}}
           />
           <NavSection
             id="groups"
+            linkPrefix="/g"
             title="Your Groups"
-            items={groups}
+            items={state.groups}
             defaultOpen={true}
             create="group"
           />
           <NavSection
             id="memberships"
+            linkPrefix="/g"
             title="Memberships"
-            items={memberships}
+            items={state.memberships}
             moreOnClick={() => {}}
           />
-          <NavSection id="subs" title="Subscriptions" items={subscriptions} />
+          <NavSection
+            id="subs"
+            linkPrefix="/g"
+            title="Subscriptions"
+            items={state.subscriptions}
+          />
         </>
       )}
     </nav>

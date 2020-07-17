@@ -24,7 +24,7 @@ declare interface INewGroupModel {
 }
 
 interface IFormValuesDefaultState extends FormValues {
-  tags: FormValue<string[]>;
+  tags: FormValue<ITag[]>;
   connected: FormValue<string[]>;
 }
 
@@ -90,7 +90,7 @@ const CreateGroupPage: React.FC = () => {
       name: formValues.name.value,
       about: formValues.about.value,
       categoryId: formValues.categoryId.value,
-      tags: formValues.tags.value,
+      tags: formValues.tags.value?.map((t) => t.value),
       connected: formValues.connected.value,
     };
 

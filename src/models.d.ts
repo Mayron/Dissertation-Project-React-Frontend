@@ -47,6 +47,7 @@ interface IBasicGroupDetailsViewModel {
   visibility: string;
   categoryName: string;
   groupId: string;
+  totalMembers: number;
 }
 
 declare interface INewPostModel {
@@ -78,4 +79,21 @@ declare interface ISagaMessageEmittedEvent {
   message: string;
   success: boolean;
   args?: { [key: string]: string };
+}
+
+declare interface ITag {
+  editing?: boolean;
+  value: string;
+}
+
+declare type MenuData = {
+  name: string;
+  id: string;
+};
+
+declare interface IMainNavState {
+  projects: MenuData[];
+  groups: MenuData[];
+  memberships: MenuData[];
+  subscriptions: MenuData[];
 }

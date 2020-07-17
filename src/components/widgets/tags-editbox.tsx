@@ -1,11 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Icons } from "../icons";
 
-interface ITag {
-  editing?: boolean;
-  value: string;
-}
-
 interface ITagBoxProps {
   tag: ITag;
   onChange: (tag: ITag, newValue: string) => void;
@@ -97,7 +92,7 @@ interface ITagsEditBoxProps {
   placeholder: string;
   max: number;
   name: string;
-  data: FormValue<string[]>;
+  data: FormValue<ITag[]>;
   onChange: (name: string, value: any) => void;
 }
 
@@ -109,13 +104,9 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({
   data,
   onChange,
 }) => {
+  const tags = data.value || [];
+
   const [focused, setFocused] = useState(false);
-
-  const defaultState = data.value?.map<ITag>((v) => {
-    return { value: v };
-  });
-
-  const [tags, setTags] = useState<ITag[]>(defaultState || []);
 
   const handleTagEditBoxClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -124,7 +115,7 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({
     if (tags.findIndex((t) => t.editing) >= 0) return;
     if (tags.length >= max) return;
 
-    setTags([...tags, { value: "", editing: true }]);
+    onChange(name, [...tags, { value: "", editing: true }]);
     setFocused(true);
   };
 
@@ -176,7 +167,7 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({
     nextTags = limitTags(nextTags);
 
     nextTags.forEach((t) => (t.editing = false));
-    setTags(nextTags);
+    onChange(name, nextTags);
     setFocused(false);
   };
 
@@ -202,7 +193,7 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({
       }
     } else {
       nextTags = nextTags.filter((t) => t.value && t.value.length > 0);
-      setTags(nextTags);
+      onChange(name, nextTags);
       setFocused(false);
       return;
     }
@@ -215,8 +206,7 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({
       nextTags.push({ value: "", editing: true });
     }
 
-    setTags(nextTags);
-    onChange(name, [nextTags.map((t) => t.value)]);
+    onChange(name, nextTags);
   };
 
   const handleTagValueChanged = (tag: ITag, newValue: string) => {
@@ -226,7 +216,7 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({
       tag.value = newValue;
     }
 
-    setTags(nextTags);
+    onChange(name, nextTags);
   };
 
   const handleTagValuePasted = (tag: ITag, newValue: string) => {
@@ -235,7 +225,10 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({
 
   const handleStopEditing = (tag: ITag, cancel?: boolean) => {
     if (cancel) {
-      setTags(tags.filter((t) => t !== tag));
+      onChange(
+        name,
+        tags.filter((t) => t !== tag),
+      );
       setFocused(false);
     } else {
       handleValidationOfTagsAfterFinishEditing(tag.value, tag.value);
@@ -249,7 +242,7 @@ const TagsEditBox: React.FC<ITagsEditBoxProps> = ({
       if (t === tag) t.editing = true;
     });
 
-    setTags(nextTags);
+    onChange(name, nextTags);
   };
 
   return (

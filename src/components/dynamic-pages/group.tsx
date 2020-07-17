@@ -6,6 +6,8 @@ import { SignalRContext } from "../signalr-provider";
 import api, { getAuthConfig } from "../../api";
 import { AuthContext } from "../auth-provider";
 import { invokeApiHub } from "../../utils";
+import Loading from "../common/loading";
+import numeral from "numeral";
 
 interface IGroupContext {
   group?: IBasicGroupDetailsViewModel;
@@ -44,19 +46,28 @@ const GroupPage: React.FC<RouteComponentProps> = ({ children }) => {
   }, [groupId, token]);
 
   return (
-    <Layout id="groupPage" title="Test" collapsed menuType="group">
-      <Group.Banner
-        name="MayronUI"
-        type="group"
-        members="1.5k"
-        category="Gaming"
-        logo="logo.png"
-        img="banner.jpg"
-      >
-        <ul className="social">
-          <li>FB Icon here!</li>
-        </ul>
-      </Group.Banner>
+    <Layout id="groupPage" title={group?.name || "Group"} collapsed menuType="group">
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {!group ? (
+            <p>Group unavailable</p>
+          ) : (
+            <Group.Banner
+              name={group.name}
+              type="group"
+              members={numeral(group.totalMembers).format("0.0a")}
+              category={group.categoryName}
+              logo="logo.png"
+              img="banner.jpg"
+            >
+              <ul className="social"></ul>
+            </Group.Banner>
+          )}
+        </>
+      )}
+
       <GroupContext.Provider value={{ loading, group }}>{children}</GroupContext.Provider>
     </Layout>
   );
