@@ -3,10 +3,10 @@ import Layout from "../layout";
 import { RouteComponentProps, useMatch } from "@reach/router";
 import Group from "../group/group";
 import { SignalRContext } from "../signalr-provider";
-import { invokeApiHub } from "../../utils";
 import Loading from "../common/loading";
 import { navigateTo } from "gatsby";
 import slugify from "slugify";
+import { invokeApiHub } from "../../api";
 
 interface IGroupContext {
   group: IBasicGroupDetailsViewModel;

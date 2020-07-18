@@ -2,23 +2,21 @@ import { useEffect, useContext, useState } from "react";
 import { SignalRContext } from "./signalr-provider";
 import { AuthContext } from "./auth-provider";
 import slugify from "slugify";
-import api, { getAuthConfig } from "../api";
+import api, { getAuthConfig, invokeApiHub } from "../api";
 import React from "react";
 import CreatePostPopup from "./common/create-post-popup";
 import PostBox from "./post-box";
 import ToolBar from "./index/tool-bar";
 import Post from "./common/post";
 import Marked from "marked";
-import { toast, ToastOptions } from "react-toastify";
+import { toast } from "react-toastify";
 import Loading from "./common/loading";
-import { invokeApiHub } from "../utils";
 
 interface IPostsProps {
   fetchCommand: string;
-  groupId?: string;
 }
 
-const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId = "" }) => {
+const PostsArea: React.FC<IPostsProps> = ({ fetchCommand }) => {
   const { token, appUser, loading } = useContext(AuthContext);
   const connection = useContext(SignalRContext);
 

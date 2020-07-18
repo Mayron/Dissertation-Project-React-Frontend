@@ -3,9 +3,9 @@ import MenuListItem from "./menu-list-item";
 import { Icons } from "../icons";
 import NavSection from "./nav-section";
 import _ from "lodash";
-import { invokeApiHub } from "../../utils";
 import { SignalRContext } from "../signalr-provider";
 import { GroupContext } from "../dynamic-pages/group";
+import { invokeApiHub } from "../../api";
 
 interface IGroupsNavState {
   projects: MenuData[];

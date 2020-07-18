@@ -10,10 +10,10 @@ import PanelSection from "../../components/common/panel-section";
 import TagsEditBox from "../../components/widgets/tags-editbox";
 import { AuthContext } from "../../components/auth-provider";
 import { SignalRContext } from "../../components/signalr-provider";
-import api, { getAuthConfig } from "../../api";
+import api, { getAuthConfig, invokeApiHub } from "../../api";
 import { toast } from "react-toastify";
 import Loading from "../../components/common/loading";
-import { addPendingMessage, invokeApiHub } from "../../utils";
+import { addPendingMessage } from "../../utils";
 
 declare interface INewGroupModel {
   name: string;
@@ -33,6 +33,10 @@ const CreateGroupPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const { token } = useContext(AuthContext);
   const connection = useContext(SignalRContext);
+
+  if (!token) {
+    navigateTo("login");
+  }
 
   const [formValues, setFormValues] = useState<IFormValuesDefaultState>({
     name: {},
