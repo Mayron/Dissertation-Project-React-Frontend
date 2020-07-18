@@ -12,6 +12,13 @@ interface IMainNavProps {
   menuType?: "group" | "project" | "auth";
 }
 
+declare interface IMainNavState {
+  projects: MenuData[];
+  groups: MenuData[];
+  memberships: MenuData[];
+  subscriptions: MenuData[];
+}
+
 const MainNav: React.FC<IMainNavProps> = ({ collapsed, menuType }) => {
   const connection = useContext(SignalRContext);
   const { token } = useContext(AuthContext);
@@ -27,9 +34,9 @@ const MainNav: React.FC<IMainNavProps> = ({ collapsed, menuType }) => {
     if (!token) return;
 
     ["Projects", "Groups", "Memberships", "Subscriptions"].forEach((t) => {
-      invokeApiHub<IPayloadEvent>(connection, `FetchUser${t}`, `${t}Callback`, (ev) =>
-        setState({ ...state, [t.toLowerCase()]: ev.payload }),
-      );
+      invokeApiHub<IPayloadEvent<MenuData[]>>(connection, `FetchUser${t}`, (ev) => {
+        setState({ ...state, [t.toLowerCase()]: ev.payload });
+      });
     });
   }, [connection, token]);
 
@@ -80,7 +87,7 @@ const MainNav: React.FC<IMainNavProps> = ({ collapsed, menuType }) => {
             moreOnClick={() => {}}
           />
           <NavSection
-            id="subs"
+            id="subscriptions"
             linkPrefix="/g"
             title="Subscriptions"
             items={state.subscriptions}

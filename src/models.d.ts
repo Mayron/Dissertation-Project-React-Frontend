@@ -70,9 +70,9 @@ declare type PendingMessage = {
   message: string;
 };
 
-declare interface IPayloadEvent {
+declare interface IPayloadEvent<T> {
   error?: string;
-  payload?: any;
+  payload?: T;
 }
 
 declare interface ISagaMessageEmittedEvent {
@@ -90,10 +90,3 @@ declare type MenuData = {
   name: string;
   id: string;
 };
-
-declare interface IMainNavState {
-  projects: MenuData[];
-  groups: MenuData[];
-  memberships: MenuData[];
-  subscriptions: MenuData[];
-}

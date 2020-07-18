@@ -2,25 +2,18 @@ import React, { useContext } from "react";
 import { RouteComponentProps } from "@reach/router";
 import Panel from "../../common/panel";
 import Group from "../group";
-import Loading from "../../common/loading";
 import { GroupContext } from "../../dynamic-pages/group";
 
 const AboutView: React.FC<RouteComponentProps> = () => {
-  const { group, loading } = useContext(GroupContext);
+  const { group } = useContext(GroupContext);
 
   return (
     <>
       <Group.MenuBars.HomeMenuBar />
       <section id="groupAbout">
         <Panel title="About">
-          {loading ? (
-            <div className="loading-container">
-              <Loading />
-            </div>
-          ) : (
-            <>
-              {group?.about && <p>{group.about}</p>}
-              {/* <div className="cards">
+          <p>{group.about}</p>
+          {/* <div className="cards">
               <Card description="Check out our code base and create pull requests!">
                 <Icons.Placeholder text="GitHub" />
               </Card>
@@ -28,8 +21,6 @@ const AboutView: React.FC<RouteComponentProps> = () => {
                 <Icons.Placeholder text="YouTube" />
               </Card>
             </div> */}
-            </>
-          )}
         </Panel>
 
         {/* <Panel title="Business Info">

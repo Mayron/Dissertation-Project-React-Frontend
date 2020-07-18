@@ -41,6 +41,7 @@ const NavSection: React.FC<INavSectionProps> = ({
       {open && (
         <>
           <ul>
+            {items.length === 0 && <p className="placeholder">No {id} found</p>}
             {items.map((item, key) => (
               <MenuListItem
                 key={key}
@@ -57,7 +58,7 @@ const NavSection: React.FC<INavSectionProps> = ({
                   <Icons.Plus text={`Create ${create}`} className="action" />
                 </MenuListItem>
               )}
-              {(moreOnClick || moreUrl) && (
+              {items.length > 0 && (moreOnClick || moreUrl) && (
                 <MenuListItem url={moreUrl}>
                   <Icons.Arrow text={moreText} className="action" open />
                 </MenuListItem>

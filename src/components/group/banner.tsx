@@ -2,11 +2,12 @@ import React from "react";
 import BannerImagePlaceholder from "../../images/placeholder-banner.png";
 import ProfilePicPlaceholder from "../../images/placeholder-profile-pic.svg";
 import _ from "lodash";
+import numeral from "numeral";
 
 interface IBannerProps {
   name: string;
   type: "group" | "community";
-  members: string;
+  members: number;
   category: string;
   logo: string;
   img: string;
@@ -21,6 +22,13 @@ const Banner: React.FC<IBannerProps> = ({
   img,
   children,
 }) => {
+  let membersText =
+    members < 1000 ? members.toString() : numeral(members).format("0.00a");
+
+  if (membersText.includes(".00")) {
+    membersText = membersText.replace(".00", "");
+  }
+
   return (
     <section id="groupBanner" role="banner" className="banner">
       <header>
@@ -28,7 +36,9 @@ const Banner: React.FC<IBannerProps> = ({
           <div>
             <h1>{`${name} ${_.startCase(_.toLower(type))}`}</h1>
             <p>
-              <span>{members} members</span>
+              <span>
+                {membersText} {members > 1 ? "members" : "member"}
+              </span>
               <span>Rank 4</span>
             </p>
           </div>

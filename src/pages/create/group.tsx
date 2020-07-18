@@ -47,14 +47,11 @@ const CreateGroupPage: React.FC = () => {
   });
 
   useEffect(() => {
-    invokeApiHub<IPayloadEvent>(
-      connection,
-      "FetchGroupCategories",
-      "GroupCategoriesCallback",
-      (ev) => {
+    invokeApiHub<IPayloadEvent<IKeyValuePair[]>>(connection, "FetchCategories", (ev) => {
+      if (ev.payload) {
         setCategories(ev.payload);
-      },
-    );
+      }
+    });
   }, [connection]);
 
   const handleFormInputChanged = (name: string, value: any) => {
@@ -97,17 +94,11 @@ const CreateGroupPage: React.FC = () => {
     (async () => {
       const config = await getAuthConfig(token);
       await api.post<IApiResponse>("/groups/create", group, config).then((response) => {
-        let receivedReply = false;
-
         if (response.status === 202 && response.data.isValid) {
-          const callback = "GroupCreatedCallback";
-
           invokeApiHub<ISagaMessageEmittedEvent>(
             connection,
             "Subscribe",
-            callback,
             (ev) => {
-              receivedReply = true;
               const { success, message, args } = ev;
               addPendingMessage(localStorage, { success, message });
 
@@ -117,16 +108,11 @@ const CreateGroupPage: React.FC = () => {
                 navigateTo("/");
               }
             },
+            () => {
+              setLoading(false);
+            },
             response.data.message,
           );
-
-          setTimeout(() => {
-            if (!receivedReply) {
-              toast.error("Server error - Request timed out.");
-              connection.off(callback);
-              setLoading(false);
-            }
-          }, 8000);
         } else {
           toast.error(response.data.message);
         }

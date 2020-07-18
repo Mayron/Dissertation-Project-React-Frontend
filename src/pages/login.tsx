@@ -37,7 +37,6 @@ const LogInPage: React.FC<RouteComponentProps> = ({}) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    debugger;
     const { email, password } = formValues;
 
     if (!email.value) {

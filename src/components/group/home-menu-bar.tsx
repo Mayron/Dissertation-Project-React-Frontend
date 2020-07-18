@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 // import { Link as ReachLink } from "@reach/router";
 import { Link } from "gatsby";
+import { GroupContext } from "../dynamic-pages/group";
 
 const HomeMenuBar = () => {
+  const { createRoute } = useContext(GroupContext);
+
   return (
     <nav className="menu-bar" role="toolbar">
       <ul>
         <li>
-          <Link to="/g/mayronui-gen6" activeClassName="active">
+          <Link to={createRoute()} activeClassName="active">
             Posts
           </Link>
         </li>
@@ -18,7 +21,7 @@ const HomeMenuBar = () => {
           </Link>
         </li> */}
         <li>
-          <Link to="/g/mayronui-gen6/about" activeClassName="active">
+          <Link to={createRoute("about")} activeClassName="active">
             About
           </Link>
         </li>

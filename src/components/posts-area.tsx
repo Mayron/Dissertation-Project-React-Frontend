@@ -72,7 +72,6 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId = "" }) => {
           invokeApiHub<ISagaMessageEmittedEvent>(
             connection,
             "Subscribe",
-            "PostAddedCallback",
             (ev) => {
               const { success, message } = ev;
 
@@ -87,6 +86,7 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId = "" }) => {
                 toast.error(message);
               }
             },
+            undefined,
             response.data.message,
           );
         } else {
@@ -98,7 +98,7 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId = "" }) => {
 
   useEffect(() => {
     if (!loading) {
-      invokeApiHub<IPayloadEvent>(connection, fetchCommand, "PostAreaCallback", (ev) => {
+      invokeApiHub<IPayloadEvent<IPostModel[]>>(connection, fetchCommand, (ev) => {
         if (ev.error) {
           setError(ev.error);
         } else if (ev.payload) {
