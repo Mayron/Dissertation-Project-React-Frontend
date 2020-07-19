@@ -41,13 +41,25 @@ declare interface IPostModel {
 }
 
 // retrieve the core group properties (does not include all properties)
-interface IBasicGroupDetailsViewModel {
+declare interface IGroupDetailsViewModel {
   about?: string;
   name: string;
   visibility: string;
   categoryName: string;
   groupId: string;
   totalMembers: number;
+}
+
+declare interface IProjectDetailsViewModel {
+  projectId: string;
+  name: string;
+  about?: string;
+  totalSubscribers: number;
+  visibility: string;
+  connectedGroupId?: string;
+  subscribed: boolean;
+  totalDownloads: number;
+  lastUpdated: string;
 }
 
 declare interface INewPostModel {

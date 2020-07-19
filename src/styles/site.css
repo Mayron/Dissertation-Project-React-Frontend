@@ -71,6 +71,7 @@ a.link {
   padding: 6px 15px;
   font-size: 14px;
   white-space: nowrap;
+  text-decoration: none;
 }
 
 .btn-secondary.sm {
@@ -95,6 +96,7 @@ a.link {
   color: #fff;
   font-size: 14px;
   font-weight: 600;
+  text-decoration: none;
 }
 
 .btn-primary.lg {
@@ -1457,6 +1459,7 @@ div.edit-icon:hover span {
   background-color: #fff;
   position: relative;
   margin-bottom: 15px;
+  width: 100%;
 }
 
 .panel .settings-icon {
@@ -3137,6 +3140,11 @@ footer.post-footer > p {
 #project_tp .perm-container button {
   margin-left: 20px;
   min-width: 100px;
+}
+
+#confirmConnection {
+  margin-top: 40px;
+  text-align: center;
 }
 
 #userPage {

@@ -63,6 +63,7 @@ a.link {
   padding: 6px $section-spacing;
   font-size: 14px;
   white-space: nowrap;
+  text-decoration: none;
 
   &.sm {
     padding: 4px 12px;
@@ -86,6 +87,7 @@ a.link {
   color: $white;
   font-size: 14px;
   font-weight: 600;
+  text-decoration: none;
 
   &.lg {
     padding: 8px $page-gutter-spacing;

@@ -12,7 +12,7 @@ const AboutView: React.FC<RouteComponentProps> = () => {
       <Group.MenuBars.HomeMenuBar />
       <section id="groupAbout">
         <Panel title="About">
-          <p>{group.about}</p>
+          <p>{group.about || "There doesn't seem to be anything here yet..."}</p>
           {/* <div className="cards">
               <Card description="Check out our code base and create pull requests!">
                 <Icons.Placeholder text="GitHub" />

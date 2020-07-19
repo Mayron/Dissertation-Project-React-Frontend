@@ -1,33 +1,43 @@
 import React from "react";
 import PlaceholderProfilePic from "../../images/placeholder-profile-pic.svg";
+import { formatStatistic } from "../../utils";
 
 interface IProjectHeaderProps {
-  subPage?: string;
+  project: IProjectDetailsViewModel;
 }
 
-const ProjectHeader: React.FC<IProjectHeaderProps> = ({ subPage }) => {
+const ProjectHeader: React.FC<IProjectHeaderProps> = ({ project }) => {
+  const handleUnsubscribeClick = () => {};
+
+  const handleSubscribeClick = () => {};
+
   return (
     <header id="projectHeader">
       <img src={PlaceholderProfilePic} alt="project logo" />
       <div>
-        <h2>MayronUI Gen6</h2>
-        <p className="meta">1,125 subscribers</p>
+        <h2>{project.name}</h2>
+        <p className="meta">{formatStatistic(project.totalSubscribers, "subscriber")}</p>
       </div>
-      {!subPage && (
-        <>
-          <button type="button" className="btn-primary">
-            Subscribe
-          </button>
 
-          <div className="download-stats">
-            <div>
-              <p className="meta">256k downloads</p>
-              <p className="meta">Last updated 2 days ago</p>
-            </div>
-            <button className="btn-primary">Download</button>
-          </div>
-        </>
+      {project.subscribed ? (
+        <button type="button" className="btn-primary" onClick={handleSubscribeClick}>
+          Subscribe
+        </button>
+      ) : (
+        <button type="button" className="btn-tertiary" onClick={handleUnsubscribeClick}>
+          Unsubscribe
+        </button>
       )}
+
+      <div className="download-stats">
+        <div>
+          <p className="meta">
+            {formatStatistic(project.totalDownloads, "download", true)}
+          </p>
+          <p className="meta">Last updated {project.lastUpdated}</p>
+        </div>
+        <button className="btn-primary">Download</button>
+      </div>
     </header>
   );
 };

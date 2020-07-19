@@ -5,7 +5,6 @@ import Panel from "../../components/common/panel";
 import TextArea from "../../components/widgets/text-area";
 import TextField from "../../components/widgets/text-field";
 import Dropdown from "../../components/widgets/dropdown";
-import ProjectConnectionList from "../../components/project-connection-list";
 import PanelSection from "../../components/common/panel-section";
 import TagsEditBox from "../../components/widgets/tags-editbox";
 import { AuthContext } from "../../components/auth-provider";
@@ -14,6 +13,7 @@ import api, { getAuthConfig, invokeApiHub } from "../../api";
 import { toast } from "react-toastify";
 import Loading from "../../components/common/loading";
 import { addPendingMessage } from "../../utils";
+import ProjectConnectionList from "../../components/project-connection-list copy";
 
 declare interface INewGroupModel {
   name: string;

@@ -45,7 +45,7 @@ const NavSection: React.FC<INavSectionProps> = ({
             {items.map((item, key) => (
               <MenuListItem
                 key={key}
-                url={`${linkPrefix}/${item.id}/${slugify(item.name)}`}
+                url={`${linkPrefix}/${item.id}/${slugify(item.name, { lower: true })}`}
               >
                 <Icons.Placeholder text={item.name} />
               </MenuListItem>

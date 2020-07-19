@@ -33,17 +33,34 @@ const App = () => {
         <AllDownloadsView path="/all-downloads" />
         <GeneralSettingsView path="/settings" />
         <TeamsView path="/teams" />
-
-        <Redirect default to="/p/404" />
       </ProjectPage>
 
-      <TeamHeader path="/p/:slug/t/:teamId">
+      <ProjectPage path="/p/:projectId/:slug">
+        <AboutView path="/" />
+        <ConnectView path="/connect" />
+        <AnnouncementsView path="/announcements" />
+        <OpportunitiesView path="/opportunities" />
+        <KnowledgeBaseView path="/knowledge-base" />
+        <IssuesView path="/issues" />
+        <IssuesView path="/issues/closed" closed />
+        <ViewIssueView path="/issues/:issueId" />
+        <NewIssueView path="/issues/new" />
+        <AllDownloadsView path="/all-downloads" />
+        <GeneralSettingsView path="/settings" />
+        <TeamsView path="/teams" />
+      </ProjectPage>
+
+      <TeamHeader path="/p/:projectId//t/:teamId">
         <TeamMembersView path="/members" />
         <TeamPermissionsView path="/permissions" />
       </TeamHeader>
 
-      <NotFoundPage path="/p/404" />
-      <NotFoundPage default />
+      <TeamHeader path="/p/:projectId/:slug/t/:teamId">
+        <TeamMembersView path="/members" />
+        <TeamPermissionsView path="/permissions" />
+      </TeamHeader>
+
+      <NotFoundPage path="/p/404" default />
     </Router>
   );
 };

@@ -12,7 +12,7 @@ const ProjectConnectionList: React.FC<IProjectConnectionListProps> = ({
   onChange,
 }) => {
   const handleConnect = (projectId: string, connect: boolean) => {
-    const nextState = data.value.filter((c) => c !== projectId);
+    const nextState = data.value?.filter((c) => c !== projectId) || [];
 
     if (connect) {
       nextState.push(projectId);
@@ -23,7 +23,7 @@ const ProjectConnectionList: React.FC<IProjectConnectionListProps> = ({
 
   return (
     <ul className="striped">
-      <li>
+      {/* <li>
         <p>
           MayronUI <span className="meta">[public]</span>
         </p>
@@ -64,7 +64,7 @@ const ProjectConnectionList: React.FC<IProjectConnectionListProps> = ({
           Game X <span className="meta">[public]</span>
         </p>
         <button className="btn-primary">Connect</button>
-      </li>
+      </li> */}
     </ul>
   );
 };

@@ -45,12 +45,13 @@ export const invokeApiHub = <T>(
 
   let receivedReply = false;
 
-  connection.invoke(method, callback, ...args);
   connection.on(callback, (response: T) => {
     receivedReply = true;
     connection.off(callback);
     onCallback(response);
   });
+
+  connection.invoke(method, callback, ...args);
 
   setTimeout(() => {
     if (!receivedReply) {
