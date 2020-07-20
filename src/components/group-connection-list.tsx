@@ -3,21 +3,24 @@ import { invokeApiHub } from "../api";
 import { SignalRContext } from "./signalr-provider";
 import QuestionTooltip from "./common/question-tooltip";
 
-interface IProjectConnectionListProps {
-  value: string | null;
-  onSelect: (groupId: string | null) => void;
-}
-
 interface IConnectionViewModel {
   id: string;
   name: string;
   visibility: string;
   available: boolean;
+  notAvailableMessage: string;
 }
 
-const GroupConnectionList: React.FC<IProjectConnectionListProps> = ({
+interface IGroupConnectionListProps {
+  value: string | null;
+  onSelect: (groupId: string | null) => void;
+  projectId: string;
+}
+
+const GroupConnectionList: React.FC<IGroupConnectionListProps> = ({
   value,
   onSelect,
+  projectId,
 }) => {
   const connection = useContext(SignalRContext);
   const [groups, setGroups] = useState<IConnectionViewModel[]>([]);
@@ -25,12 +28,14 @@ const GroupConnectionList: React.FC<IProjectConnectionListProps> = ({
   useEffect(() => {
     invokeApiHub<IPayloadEvent<IConnectionViewModel[]>>(
       connection,
-      "FetchUserGroups",
+      "FetchGroupConnectionsList",
       (ev) => {
         if (ev.payload) {
           setGroups(ev.payload);
         }
       },
+      undefined,
+      projectId,
     );
   }, [connection]);
 

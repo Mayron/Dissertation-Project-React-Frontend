@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { RouteComponentProps, Link } from "@reach/router";
 import Panel from "../../common/panel";
-import ProjectConnectionList from "../../group-connection-list";
+import GroupConnectionList from "../../group-connection-list";
 import { ProjectContext } from "../../dynamic-pages/project";
 import api, { getAuthConfig, invokeApiHub } from "../../../api";
 import { AuthContext } from "../../auth-provider";
@@ -71,7 +71,7 @@ const ConnectView: React.FC<RouteComponentProps> = () => {
         {loading && <Loading dimmer />}
         <form onSubmit={handleSubmitted}>
           {error && <p className="error">{error}</p>}
-          <ProjectConnectionList value={connectedGroupId} onSelect={handleSelected} />
+          <GroupConnectionList value={connectedGroupId} onSelect={handleSelected} />
         </form>
 
         <footer className="sep">

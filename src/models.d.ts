@@ -83,7 +83,7 @@ declare type PendingMessage = {
 };
 
 declare interface IPayloadEvent<T> {
-  error?: string;
+  errors?: string[];
   payload?: T;
 }
 
