@@ -47,7 +47,7 @@ const GroupConnectionList: React.FC<IGroupConnectionListProps> = ({
             <p>You have not created any groups yet.</p>
           </li>
         )}
-        {groups.map((group, key) => {
+        {groups.map((group, key) => (
           <li key={key}>
             <p>
               {group.name} <span className="meta">[{group.visibility}]</span>
@@ -73,12 +73,15 @@ const GroupConnectionList: React.FC<IGroupConnectionListProps> = ({
                 )}
               </>
             ) : (
-              <QuestionTooltip id={`${group.id}-unavailable`}>
+              <QuestionTooltip
+                id={`${group.id}-unavailable`}
+                text={group.notAvailableMessage}
+              >
                 <span className="count">?</span>
               </QuestionTooltip>
             )}
-          </li>;
-        })}
+          </li>
+        ))}
       </ul>
 
       {groups.length > 0 && (

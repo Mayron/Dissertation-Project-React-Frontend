@@ -22,7 +22,7 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand }) => {
 
   const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState<IPostModel[]>([]);
-  const [error, setError] = useState<string | undefined>();
+  const [errors, setErrors] = useState<string[] | undefined>();
 
   const [newPost, setNewPost] = useState<FormValues>({
     title: {},
@@ -97,8 +97,8 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand }) => {
   useEffect(() => {
     if (!loading) {
       invokeApiHub<IPayloadEvent<IPostModel[]>>(connection, fetchCommand, (ev) => {
-        if (ev.error) {
-          setError(ev.error);
+        if (ev.errors) {
+          setErrors(ev.errors);
         } else if (ev.payload) {
           setPosts(ev.payload);
         }
@@ -131,7 +131,7 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand }) => {
         <Loading />
       ) : (
         <>
-          {error && <p>{error}</p>}
+          {errors && errors.map((error, key) => <p>{error}</p>)}
           {posts.map((post, key) => {
             const url = `/g/${post.groupId}/post/${post.id}/${slugify(post.title)}`;
             return (

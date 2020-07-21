@@ -37,6 +37,8 @@ const ConnectView: React.FC<RouteComponentProps> = () => {
       groupId: connectedGroupId,
     };
 
+    debugger;
+
     (async () => {
       const config = await getAuthConfig(token);
       await api
@@ -47,6 +49,7 @@ const ConnectView: React.FC<RouteComponentProps> = () => {
               connection,
               "Subscribe",
               (ev) => {
+                debugger;
                 const { success, message } = ev;
                 addPendingMessage(localStorage, { success, message });
                 navigateTo(createRoute());
@@ -71,7 +74,11 @@ const ConnectView: React.FC<RouteComponentProps> = () => {
         {loading && <Loading dimmer />}
         <form onSubmit={handleSubmitted}>
           {error && <p className="error">{error}</p>}
-          <GroupConnectionList value={connectedGroupId} onSelect={handleSelected} />
+          <GroupConnectionList
+            value={connectedGroupId}
+            onSelect={handleSelected}
+            projectId={projectId}
+          />
         </form>
 
         <footer className="sep">
