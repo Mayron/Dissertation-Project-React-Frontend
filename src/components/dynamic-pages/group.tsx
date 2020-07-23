@@ -4,8 +4,6 @@ import { RouteComponentProps, useMatch } from "@reach/router";
 import Group from "../group/group";
 import { SignalRContext } from "../signalr-provider";
 import Loading from "../common/loading";
-import { navigateTo } from "gatsby";
-import slugify from "slugify";
 import { invokeApiHub } from "../../api";
 import { createRoute } from "../../utils";
 
@@ -34,9 +32,7 @@ export const GroupContext = createContext<IGroupContext>({
 
 const GroupPage: React.FC<RouteComponentProps> = ({ children }) => {
   const groupIdMatch = useMatch("/g/:groupId/*");
-  const slugMatch = useMatch("/g/:groupId/:slug/*");
   const groupId = groupIdMatch?.groupId as string;
-  const slug = slugMatch?.slug;
 
   const [loading, setLoading] = useState(true);
   const [group, setGroup] = useState<IGroupDetailsViewModel>({
@@ -47,15 +43,8 @@ const GroupPage: React.FC<RouteComponentProps> = ({ children }) => {
   const connection = useContext(SignalRContext);
 
   const handleApiResponse = (response: IPayloadEvent<IGroupDetailsViewModel>) => {
-    const groupName = response.payload?.name;
-
-    if (!slug && groupName) {
-      const url = `/g/${groupId}/${slugify(groupName, { lower: true })}`;
-      navigateTo(url);
-    } else {
-      setGroup(response.payload || defaultGroup);
-      setLoading(false);
-    }
+    setGroup(response.payload || defaultGroup);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -68,7 +57,7 @@ const GroupPage: React.FC<RouteComponentProps> = ({ children }) => {
       () => setLoading(false),
       groupId,
     );
-  }, [connection, groupId, slug]);
+  }, [connection, groupId]);
 
   return (
     <Layout id="groupPage" title={group?.name || "Group"} collapsed menuType="group">
@@ -76,7 +65,7 @@ const GroupPage: React.FC<RouteComponentProps> = ({ children }) => {
         <Loading />
       ) : (
         <>
-          {!group ? (
+          {group === defaultGroup ? (
             <h1 className="unavailable">Group unavailable</h1>
           ) : (
             <>
@@ -94,8 +83,7 @@ const GroupPage: React.FC<RouteComponentProps> = ({ children }) => {
                 value={{
                   group,
                   groupId,
-                  createRoute: (...args: string[]) =>
-                    createRoute("g", groupId, slug, ...args),
+                  createRoute: (...args: string[]) => createRoute("g", groupId, ...args),
                 }}
               >
                 {children}

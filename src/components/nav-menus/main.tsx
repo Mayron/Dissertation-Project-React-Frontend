@@ -15,16 +15,16 @@ const MainNav: React.FC<IMainNavProps> = ({ collapsed, menuType }) => {
   const connection = useContext(SignalRContext);
   const { token } = useContext(AuthContext);
 
-  const [projects, setProjects] = useState<MenuData[]>([]);
-  const [groups, setGroups] = useState<MenuData[]>([]);
-  const [memberships, setMemberships] = useState<MenuData[]>([]);
-  const [subscriptions, setSubscriptions] = useState<MenuData[]>([]);
+  const [projects, setProjects] = useState<NamedEntity[]>([]);
+  const [groups, setGroups] = useState<NamedEntity[]>([]);
+  const [memberships, setMemberships] = useState<NamedEntity[]>([]);
+  const [subscriptions, setSubscriptions] = useState<NamedEntity[]>([]);
 
   useEffect(() => {
     if (!(token && connection)) return;
 
     ["Projects", "Groups", "Memberships", "Subscriptions"].forEach((t) => {
-      invokeApiHub<IPayloadEvent<MenuData[]>>(connection, `FetchUser${t}`, (ev) => {
+      invokeApiHub<IPayloadEvent<NamedEntity[]>>(connection, `FetchUser${t}`, (ev) => {
         switch (t) {
           case "Projects":
             setProjects(ev.payload || []);
@@ -53,7 +53,7 @@ const MainNav: React.FC<IMainNavProps> = ({ collapsed, menuType }) => {
         <MenuListItem url="/">
           <Icons.Placeholder text="Home" />
         </MenuListItem>
-        <MenuListItem url="/discover">
+        {/* <MenuListItem url="/discover">
           <Icons.Placeholder text="Discover" />
         </MenuListItem>
         <MenuListItem url="/opportunities">
@@ -61,7 +61,7 @@ const MainNav: React.FC<IMainNavProps> = ({ collapsed, menuType }) => {
         </MenuListItem>
         <MenuListItem url="/browse">
           <Icons.Placeholder text="Browse" />
-        </MenuListItem>
+        </MenuListItem> */}
       </ul>
       {!collapsed && (
         <>

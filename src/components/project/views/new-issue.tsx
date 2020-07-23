@@ -22,6 +22,7 @@ const NewIssueView: React.FC<RouteComponentProps> = () => {
               },
             ]}
             placeholder="Select version"
+            name="version"
           />
         </div>
 

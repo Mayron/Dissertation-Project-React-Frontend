@@ -44,19 +44,12 @@ export const formatStatistic: (
   return text;
 };
 
-export const createRoute: (
-  prefix: string,
-  id: string,
-  slug?: string,
-  ...args: string[]
-) => string = (prefix, id, slug, ...args) => {
+export const createRoute: (prefix: string, id: string, ...args: string[]) => string = (
+  prefix,
+  id,
+  ...args
+) => {
   let route = "";
-
   if (args.length > 0) route = `/${args.join("/")}`;
-
-  if (slug) {
-    return `/${prefix}/${id}/${slug}${route}`;
-  } else {
-    return `/${prefix}/${id}${route}`;
-  }
+  return `/${prefix}/${id}${route}`;
 };

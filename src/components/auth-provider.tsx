@@ -4,11 +4,11 @@ import { auth, createUserProfileDocument } from "../firebase/firebase.utils";
 interface IAuthContext {
   token?: string;
   appUser?: IAppUser;
-  loading: boolean;
+  checkingAuthState: boolean;
 }
 
 export const AuthContext = createContext<IAuthContext>({
-  loading: true,
+  checkingAuthState: true,
 });
 
 const AuthProvider: React.FC = ({ children }) => {
@@ -16,7 +16,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const [value, setValue] = useState<IAuthContext>({
     token: defaultToken || undefined,
-    loading: true,
+    checkingAuthState: true,
   });
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const AuthProvider: React.FC = ({ children }) => {
       localStorage.removeItem("token");
 
       if (!userAuth) {
-        setValue({ loading: false });
+        setValue({ checkingAuthState: false });
         return;
       }
 
@@ -44,7 +44,7 @@ const AuthProvider: React.FC = ({ children }) => {
               email,
               createdAt,
             },
-            loading: false,
+            checkingAuthState: false,
           });
         });
       })();

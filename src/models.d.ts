@@ -98,7 +98,7 @@ declare interface ITag {
   value: string;
 }
 
-declare type MenuData = {
+declare type NamedEntity = {
   name: string;
   id: string;
 };

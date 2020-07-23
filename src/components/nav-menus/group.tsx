@@ -8,13 +8,13 @@ import { GroupContext } from "../dynamic-pages/group";
 import { invokeApiHub } from "../../api";
 
 interface IGroupsNavState {
-  projects: MenuData[];
-  chatChannels: MenuData[];
+  projects: NamedEntity[];
+  chatChannels: NamedEntity[];
 }
 
 const GroupNav = () => {
   const connection = useContext(SignalRContext);
-  const { groupId } = useContext(GroupContext);
+  const { groupId, group } = useContext(GroupContext);
 
   const [state, setState] = useState<IGroupsNavState>({
     projects: [],
@@ -22,8 +22,8 @@ const GroupNav = () => {
   });
 
   useEffect(() => {
-    ["Projects", "ChatChannels"].forEach((t) => {
-      invokeApiHub<IPayloadEvent<MenuData[]>>(connection, `FetchGroup${t}`, (ev) => {
+    ["Projects"].forEach((t) => {
+      invokeApiHub<IPayloadEvent<NamedEntity[]>>(connection, `FetchGroup${t}`, (ev) => {
         setState({ ...state, [_.camelCase(t)]: ev.payload });
       });
     });
@@ -35,12 +35,12 @@ const GroupNav = () => {
         <MenuListItem url="/g/mayronui-gen6">
           <span>Home</span>
         </MenuListItem>
-        <MenuListItem url="/g/mayronui-gen6/announcements">
+        {/* <MenuListItem url="/g/mayronui-gen6/announcements">
           <span>Announcements</span>
         </MenuListItem>
         <MenuListItem url="/g/mayronui-gen6/opportunities">
           <span>Opportunities</span>
-        </MenuListItem>
+        </MenuListItem> */}
         <MenuListItem url="/g/mayronui-gen6/settings" button="secondary">
           <Icons.Settings text="Group Settings" className="btn-secondary" />
         </MenuListItem>
@@ -54,13 +54,13 @@ const GroupNav = () => {
         moreUrl="/g/mayronui-gen6/projects"
         moreText="Show all projects"
       />
-      <NavSection
+      {/* <NavSection
         id="channels"
         linkPrefix={`/g/${groupId}/chat`}
         defaultOpen
         title="Chat Channels"
         items={state.chatChannels}
-      />
+      /> */}
     </nav>
   );
 };

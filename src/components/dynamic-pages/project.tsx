@@ -1,8 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import Layout from "../layout";
 import { RouteComponentProps, useMatch } from "@reach/router";
-import { navigateTo } from "gatsby";
-import slugify from "slugify";
 import { SignalRContext } from "../signalr-provider";
 import { invokeApiHub } from "../../api";
 import Loading from "../common/loading";
@@ -36,9 +34,7 @@ export const ProjectContext = createContext<IProjectContext>({
 
 const ProjectPage: React.FC<RouteComponentProps> = ({ children }) => {
   const projectIdMatch = useMatch("/p/:projectId/*");
-  const slugMatch = useMatch("/p/:projectId/:slug/*");
   const projectId = projectIdMatch?.projectId as string;
-  const slug = slugMatch?.slug;
 
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState<IProjectDetailsViewModel>({
@@ -49,15 +45,8 @@ const ProjectPage: React.FC<RouteComponentProps> = ({ children }) => {
   const connection = useContext(SignalRContext);
 
   const handleApiResponse = (response: IPayloadEvent<IProjectDetailsViewModel>) => {
-    const projectName = response.payload?.name;
-
-    if (!slug && projectName) {
-      const url = `/p/${projectId}/${slugify(projectName, { lower: true })}`;
-      navigateTo(url);
-    } else {
-      setProject(response.payload || defaultProject);
-      setLoading(false);
-    }
+    setProject(response.payload || defaultProject);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -70,7 +59,7 @@ const ProjectPage: React.FC<RouteComponentProps> = ({ children }) => {
       () => setLoading(false),
       projectId,
     );
-  }, [connection, projectId, slug]);
+  }, [connection, projectId]);
 
   return (
     <Layout
@@ -84,7 +73,7 @@ const ProjectPage: React.FC<RouteComponentProps> = ({ children }) => {
         <Loading />
       ) : (
         <>
-          {!project ? (
+          {project === defaultProject ? (
             <h1 className="unavailable">Project unavailable</h1>
           ) : (
             <>
@@ -93,7 +82,7 @@ const ProjectPage: React.FC<RouteComponentProps> = ({ children }) => {
                   project,
                   projectId,
                   createRoute: (...args: string[]) =>
-                    createRoute("p", projectId, slug, ...args),
+                    createRoute("p", projectId, ...args),
                 }}
               >
                 {children}

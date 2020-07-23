@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import Panel from "./panel";
 import ProfilePic from "../../images/placeholder-profile-pic.svg";
 import TextareaAutosize from "react-autosize-textarea";
-import { Dropdown } from "semantic-ui-react";
+import {
+  Dropdown,
+  DropdownOnSearchChangeData,
+  DropdownItemProps,
+} from "semantic-ui-react";
+import api, { invokeApiHub } from "../../api";
+import { SignalRContext } from "../signalr-provider";
+import { addPendingMessage } from "../../utils";
+import { toast } from "react-toastify";
+import Loading from "./loading";
 
 interface ICreatePostPopupProps {
   displayName: string;
@@ -13,6 +22,7 @@ interface ICreatePostPopupProps {
   title: FormValue<string>;
   body: FormValue<string>;
   onChange: (name: string, value: string) => void;
+  loading: boolean;
 }
 
 const CreatePostPopup: React.FC<ICreatePostPopupProps> = ({
@@ -24,9 +34,46 @@ const CreatePostPopup: React.FC<ICreatePostPopupProps> = ({
   title,
   body,
   onChange,
+  loading,
 }) => {
+  const connection = useContext(SignalRContext);
+  const [options, setOptions] = useState<DropdownItemProps[]>([]);
+  const [isFetching, setIsFetching] = useState(false);
+
+  const handleSearchChange = (
+    _: React.SyntheticEvent<HTMLElement>,
+    { searchQuery }: DropdownOnSearchChangeData,
+  ) => {
+    invokeApiHub<IPayloadEvent<NamedEntity[]>>(
+      connection,
+      "SearchGroups",
+      (response) => {
+        if (response.errors) {
+          toast.error(response.errors);
+          setIsFetching(false);
+          return;
+        }
+
+        if (response.payload) {
+          const nextOptions = response.payload.map((r) => {
+            return { key: r.id, value: r.id, text: r.name };
+          });
+
+          setOptions(nextOptions);
+        }
+
+        setIsFetching(false);
+      },
+      () => setIsFetching(false),
+      searchQuery,
+    );
+
+    setIsFetching(true);
+  };
+
   return (
     <Panel className="create-post">
+      {loading && <Loading dimmer />}
       <header>
         <img src={ProfilePic} alt="profile" />
         <div className="post-user">
@@ -66,8 +113,10 @@ const CreatePostPopup: React.FC<ICreatePostPopupProps> = ({
               error={group.error ? true : false}
               selection
               value={group.value}
-              options={[{ key: "mui", value: "mui", text: "MayronUI" }]}
+              options={options}
+              onSearchChange={handleSearchChange}
               onChange={(_, { value }) => onChange("group", `${value}`)}
+              loading={isFetching}
             />
           )}
           <button className="btn-secondary" onClick={onCancel}>

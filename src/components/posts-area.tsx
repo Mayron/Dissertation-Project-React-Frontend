@@ -11,14 +11,17 @@ import Post from "./common/post";
 import Marked from "marked";
 import { toast } from "react-toastify";
 import Loading from "./common/loading";
+import { addPendingMessage, createRoute } from "../utils";
+import { navigateTo } from "gatsby";
 
 interface IPostsProps {
   fetchCommand: string;
 }
 
 const PostsArea: React.FC<IPostsProps> = ({ fetchCommand }) => {
-  const { token, appUser, loading } = useContext(AuthContext);
+  const { token, appUser, checkingAuthState } = useContext(AuthContext);
   const connection = useContext(SignalRContext);
+  const [loading, setLoading] = useState(false);
 
   const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState<IPostModel[]>([]);
@@ -36,6 +39,11 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand }) => {
 
   const handleNewPostCancel = () => {
     setShowPopup(false);
+    setNewPost({
+      title: {},
+      body: {},
+      group: {},
+    });
   };
 
   const handleNewPostSubmitted = (e: React.FormEvent<HTMLFormElement>) => {
@@ -71,15 +79,24 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand }) => {
             connection,
             "Subscribe",
             (ev) => {
-              const { success, message } = ev;
+              const { success, message, args } = ev;
 
-              if (success) {
-                setShowPopup(false);
-                setNewPost({ title: {}, body: {}, group: {} });
-              }
-
-              if (success) {
+              if (success && args) {
+                addPendingMessage(localStorage, { success, message });
+                navigateTo(
+                  `/g/${post.groupId}/post/${args.postId}/${slugify(post.title, {
+                    lower: true,
+                  })}`,
+                );
+              } else if (success) {
                 toast.success(message);
+                setNewPost({
+                  title: {},
+                  body: {},
+                  group: {},
+                });
+                setShowPopup(false);
+                setLoading(false);
               } else {
                 toast.error(message);
               }
@@ -92,10 +109,12 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand }) => {
         }
       });
     })();
+
+    setLoading(true);
   };
 
   useEffect(() => {
-    if (!loading) {
+    if (!checkingAuthState) {
       invokeApiHub<IPayloadEvent<IPostModel[]>>(connection, fetchCommand, (ev) => {
         if (ev.errors) {
           setErrors(ev.errors);
@@ -104,7 +123,7 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand }) => {
         }
       });
     }
-  }, [loading]);
+  }, [checkingAuthState]);
 
   return (
     <>
@@ -122,16 +141,17 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand }) => {
             group={newPost.group}
             onCancel={handleNewPostCancel}
             onSubmit={handleNewPostSubmitted}
+            loading={loading}
             onChange={handleNewPostChanged}
           />
         )}
       </PostBox>
       <ToolBar />
-      {loading ? (
+      {checkingAuthState ? (
         <Loading />
       ) : (
         <>
-          {errors && errors.map((error, key) => <p>{error}</p>)}
+          {errors && errors.map((error, key) => <p key={key}>{error}</p>)}
           {posts.map((post, key) => {
             const url = `/g/${post.groupId}/post/${post.id}/${slugify(post.title)}`;
             return (

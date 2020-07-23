@@ -1,15 +1,13 @@
 import MenuListItem from "./menu-list-item";
 import { Icons } from "../icons";
-import { ILinkData } from "../../api-data/main-nav-data";
 import MenuHeader from "./menu-header";
 import React, { useState } from "react";
-import slugify from "slugify";
 
 interface INavSectionProps {
   id: string;
   title: string;
   linkPrefix: string;
-  items: MenuData[];
+  items: NamedEntity[];
   moreOnClick?: () => void;
   moreUrl?: string;
   create?: string;
@@ -43,10 +41,7 @@ const NavSection: React.FC<INavSectionProps> = ({
           <ul>
             {items.length === 0 && <p className="placeholder">No {id} found</p>}
             {items.map((item, key) => (
-              <MenuListItem
-                key={key}
-                url={`${linkPrefix}/${item.id}/${slugify(item.name, { lower: true })}`}
-              >
+              <MenuListItem key={key} url={`${linkPrefix}/${item.id}`}>
                 <Icons.Placeholder text={item.name} />
               </MenuListItem>
             ))}

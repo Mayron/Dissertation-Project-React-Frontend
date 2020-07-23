@@ -37,8 +37,6 @@ const ConnectView: React.FC<RouteComponentProps> = () => {
       groupId: connectedGroupId,
     };
 
-    debugger;
-
     (async () => {
       const config = await getAuthConfig(token);
       await api
@@ -49,7 +47,6 @@ const ConnectView: React.FC<RouteComponentProps> = () => {
               connection,
               "Subscribe",
               (ev) => {
-                debugger;
                 const { success, message } = ev;
                 addPendingMessage(localStorage, { success, message });
                 navigateTo(createRoute());

@@ -35,27 +35,7 @@ const App = () => {
         <TeamsView path="/teams" />
       </ProjectPage>
 
-      <ProjectPage path="/p/:projectId/:slug">
-        <AboutView path="/" />
-        <ConnectView path="/connect" />
-        <AnnouncementsView path="/announcements" />
-        <OpportunitiesView path="/opportunities" />
-        <KnowledgeBaseView path="/knowledge-base" />
-        <IssuesView path="/issues" />
-        <IssuesView path="/issues/closed" closed />
-        <ViewIssueView path="/issues/:issueId" />
-        <NewIssueView path="/issues/new" />
-        <AllDownloadsView path="/all-downloads" />
-        <GeneralSettingsView path="/settings" />
-        <TeamsView path="/teams" />
-      </ProjectPage>
-
       <TeamHeader path="/p/:projectId//t/:teamId">
-        <TeamMembersView path="/members" />
-        <TeamPermissionsView path="/permissions" />
-      </TeamHeader>
-
-      <TeamHeader path="/p/:projectId/:slug/t/:teamId">
         <TeamMembersView path="/members" />
         <TeamPermissionsView path="/permissions" />
       </TeamHeader>

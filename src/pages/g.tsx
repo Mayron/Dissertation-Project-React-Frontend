@@ -28,23 +28,9 @@ const App = () => {
         <ViewPostView path="/post/:postId" />
       </GroupPage>
 
-      <GroupPage path="/g/:groupId/:slug">
-        <PostsView path="/" />
-        <AboutView path="about" />
-        <AnnouncementsCommunityView path="/announcements" />
-        <AnnouncementsProjectView path="/announcements/projects" />
-        <OpportunitiesView path="/opportunities" />
-        <ChatChannelView path="/chat/:channel" />
-        <SettingsView path="/settings" />
-        <ViewPostView path="/post/:postId" />
-      </GroupPage>
-
       <ProjectsView path="/g/:groupId/projects" />
       <ListProjectView path="/g/:groupId/list-project" />
       <ProjectsInCategoryView path="/g/:groupId/projects/:category" />
-      <ProjectsView path="/g/:groupId/:slug/projects" />
-      <ListProjectView path="/g/:groupId/:slug/list-project" />
-      <ProjectsInCategoryView path="/g/:groupId/:slug/projects/:category" />
 
       <NotFoundPage path="/g/404" default />
     </Router>
