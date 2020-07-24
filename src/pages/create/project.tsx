@@ -11,11 +11,13 @@ import { toast } from "react-toastify";
 import api, { invokeApiHub, getAuthConfig } from "../../api";
 import { addPendingMessage } from "../../utils";
 import Loading from "../../components/common/loading";
+import Dropdown from "../../components/widgets/dropdown";
 
 declare interface INewProjectModel {
   name: string;
   about?: string;
   tags?: string[];
+  visibility: string;
 }
 
 interface IFormValuesDefaultState extends FormValues {
@@ -34,6 +36,9 @@ const CreateProjectPage = () => {
   const [formValues, setFormValues] = useState<IFormValuesDefaultState>({
     name: {},
     about: {},
+    visibility: {
+      value: "Public",
+    },
     tags: {
       value: [],
     },
@@ -61,38 +66,55 @@ const CreateProjectPage = () => {
       return;
     }
 
-    const group: INewProjectModel = {
+    const project: INewProjectModel = {
       name: formValues.name.value,
       about: formValues.about.value,
       tags: formValues.tags.value?.map((t) => t.value),
+      visibility: formValues.visibility.value,
     };
 
     (async () => {
       const config = await getAuthConfig(token);
-      await api.post<IApiResponse>("/projects/create", group, config).then((response) => {
-        if (response.status === 202 && response.data.isValid) {
-          invokeApiHub<ISagaMessageEmittedEvent>(
-            connection,
-            "Subscribe",
-            (ev) => {
-              const { success, message, args } = ev;
-              addPendingMessage(localStorage, { success, message });
+      await api
+        .post<IApiResponse>("/projects/create", project, config)
+        .then((response) => {
+          if (response.status === 202 && response.data.isValid) {
+            invokeApiHub<ISagaMessageEmittedEvent>(
+              connection,
+              "Subscribe",
+              (ev) => {
+                const { success, message, args } = ev;
 
-              if (args?.projectId) {
-                navigateTo(`/p/${args.projectId}`);
-              } else {
-                navigateTo("/");
-              }
-            },
-            () => {
-              setLoading(false);
-            },
-            response.data.message,
-          );
-        } else {
-          toast.error(response.data.message);
-        }
-      });
+                if (!success) {
+                  toast.error(message, { position: "top-center" });
+                  setLoading(false);
+                  return;
+                }
+
+                addPendingMessage(localStorage, { success, message });
+
+                if (args?.projectId) {
+                  navigateTo(`/p/${args.projectId}`);
+                } else {
+                  navigateTo("/");
+                }
+              },
+              () => {
+                setLoading(false);
+              },
+              response.data.message,
+            );
+          } else {
+            toast.error(response.data.message);
+          }
+        })
+        .catch((reason) => {
+          const { errors } = reason.response.data;
+          _.forOwn(errors, (value: string[]) => {
+            value.forEach((v) => toast.error(v));
+          });
+          setLoading(false);
+        });
     })();
 
     setLoading(true);
@@ -103,14 +125,26 @@ const CreateProjectPage = () => {
       <form onSubmit={handleFormSubmitted}>
         {loading && <Loading dimmer />}
         <Panel title="Create a Project">
-          <div className="row">
+          <div className="row gap-20">
             <TextField
               title="Project Name"
               placeholder="What should your project be called?"
               required
-              max={20}
+              max={40}
               name="name"
               data={formValues.name}
+              onChange={handleFormInputChanged}
+            />
+            <Dropdown
+              title="Visibility"
+              placeholder="Select visibility"
+              items={[
+                { key: "Public", value: "Public" },
+                { key: "Unlisted", value: "Unlisted" },
+                { key: "Private", value: "Private" },
+              ]}
+              name="visibility"
+              data={formValues.visibility}
               onChange={handleFormInputChanged}
             />
           </div>

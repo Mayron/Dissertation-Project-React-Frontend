@@ -383,3 +383,15 @@ h1.unavailable {
   text-align: center;
   margin: $page-spacing 0;
 }
+
+.row.gap-20 {
+  & > *:not(:last-child) {
+    margin-right: $item-spacing-large;
+  }
+}
+
+.row.equal {
+  & > * {
+    flex: 1;
+  }
+}

@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import Loading from "./common/loading";
 import { addPendingMessage, createRoute } from "../utils";
 import { navigateTo } from "gatsby";
+import { bool } from "prop-types";
 
 interface IPostsProps {
   fetchCommand: string;

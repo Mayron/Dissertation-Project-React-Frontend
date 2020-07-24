@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import Loading from "../../components/common/loading";
 import { addPendingMessage } from "../../utils";
 import ProjectConnectionList from "../../components/project-connection-list copy";
+import _ from "lodash";
 
 declare interface INewGroupModel {
   name: string;
@@ -21,6 +22,7 @@ declare interface INewGroupModel {
   categoryId: string;
   tags?: string[];
   connected?: string[];
+  visibility: string;
 }
 
 interface IFormValuesDefaultState extends FormValues {
@@ -42,6 +44,9 @@ const CreateGroupPage: React.FC = () => {
     name: {},
     about: {},
     categoryId: {},
+    visibility: {
+      value: "Public",
+    },
     tags: {
       value: [],
     },
@@ -82,7 +87,7 @@ const CreateGroupPage: React.FC = () => {
 
     if (!formValues.categoryId.value) {
       const nextState = { ...formValues };
-      nextState.category.error = "Please select a category.";
+      nextState.categoryId.error = "Please select a category.";
       setFormValues(nextState);
       return;
     }
@@ -93,34 +98,53 @@ const CreateGroupPage: React.FC = () => {
       categoryId: formValues.categoryId.value,
       tags: formValues.tags.value?.map((t) => t.value),
       connected: formValues.connected.value,
+      visibility: formValues.visibility.value,
     };
 
     (async () => {
       const config = await getAuthConfig(token);
-      await api.post<IApiResponse>("/groups/create", group, config).then((response) => {
-        if (response.status === 202 && response.data.isValid) {
-          invokeApiHub<ISagaMessageEmittedEvent>(
-            connection,
-            "Subscribe",
-            (ev) => {
-              const { success, message, args } = ev;
-              addPendingMessage(localStorage, { success, message });
+      await api
+        .post<IApiResponse>("/groups/create", group, config)
+        .then((response) => {
+          if (response.status === 202 && response.data.isValid) {
+            invokeApiHub<ISagaMessageEmittedEvent>(
+              connection,
+              "Subscribe",
+              (ev) => {
+                const { success, message, args } = ev;
 
-              if (args?.groupId) {
-                navigateTo(`/g/${args.groupId}`);
-              } else {
-                navigateTo("/");
-              }
-            },
-            () => {
-              setLoading(false);
-            },
-            response.data.message,
-          );
-        } else {
-          toast.error(response.data.message);
-        }
-      });
+                if (!success) {
+                  toast.error(message, { position: "top-center" });
+                  setLoading(false);
+                  return;
+                }
+
+                addPendingMessage(localStorage, { success, message });
+
+                if (args?.groupId) {
+                  navigateTo(`/g/${args.groupId}`);
+                } else {
+                  navigateTo("/");
+                }
+              },
+              () => {
+                setLoading(false);
+              },
+              response.data.message,
+            );
+          } else {
+            alert(response);
+            toast.error(response.data.message);
+            setLoading(false);
+          }
+        })
+        .catch((reason) => {
+          const { errors } = reason.response.data;
+          _.forOwn(errors, (value: string[]) => {
+            value.forEach((v) => toast.error(v));
+          });
+          setLoading(false);
+        });
     })();
 
     setLoading(true);
@@ -143,10 +167,24 @@ const CreateGroupPage: React.FC = () => {
               title="Group Name"
               placeholder="What should your group be called?"
               required
-              max={20}
+              max={40}
               id="groupName"
               name="name"
               data={formValues.name}
+              onChange={handleFormInputChanged}
+            />
+          </div>
+          <div className="row gap-20 equal">
+            <Dropdown
+              title="Visibility"
+              placeholder="Select visibility"
+              items={[
+                { key: "Public", value: "Public" },
+                { key: "Unlisted", value: "Unlisted" },
+                { key: "Private", value: "Private" },
+              ]}
+              name="visibility"
+              data={formValues.visibility}
               onChange={handleFormInputChanged}
             />
             <Dropdown
