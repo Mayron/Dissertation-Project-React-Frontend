@@ -44,7 +44,7 @@ export const formatStatistic: (
   return text;
 };
 
-export const createRoute: (prefix: string, id: string, ...args: string[]) => string = (
+export const routeBuilder: (prefix: string, id: string, ...args: string[]) => string = (
   prefix,
   id,
   ...args

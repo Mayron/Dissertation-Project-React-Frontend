@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { auth, createUserProfileDocument } from "../firebase/firebase.utils";
+import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 
 interface IAuthContext {
   token?: string;

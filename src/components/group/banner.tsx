@@ -6,39 +6,32 @@ import numeral from "numeral";
 import { formatStatistic } from "../../utils";
 
 interface IBannerProps {
-  name: string;
-  type: "group" | "community";
-  members: number;
-  category: string;
+  group: IGroupDetailsViewModel;
   logo: string;
   img: string;
 }
 
-const Banner: React.FC<IBannerProps> = ({
-  name,
-  type,
-  members,
-  category,
-  logo,
-  img,
-  children,
-}) => {
+const Banner: React.FC<IBannerProps> = ({ group, logo, img, children }) => {
   return (
     <section id="groupBanner" role="banner" className="banner">
       <header>
         <div className="banner-title">
           <div>
-            <h1>{`${name} ${_.startCase(_.toLower(type))}`}</h1>
+            <h1>{`${group.name} ${_.startCase(_.toLower("group"))}`}</h1>
             <p>
-              <span>{formatStatistic(members, "member")}</span>
-              <span>Rank 4</span>
+              <span>{formatStatistic(group.totalMembers, "member")}</span>
+              {/* <span>Rank 4</span> */}
             </p>
           </div>
-          <button className="btn-primary">Join</button>
+          {group.isMember ? (
+            <button className="btn-primary">Join</button>
+          ) : (
+            <button className="btn-tertiary">Leave</button>
+          )}
         </div>
         <div className="banner-category">
           <span>Category</span>
-          <span>{category}</span>
+          <span>{group.categoryName}</span>
         </div>
       </header>
       <div className="banner">

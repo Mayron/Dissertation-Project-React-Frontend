@@ -1157,7 +1157,7 @@ div.edit-icon:hover span {
   color: #212121;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  padding-top: 20px;
+  margin-top: 20px;
   line-height: 1.2;
 }
 
@@ -1183,6 +1183,25 @@ div.edit-icon:hover span {
 
 .markdown h6 {
   font-size: 1rem;
+}
+
+.markdown ul,
+.markdown ol {
+  margin: 10px 0;
+  -webkit-padding-start: 20px;
+          padding-inline-start: 20px;
+}
+
+.markdown ul {
+  list-style-type: disc;
+}
+
+.markdown p {
+  margin-bottom: 10px;
+}
+
+.markdown *:last-child {
+  margin-bottom: 0;
 }
 
 #mainNav {

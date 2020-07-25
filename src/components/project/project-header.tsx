@@ -2,11 +2,7 @@ import React from "react";
 import PlaceholderProfilePic from "../../images/placeholder-profile-pic.svg";
 import { formatStatistic } from "../../utils";
 
-interface IProjectHeaderProps {
-  project: IProjectDetailsViewModel;
-}
-
-const ProjectHeader: React.FC<IProjectHeaderProps> = ({ project }) => {
+const ProjectHeader: React.FC = () => {
   const handleUnsubscribeClick = () => {};
 
   const handleSubscribeClick = () => {};

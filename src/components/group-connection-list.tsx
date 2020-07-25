@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { invokeApiHub } from "../api";
-import { SignalRContext } from "./signalr-provider";
+import { SignalRContext } from "./providers/signalr-provider";
 import QuestionTooltip from "./common/question-tooltip";
 
 interface IConnectionViewModel {

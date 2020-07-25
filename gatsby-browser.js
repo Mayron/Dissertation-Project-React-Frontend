@@ -1,6 +1,6 @@
 import React from "react";
-import AuthProvider from "./src/components/auth-provider";
-import SignalRProvider from "./src/components/signalr-provider";
+import AuthProvider from "./src/components/providers/auth-provider";
+import SignalRProvider from "./src/components/providers/signalr-provider";
 
 export const wrapRootElement = ({ element }) => {
   return (

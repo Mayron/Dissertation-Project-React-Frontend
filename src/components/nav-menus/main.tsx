@@ -2,8 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import { Icons } from "../icons";
 import MenuListItem from "./menu-list-item";
 import NavSection from "./nav-section";
-import { SignalRContext } from "../signalr-provider";
-import { AuthContext } from "../auth-provider";
+import { SignalRContext } from "../providers/signalr-provider";
+import { AuthContext } from "../providers/auth-provider";
 import { invokeApiHub } from "../../api";
 
 interface IMainNavProps {

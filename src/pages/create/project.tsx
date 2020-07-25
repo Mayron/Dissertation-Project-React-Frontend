@@ -5,13 +5,14 @@ import { Link, navigateTo } from "gatsby";
 import TextField from "../../components/widgets/text-field";
 import TextArea from "../../components/widgets/text-area";
 import TagsEditBox from "../../components/widgets/tags-editbox";
-import { AuthContext } from "../../components/auth-provider";
-import { SignalRContext } from "../../components/signalr-provider";
+import { AuthContext } from "../../components/providers/auth-provider";
+import { SignalRContext } from "../../components/providers/signalr-provider";
 import { toast } from "react-toastify";
 import api, { invokeApiHub, getAuthConfig } from "../../api";
 import { addPendingMessage } from "../../utils";
 import Loading from "../../components/common/loading";
 import Dropdown from "../../components/widgets/dropdown";
+import _ from "lodash";
 
 declare interface INewProjectModel {
   name: string;

@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from "react";
-import { SignalRContext } from "./signalr-provider";
-import { AuthContext } from "./auth-provider";
+import { SignalRContext } from "./providers/signalr-provider";
+import { AuthContext } from "./providers/auth-provider";
 import slugify from "slugify";
 import api, { getAuthConfig, invokeApiHub } from "../api";
 import React from "react";
@@ -11,15 +11,15 @@ import Post from "./common/post";
 import Marked from "marked";
 import { toast } from "react-toastify";
 import Loading from "./common/loading";
-import { addPendingMessage, createRoute } from "../utils";
+import { addPendingMessage } from "../utils";
 import { navigateTo } from "gatsby";
-import { bool } from "prop-types";
 
 interface IPostsProps {
   fetchCommand: string;
+  groupId?: string;
 }
 
-const PostsArea: React.FC<IPostsProps> = ({ fetchCommand }) => {
+const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId }) => {
   const { token, appUser, checkingAuthState } = useContext(AuthContext);
   const connection = useContext(SignalRContext);
   const [loading, setLoading] = useState(false);
@@ -45,6 +45,30 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand }) => {
       body: {},
       group: {},
     });
+  };
+
+  const handleApiHubResponse = (event: ISagaMessageEmittedEvent, post: INewPostModel) => {
+    const { success, message, args } = event;
+
+    if (success && args) {
+      addPendingMessage(localStorage, { success, message });
+      navigateTo(
+        `/g/${post.groupId}/post/${args.postId}/${slugify(post.title, {
+          lower: true,
+        })}`,
+      );
+    } else if (success) {
+      toast.success(message);
+      setNewPost({
+        title: {},
+        body: {},
+        group: {},
+      });
+      setShowPopup(false);
+      setLoading(false);
+    } else {
+      toast.error(message);
+    }
   };
 
   const handleNewPostSubmitted = (e: React.FormEvent<HTMLFormElement>) => {
@@ -79,29 +103,7 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand }) => {
           invokeApiHub<ISagaMessageEmittedEvent>(
             connection,
             "Subscribe",
-            (ev) => {
-              const { success, message, args } = ev;
-
-              if (success && args) {
-                addPendingMessage(localStorage, { success, message });
-                navigateTo(
-                  `/g/${post.groupId}/post/${args.postId}/${slugify(post.title, {
-                    lower: true,
-                  })}`,
-                );
-              } else if (success) {
-                toast.success(message);
-                setNewPost({
-                  title: {},
-                  body: {},
-                  group: {},
-                });
-                setShowPopup(false);
-                setLoading(false);
-              } else {
-                toast.error(message);
-              }
-            },
+            (ev) => handleApiHubResponse(ev, post),
             undefined,
             response.data.message,
           );
@@ -115,16 +117,23 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand }) => {
   };
 
   useEffect(() => {
-    if (!checkingAuthState) {
-      invokeApiHub<IPayloadEvent<IPostModel[]>>(connection, fetchCommand, (ev) => {
-        if (ev.errors) {
-          setErrors(ev.errors);
-        } else if (ev.payload) {
-          setPosts(ev.payload);
-        }
-      });
+    if (!checkingAuthState && posts.length === 0) {
+      invokeApiHub<IPayloadEvent<IPostModel[]>>(
+        connection,
+        fetchCommand,
+        (ev) => {
+          debugger;
+          if (ev.errors) {
+            setErrors(ev.errors);
+          } else if (ev.payload && ev.payload.length > 0) {
+            setPosts(ev.payload);
+          }
+        },
+        undefined,
+        groupId,
+      );
     }
-  }, [checkingAuthState]);
+  }, [checkingAuthState, posts]);
 
   return (
     <>

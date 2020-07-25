@@ -25,7 +25,6 @@ interface ILayoutProps {
   collapsed?: boolean;
   menuType?: "group" | "project" | "auth";
   subPage?: string;
-  project?: IProjectDetailsViewModel;
 }
 
 const Layout: React.FC<ILayoutProps> = ({
@@ -35,7 +34,6 @@ const Layout: React.FC<ILayoutProps> = ({
   collapsed,
   menuType,
   subPage,
-  project,
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(collapsed);
 
@@ -80,9 +78,13 @@ const Layout: React.FC<ILayoutProps> = ({
         />
 
         <div className={wrapperClasses.join(" ")}>
-          {project && <ProjectHeader project={project} />}
           {menuType === "group" && <GroupNav />}
-          {menuType === "project" && <ProjectNav project={project} />}
+          {menuType === "project" && (
+            <>
+              <ProjectHeader />
+              <ProjectNav />
+            </>
+          )}
 
           <main id={id}>{children}</main>
         </div>

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 // import { Link as ReachLink } from "@reach/router";
 import { Link } from "gatsby";
-import { GroupContext } from "../dynamic-pages/group";
+import { GroupContext } from "../providers/group-provider";
 
 const HomeMenuBar = () => {
   const { createRoute } = useContext(GroupContext);

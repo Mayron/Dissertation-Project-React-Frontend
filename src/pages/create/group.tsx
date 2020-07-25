@@ -7,8 +7,8 @@ import TextField from "../../components/widgets/text-field";
 import Dropdown from "../../components/widgets/dropdown";
 import PanelSection from "../../components/common/panel-section";
 import TagsEditBox from "../../components/widgets/tags-editbox";
-import { AuthContext } from "../../components/auth-provider";
-import { SignalRContext } from "../../components/signalr-provider";
+import { AuthContext } from "../../components/providers/auth-provider";
+import { SignalRContext } from "../../components/providers/signalr-provider";
 import api, { getAuthConfig, invokeApiHub } from "../../api";
 import { toast } from "react-toastify";
 import Loading from "../../components/common/loading";
@@ -133,7 +133,6 @@ const CreateGroupPage: React.FC = () => {
               response.data.message,
             );
           } else {
-            alert(response);
             toast.error(response.data.message);
             setLoading(false);
           }

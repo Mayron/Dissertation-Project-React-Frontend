@@ -51,7 +51,15 @@ export const invokeApiHub = <T>(
     onCallback(response);
   });
 
-  connection.invoke(method, callback, ...args);
+  if (args && args.length > 0) {
+    args = args.filter((a) => a !== undefined || null);
+  }
+
+  if (!args || args.length === 0) {
+    connection.invoke(method, callback);
+  } else {
+    connection.invoke(method, callback, ...args);
+  }
 
   setTimeout(() => {
     if (!receivedReply) {

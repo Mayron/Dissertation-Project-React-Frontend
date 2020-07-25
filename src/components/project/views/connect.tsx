@@ -2,14 +2,14 @@ import React, { useContext, useState } from "react";
 import { RouteComponentProps, Link } from "@reach/router";
 import Panel from "../../common/panel";
 import GroupConnectionList from "../../group-connection-list";
-import { ProjectContext } from "../../dynamic-pages/project";
 import api, { getAuthConfig, invokeApiHub } from "../../../api";
-import { AuthContext } from "../../auth-provider";
-import { SignalRContext } from "../../signalr-provider";
+import { AuthContext } from "../../providers/auth-provider";
+import { SignalRContext } from "../../providers/signalr-provider";
 import { addPendingMessage } from "../../../utils";
 import { navigateTo } from "gatsby";
 import { toast } from "react-toastify";
 import Loading from "../../common/loading";
+import { ProjectContext } from "../../providers/project-provider.tsx";
 
 const ConnectView: React.FC<RouteComponentProps> = () => {
   const { projectId, createRoute } = useContext(ProjectContext);

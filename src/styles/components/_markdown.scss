@@ -8,7 +8,7 @@
     color: $black;
     font-weight: $fw-header-bold;
     margin-bottom: 0.5rem;
-    padding-top: 20px;
+    margin-top: $item-spacing-large;
     line-height: 1.2;
   }
 
@@ -34,5 +34,23 @@
 
   h6 {
     font-size: 1rem;
+  }
+
+  ul,
+  ol {
+    margin: $item-spacing 0;
+    padding-inline-start: $item-spacing-large;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  p {
+    margin-bottom: $item-spacing;
+  }
+
+  *:last-child {
+    margin-bottom: 0;
   }
 }

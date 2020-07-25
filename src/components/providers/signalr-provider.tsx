@@ -5,7 +5,7 @@ import { AuthContext } from "./auth-provider";
 export const SignalRContext = createContext<signalR.HubConnection | null>(null);
 
 const SignalRProvider: React.FC = ({ children }) => {
-  const { token } = useContext(AuthContext);
+  const { token, checkingAuthState } = useContext(AuthContext);
   const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
 
   useEffect(() => {
@@ -34,7 +34,11 @@ const SignalRProvider: React.FC = ({ children }) => {
     };
   }, [token]);
 
-  return <SignalRContext.Provider value={connection}>{children}</SignalRContext.Provider>;
+  return (
+    <SignalRContext.Provider value={connection}>
+      {!checkingAuthState && children}
+    </SignalRContext.Provider>
+  );
 };
 
 export default SignalRProvider;

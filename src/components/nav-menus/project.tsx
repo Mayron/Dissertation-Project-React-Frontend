@@ -1,36 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import MenuListItem from "./menu-list-item";
 import { Link } from "gatsby";
-import { Icons } from "../icons";
 import { useMatch } from "@reach/router";
-import { createRoute } from "../../utils";
+import { ProjectContext } from "../providers/project-provider.tsx";
 
-interface IProjectNavProps {
-  project: IProjectDetailsViewModel;
-}
-
-const ProjectNav: React.FC<IProjectNavProps> = ({ project }) => {
-  const connected = project?.connectedGroupId;
+const ProjectNav: React.FC = () => {
+  const { project, createRoute } = useContext(ProjectContext);
   const slugMatch = useMatch("/p/:projectId/:slug/*");
   const slug = slugMatch?.slug;
 
   return (
     <nav id="projectNav">
-      {connected ? (
-        <Link to={`/g/${connected}`} className="btn-secondary">
+      {project.connectedGroupId ? (
+        <Link to={`/g/${project.connectedGroupId}`} className="btn-secondary">
           Visit the Community
         </Link>
       ) : (
-        <Link
-          to={createRoute("p", project.projectId, slug, "connect")}
-          className="btn-primary lg"
-        >
+        <Link to={createRoute("connect")} className="btn-primary lg">
           Connect
         </Link>
       )}
 
       <ul>
-        <MenuListItem url={createRoute("p", project.projectId, slug)}>
+        <MenuListItem url={createRoute()}>
           <span>Home</span>
         </MenuListItem>
         {/* <MenuListItem url="/p/mayronui-gen6/announcements">
@@ -42,13 +34,13 @@ const ProjectNav: React.FC<IProjectNavProps> = ({ project }) => {
         {/* <MenuListItem url="/p/mayronui-gen6/knowledge-base">
           <span>Knowledge Base</span>
         </MenuListItem> */}
-        <MenuListItem url={createRoute("p", project.projectId, slug, "issues")}>
+        <MenuListItem url={createRoute("issues")}>
           <span>Issues</span>
         </MenuListItem>
-        <MenuListItem url={createRoute("p", project.projectId, slug, "all-downloads")}>
+        <MenuListItem url={createRoute("all-downloads")}>
           <span>All Downloads</span>
         </MenuListItem>
-        <MenuListItem url={createRoute("p", project.projectId, slug, "teams")}>
+        <MenuListItem url={createRoute("teams")}>
           <span>Teams</span>
         </MenuListItem>
         {/* <MenuListItem url="/p/mayronui-gen6/settings" button="secondary">

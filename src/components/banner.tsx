@@ -3,7 +3,7 @@ import Logo from "../images/openspark-logo.svg";
 import { Icons } from "./icons";
 import { Link } from "gatsby";
 import ProfileSelect from "./profile-select";
-import { AuthContext } from "./auth-provider";
+import { AuthContext } from "./providers/auth-provider";
 
 interface IBannerProps {
   onBurgerMenuClick: () => void;

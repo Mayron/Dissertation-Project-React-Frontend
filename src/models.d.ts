@@ -48,6 +48,7 @@ declare interface IGroupDetailsViewModel {
   categoryName: string;
   groupId: string;
   totalMembers: number;
+  isMember: boolean;
 }
 
 declare interface IProjectDetailsViewModel {
@@ -60,6 +61,7 @@ declare interface IProjectDetailsViewModel {
   subscribed: boolean;
   totalDownloads: number;
   lastUpdated: string;
+  isOwner: boolean;
 }
 
 declare interface INewPostModel {

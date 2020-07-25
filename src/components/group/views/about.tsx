@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { RouteComponentProps } from "@reach/router";
 import Panel from "../../common/panel";
 import Group from "../group";
-import { GroupContext } from "../../dynamic-pages/group";
+import { GroupContext } from "../../providers/group-provider";
 
 const AboutView: React.FC<RouteComponentProps> = () => {
   const { group } = useContext(GroupContext);
