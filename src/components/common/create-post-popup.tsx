@@ -23,6 +23,7 @@ interface ICreatePostPopupProps {
   body: FormValue<string>;
   onChange: (name: string, value: string) => void;
   loading: boolean;
+  defaultOptions?: DropdownItemProps[];
 }
 
 const CreatePostPopup: React.FC<ICreatePostPopupProps> = ({
@@ -35,9 +36,10 @@ const CreatePostPopup: React.FC<ICreatePostPopupProps> = ({
   body,
   onChange,
   loading,
+  defaultOptions = [],
 }) => {
   const connection = useContext(SignalRContext);
-  const [options, setOptions] = useState<DropdownItemProps[]>([]);
+  const [options, setOptions] = useState<DropdownItemProps[]>(defaultOptions);
   const [isFetching, setIsFetching] = useState(false);
 
   const handleSearchChange = (

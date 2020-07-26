@@ -23,8 +23,9 @@ $main-nav-width: 210px;
   margin-top: -30px;
   width: 80px;
   min-width: 80px;
-  background-color: #fff;
+  background-color: $white;
   height: calc(100vh - 50px);
+  top: 50px;
 
   .menu-item {
     &:last-of-type {

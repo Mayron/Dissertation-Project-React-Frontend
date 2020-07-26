@@ -37,9 +37,9 @@ const ProjectNav: React.FC = () => {
         <MenuListItem url={createRoute("issues")}>
           <span>Issues</span>
         </MenuListItem>
-        <MenuListItem url={createRoute("all-downloads")}>
+        {/* <MenuListItem url={createRoute("all-downloads")}>
           <span>All Downloads</span>
-        </MenuListItem>
+        </MenuListItem> */}
         <MenuListItem url={createRoute("teams")}>
           <span>Teams</span>
         </MenuListItem>

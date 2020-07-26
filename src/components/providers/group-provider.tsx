@@ -50,6 +50,11 @@ const GroupProvider: React.FC<RouteComponentProps> = ({ children }) => {
   useEffect(() => {
     if (!groupId || !loadingGroup) return;
 
+    if (!connection) {
+      setLoadingGroup(false);
+      return;
+    }
+
     invokeApiHub<IPayloadEvent<IGroupDetailsViewModel>>(
       connection,
       "FetchGroup",

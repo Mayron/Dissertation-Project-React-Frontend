@@ -1,44 +1,44 @@
 import React from "react";
 import { Icons } from "../icons";
 import { Link } from "gatsby";
+import { formatStatistic, getTimeAgoUtc } from "../../utils";
+import TimeAgo from "react-timeago";
 
 interface IPostFooterProps {
-  postedBy?: string;
-  when?: string;
-  showIcons?: boolean;
+  post: IPostModel;
+  postedBy?: boolean;
 }
 
-const PostFooter: React.FC<IPostFooterProps> = ({ postedBy, when, showIcons = true }) => {
+const PostFooter: React.FC<IPostFooterProps> = ({ post, postedBy = true }) => {
   return (
     <footer className="post-footer">
       {postedBy && (
-        <p>
+        <div>
           Posted by{" "}
           <Link to="/u/mayron" className="user">
-            {postedBy}
+            {post.authorDisplayName}
           </Link>{" "}
-          {when}
-        </p>
+          <TimeAgo date={getTimeAgoUtc(post.when)} />
+        </div>
       )}
-      {showIcons && (
-        <ul>
-          <li>
-            <Icons.Heart text="12.5k" />
-          </li>
-          <li>
-            <Icons.Comment text="1.5k" />
-          </li>
-          <li>
-            <Icons.Share />
-          </li>
-          <li>
-            <Icons.Save />
-          </li>
-          <li>
-            <Icons.Arrow text="more" textDirection="left" />
-          </li>
-        </ul>
-      )}
+
+      <ul>
+        <li>
+          <Icons.Heart text={formatStatistic(post.votes)} />
+        </li>
+        <li>
+          <Icons.Comment text={formatStatistic(post.totalComments)} />
+        </li>
+        {/* <li>
+          <Icons.Share />
+        </li> */}
+        <li>
+          <Icons.Save text="save" />
+        </li>
+        {/* <li>
+          <Icons.Arrow text="more" textDirection="left" />
+        </li> */}
+      </ul>
     </footer>
   );
 };

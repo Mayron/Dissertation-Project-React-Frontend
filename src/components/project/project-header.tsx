@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import PlaceholderProfilePic from "../../images/placeholder-profile-pic.svg";
-import { formatStatistic } from "../../utils";
+import { formatStatistic, getTimeAgoUtc } from "../../utils";
+import { ProjectContext } from "../providers/project-provider.tsx";
 
 const ProjectHeader: React.FC = () => {
+  const { project } = useContext(ProjectContext);
+
   const handleUnsubscribeClick = () => {};
 
   const handleSubscribeClick = () => {};
@@ -30,7 +33,7 @@ const ProjectHeader: React.FC = () => {
           <p className="meta">
             {formatStatistic(project.totalDownloads, "download", true)}
           </p>
-          <p className="meta">Last updated {project.lastUpdated}</p>
+          <p className="meta">Last updated {getTimeAgoUtc(project.lastUpdated)}</p>
         </div>
         <button className="btn-primary">Download</button>
       </div>

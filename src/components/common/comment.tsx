@@ -2,18 +2,28 @@ import React, { useState } from "react";
 import { Icons } from "../icons";
 import Vote from "./vote";
 import CommentReply from "./comment-reply";
+import Marked from "marked";
 
-const Comment: React.FC = ({ children }) => {
-  const [showReplies, setShowReplies] = useState(true);
+interface ICommentProps {
+  votes: number;
+  body: string;
+}
+
+const Comment: React.FC<ICommentProps> = ({ children, votes, body }) => {
+  // const [showReplies, setShowReplies] = useState(true);
 
   return (
     <article className="comment post">
       <header>
-        <Vote value={12} />
+        <Vote value={votes} />
         {children}
       </header>
-      <p>I agree with everything you just said!</p>
-      <footer>
+      <div
+        className="markdown"
+        dangerouslySetInnerHTML={{ __html: Marked.parse(body) }}
+      ></div>
+
+      {/* <footer>
         <div>
           <Icons.Arrow text="hide replies" direction={"down"} textDirection={"left"} />
         </div>
@@ -21,8 +31,8 @@ const Comment: React.FC = ({ children }) => {
           <Icons.Comment text="reply" />
           <Icons.Save text="save" />
         </div>
-      </footer>
-      {showReplies && <CommentReply></CommentReply>}
+      </footer> */}
+      {/* {showReplies && <CommentReply></CommentReply>} */}
     </article>
   );
 };

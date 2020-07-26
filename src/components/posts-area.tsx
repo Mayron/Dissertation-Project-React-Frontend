@@ -1,28 +1,28 @@
 import { useEffect, useContext, useState } from "react";
 import { SignalRContext } from "./providers/signalr-provider";
 import { AuthContext } from "./providers/auth-provider";
-import slugify from "slugify";
 import api, { getAuthConfig, invokeApiHub } from "../api";
 import React from "react";
 import CreatePostPopup from "./common/create-post-popup";
 import PostBox from "./post-box";
 import ToolBar from "./index/tool-bar";
 import Post from "./common/post";
-import Marked from "marked";
 import { toast } from "react-toastify";
 import Loading from "./common/loading";
-import { addPendingMessage } from "../utils";
+import { addPendingMessage, getSlug } from "../utils";
 import { navigateTo } from "gatsby";
 
 interface IPostsProps {
   fetchCommand: string;
   groupId?: string;
+  groupName?: string;
 }
 
-const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId }) => {
-  const { token, appUser, checkingAuthState } = useContext(AuthContext);
+const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId, groupName }) => {
+  const { token, appUser } = useContext(AuthContext);
   const connection = useContext(SignalRContext);
   const [loading, setLoading] = useState(false);
+  const [loadingPosts, setLoadingPosts] = useState(true);
 
   const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState<IPostModel[]>([]);
@@ -31,7 +31,9 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId }) => {
   const [newPost, setNewPost] = useState<FormValues>({
     title: {},
     body: {},
-    group: {},
+    group: {
+      value: groupId,
+    },
   });
 
   const handleNewPostChanged = (name: string, value: string) => {
@@ -52,11 +54,7 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId }) => {
 
     if (success && args) {
       addPendingMessage(localStorage, { success, message });
-      navigateTo(
-        `/g/${post.groupId}/post/${args.postId}/${slugify(post.title, {
-          lower: true,
-        })}`,
-      );
+      navigateTo(`/g/${post.groupId}/post/${args.postId}/${getSlug(post.title)}`);
     } else if (success) {
       toast.success(message);
       setNewPost({
@@ -117,24 +115,30 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId }) => {
   };
 
   useEffect(() => {
-    if (!checkingAuthState && posts.length === 0) {
+    if (posts.length === 0) {
       invokeApiHub<IPayloadEvent<IPostModel[]>>(
         connection,
         fetchCommand,
         (ev) => {
-          debugger;
           if (ev.errors) {
             setErrors(ev.errors);
           } else if (ev.payload && ev.payload.length > 0) {
             setPosts(ev.payload);
           }
+          setLoadingPosts(false);
         },
-        undefined,
+        () => setLoadingPosts(false),
         groupId,
+        [],
       );
     }
-  }, [checkingAuthState, posts]);
+  }, [connection, posts]);
 
+  let defaultOptions = [];
+
+  if (groupId && groupName) {
+    defaultOptions.push({ key: groupId, value: groupId, text: groupName });
+  }
   return (
     <>
       <PostBox
@@ -148,6 +152,7 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId }) => {
             title={newPost.title}
             body={newPost.body}
             selectGroup
+            defaultOptions={defaultOptions}
             group={newPost.group}
             onCancel={handleNewPostCancel}
             onSubmit={handleNewPostSubmitted}
@@ -157,24 +162,17 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId }) => {
         )}
       </PostBox>
       <ToolBar />
-      {checkingAuthState ? (
-        <Loading />
+      {loadingPosts ? (
+        <section id="posts">
+          <Loading />
+        </section>
       ) : (
         <>
           {errors && errors.map((error, key) => <p key={key}>{error}</p>)}
+          {posts.length === 0 && <p>No one has posted here yet. Why not be the first?</p>}
           {posts.map((post, key) => {
-            const url = `/g/${post.groupId}/post/${post.id}/${slugify(post.title)}`;
-            return (
-              <Post key={key} url={url} author={post.author} when={post.when}>
-                {post.title && <h4>{post.title}</h4>}
-                {post.body && (
-                  <div
-                    className="markdown"
-                    dangerouslySetInnerHTML={{ __html: Marked.parse(post.body) }}
-                  ></div>
-                )}
-              </Post>
-            );
+            const url = `/g/${post.groupId}/post/${post.postId}/${getSlug(post.title)}`;
+            return <Post key={key} url={url} post={post} />;
           })}
         </>
       )}

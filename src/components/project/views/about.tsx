@@ -1,9 +1,7 @@
 import React, { useContext } from "react";
-import { RouteComponentProps, useParams } from "@reach/router";
+import { RouteComponentProps } from "@reach/router";
 import Panel from "../../common/panel";
-import { Icons } from "../../icons";
-import Card from "../../common/card";
-import { ProjectContext } from "../../dynamic-pages/project";
+import { ProjectContext } from "../../providers/project-provider.tsx";
 
 const AboutView: React.FC<RouteComponentProps> = () => {
   const { project } = useContext(ProjectContext);

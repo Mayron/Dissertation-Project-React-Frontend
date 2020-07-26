@@ -4,10 +4,6 @@
   height: 19px;
   user-select: none;
 
-  &:hover span {
-    text-decoration: underline;
-  }
-
   span {
     color: $dark-orange;
     font-weight: 600;
@@ -28,10 +24,6 @@
     width: 19px;
     height: 19px;
     user-select: none;
-
-    & + span {
-      margin-left: 5px;
-    }
   }
 
   &:hover {
@@ -95,6 +87,10 @@ div.close-icon {
 
 div.tick-icon {
   width: 14px;
+}
+
+div.save-icon svg {
+  width: auto;
 }
 
 div.edit-icon {

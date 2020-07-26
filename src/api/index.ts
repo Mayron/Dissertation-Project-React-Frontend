@@ -32,7 +32,10 @@ export const invokeApiHub = <T>(
   onTimeout?: () => void,
   ...args: any[]
 ) => {
-  if (!connection) return;
+  if (!connection) {
+    if (onTimeout) onTimeout();
+    return;
+  }
 
   if (currentConnectionId !== connection.connectionId) {
     connectionTimeout = false;

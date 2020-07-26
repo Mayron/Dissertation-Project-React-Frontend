@@ -3,6 +3,12 @@
   width: 630px;
 }
 
+#comments,
+#posts {
+  position: relative;
+  min-height: 100px;
+}
+
 #group_pjs {
   max-width: 800px;
 

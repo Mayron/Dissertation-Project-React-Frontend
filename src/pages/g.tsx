@@ -25,7 +25,7 @@ const App = () => {
         <OpportunitiesView path="/opportunities" />
         <ChatChannelView path="/chat/:channel" />
         <SettingsView path="/settings" />
-        <ViewPostView path="/post/:postId" />
+        <ViewPostView path="/post/:postId/*" />
       </GroupPage>
 
       <ProjectsView path="/g/:groupId/projects" />

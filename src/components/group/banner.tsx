@@ -2,7 +2,6 @@ import React from "react";
 import BannerImagePlaceholder from "../../images/placeholder-banner.png";
 import ProfilePicPlaceholder from "../../images/placeholder-profile-pic.svg";
 import _ from "lodash";
-import numeral from "numeral";
 import { formatStatistic } from "../../utils";
 
 interface IBannerProps {

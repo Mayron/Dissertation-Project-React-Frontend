@@ -5,13 +5,17 @@ import PostsArea from "../../posts-area";
 import { GroupContext } from "../../providers/group-provider";
 
 const PostsView: React.FC<RouteComponentProps> = () => {
-  const { groupId } = useContext(GroupContext);
+  const { groupId, group } = useContext(GroupContext);
 
   return (
     <>
       <Group.MenuBars.HomeMenuBar />
       <section id="groupPosts">
-        <PostsArea fetchCommand="FetchGroupPosts" groupId={groupId} />
+        <PostsArea
+          fetchCommand="FetchGroupPosts"
+          groupId={groupId}
+          groupName={group.name}
+        />
       </section>
     </>
   );

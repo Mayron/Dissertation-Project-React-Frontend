@@ -10,7 +10,7 @@ const ProjectPageContent: React.FC = ({ children }) => {
       {!project.projectId ? (
         <h1 className="unavailable">Project unavailable</h1>
       ) : (
-        { children }
+        <>{children}</>
       )}
     </>
   );

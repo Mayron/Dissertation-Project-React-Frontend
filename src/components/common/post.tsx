@@ -1,27 +1,20 @@
 import React from "react";
 import ProfilePic from "../../images/placeholder-profile-pic.svg";
 import PostFooter from "./post-footer";
-import { navigateTo } from "gatsby";
+import { navigateTo, Link } from "gatsby";
 import CommentBox from "./comment-box";
+import TimeAgo from "react-timeago";
+import { getTimeAgoUtc } from "../../utils";
+import Marked from "marked";
 
 interface IPostProps {
   url?: string;
-  author: string;
-  when: string;
+  post: IPostModel;
   includeCommentBox?: boolean;
-  defaultFooter?: boolean;
   flags?: string[];
 }
 
-const Post: React.FC<IPostProps> = ({
-  url,
-  author,
-  when,
-  children,
-  includeCommentBox,
-  defaultFooter = true,
-  flags,
-}) => {
+const Post: React.FC<IPostProps> = ({ url, post, includeCommentBox, flags }) => {
   const handleClick = (e: React.MouseEvent) => {
     if (!url) return;
     const target = e.target as HTMLElement;
@@ -35,9 +28,21 @@ const Post: React.FC<IPostProps> = ({
       <header>
         <img src={ProfilePic} alt="profile" />
         <div className="post-user">
-          <a className="user">{author}</a>
+          <div>
+            <a className="user">{post.authorDisplayName}</a>
+            {post.groupName && url && (
+              <>
+                <span className="from-group">from</span>
+                <Link
+                  to={`/g/${post.groupId}`}
+                  className="link"
+                >{`${post.groupName}`}</Link>
+              </>
+            )}
+          </div>
+
           <p>
-            {when}{" "}
+            <TimeAgo date={getTimeAgoUtc(post.when)} />
             {flags?.map((flag, key) => (
               <span key={key} className="flag">
                 {flag}
@@ -46,9 +51,18 @@ const Post: React.FC<IPostProps> = ({
           </p>
         </div>
       </header>
-      <div className="post-body">{children}</div>
+      <div className="post-body">
+        {post.title && <h4>{post.title}</h4>}
+        {post.body && (
+          <div
+            className="markdown"
+            dangerouslySetInnerHTML={{ __html: Marked.parse(post.body) }}
+          ></div>
+        )}
+      </div>
 
-      {defaultFooter && <PostFooter when={when} postedBy={author} />}
+      <PostFooter post={post} postedBy={false} />
+
       {includeCommentBox && <CommentBox />}
     </article>
   );

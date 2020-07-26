@@ -35,7 +35,7 @@ const App = () => {
         <TeamsView path="/teams" />
       </ProjectPage>
 
-      <TeamHeader path="/p/:projectId//t/:teamId">
+      <TeamHeader path="/p/:projectId/t/:teamId">
         <TeamMembersView path="/members" />
         <TeamPermissionsView path="/permissions" />
       </TeamHeader>

@@ -53,6 +53,11 @@ const ProjectProvider: React.FC<RouteComponentProps> = ({ children }) => {
   useEffect(() => {
     if (!projectId || !loadingProject) return;
 
+    if (!connection) {
+      setLoadingProject(false);
+      return;
+    }
+
     invokeApiHub<IPayloadEvent<IProjectDetailsViewModel>>(
       connection,
       "FetchProject",
@@ -60,7 +65,7 @@ const ProjectProvider: React.FC<RouteComponentProps> = ({ children }) => {
       () => setLoadingProject(false),
       projectId,
     );
-  }, [connection, projectId]);
+  }, [connection, projectId, loadingProject]);
 
   return (
     <>

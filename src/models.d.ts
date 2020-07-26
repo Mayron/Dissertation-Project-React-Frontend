@@ -32,12 +32,15 @@ declare interface IApiResponse {
 }
 
 declare interface IPostModel {
-  id: string;
+  postId: string;
   groupId: string;
+  groupName: string;
   title: string;
   body?: string;
-  author: string;
+  authorDisplayName: string;
   when: string;
+  totalComments: number;
+  votes: number;
 }
 
 // retrieve the core group properties (does not include all properties)
