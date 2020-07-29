@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import Layout from "../components/layout";
 import { RouteComponentProps } from "@reach/router";
 import TextField from "../components/widgets/text-field";
-import { Link, navigate } from "gatsby";
+import { Link, navigate, navigateTo } from "gatsby";
 import GoogleAccountIcon from "../images/google-account-icon.png";
 
 import { signInWithGoogle, auth } from "../firebase/firebase.utils";
+import { AuthContext } from "../components/providers/auth-provider";
 
 interface IDividerProps {
   text: string;
@@ -25,11 +26,17 @@ interface IFormState extends FormValues {
 }
 
 const LogInPage: React.FC<RouteComponentProps> = ({}) => {
+  const { appUser } = useContext(AuthContext);
+
   const [error, setError] = useState<string>("");
   const [formValues, setFormValues] = useState<IFormState>({
     email: {},
     password: {},
   });
+
+  useEffect(() => {
+    if (appUser) navigateTo("/");
+  }, [appUser]);
 
   const handleFormInputChanged = (name: string, value: any) => {
     setFormValues({ ...formValues, [name]: { value } });
@@ -54,7 +61,7 @@ const LogInPage: React.FC<RouteComponentProps> = ({}) => {
     }
 
     try {
-      const userAuth = await auth.signInWithEmailAndPassword(email.value, password.value);
+      await auth.signInWithEmailAndPassword(email.value, password.value);
       navigate("/");
     } catch (e) {
       setError((e as firebase.FirebaseError).message);

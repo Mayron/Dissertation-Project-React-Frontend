@@ -1,19 +1,20 @@
 import React from "react";
-import { Loader, Dimmer } from "semantic-ui-react";
+import { Loader, Dimmer, SemanticSIZES } from "semantic-ui-react";
 
 interface ILoadingProps {
   dimmer?: boolean;
+  size?: SemanticSIZES;
 }
-const Loading: React.FC<ILoadingProps> = ({ children, dimmer }) => (
+const Loading: React.FC<ILoadingProps> = ({ children, dimmer, size = "huge" }) => (
   <>
     {dimmer ? (
       <Dimmer active inverted>
-        <Loader size="huge" active>
+        <Loader size={size} active>
           {children}
         </Loader>
       </Dimmer>
     ) : (
-      <Loader size="huge" active>
+      <Loader size={size} active>
         {children}
       </Loader>
     )}

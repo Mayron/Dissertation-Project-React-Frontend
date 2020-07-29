@@ -1,26 +1,34 @@
 import React, { useContext, useEffect, useState } from "react";
 import Post from "../../common/post";
-import SearchBox from "../../common/search-box";
-import Filter from "../../common/filter";
 import { RouteComponentProps, useMatch } from "@reach/router";
 import Comment from "../../common/comment";
 import ProfilePic from "../../../images/placeholder-profile-pic.svg";
 import { GroupContext } from "../../providers/group-provider";
 import { SignalRContext } from "../../providers/signalr-provider";
-import { invokeApiHub } from "../../../api";
+import { invokeApiHub, postToApi } from "../../../api";
 import Loading from "../../common/loading";
-import { getTimeAgoUtc } from "../../../utils";
+import { getTimeAgoUtc, formatStatistic } from "../../../utils";
+import { AuthContext } from "../../providers/auth-provider";
+import TimeAgo from "react-timeago";
+import { Icons } from "../../icons";
 
 interface ICommentModel {
+  commentId: string;
   authorDisplayName: string;
   when: string;
   body: string;
   votes: number;
 }
 
+interface INewCommentModel {
+  body: string;
+  postId: string;
+}
+
 const ViewPostView: React.FC<RouteComponentProps> = () => {
   const { groupId } = useContext(GroupContext);
   const connection = useContext(SignalRContext);
+  const { token, appUser } = useContext(AuthContext);
 
   const match = useMatch("/g/:groupId/post/:postId/*");
   const postId = match?.postId as string;
@@ -29,6 +37,62 @@ const ViewPostView: React.FC<RouteComponentProps> = () => {
   const [comments, setComments] = useState<ICommentModel[]>([]);
   const [loadingPost, setLoadingPost] = useState(true);
   const [loadingComments, setLoadingComments] = useState(true);
+  const [submittingComment, setSubmittingComment] = useState(false);
+
+  const [newComment, setNewComment] = useState("");
+
+  const handleCommentChanged = (value: string) => {
+    setNewComment(value);
+  };
+
+  const upVote = (commentId: string) => {
+    // if (!newComment || !appUser) return;
+    // (async () => {
+    //   const config = await getAuthConfig(token);
+    //   const model: IChangeVoteInputModel = {
+    //     postId: postId,
+    //     vote: 1,
+    //     commentId: commentId,
+    //   };
+    //   // await api.post<IApiResponse>("/posts/vote", model, config).then((response) => {
+    //   //   if (!(response.status === 202 && response.data.isValid)) {
+    //   //     toast.error(response.data.message);
+    //   //   }
+    //   // });
+    // })();
+  };
+
+  const handleCommentSubmitted = () => {
+    if (!newComment || !appUser || !connection || !token) return;
+
+    const comment: INewCommentModel = {
+      body: newComment,
+      postId: postId,
+    };
+
+    postToApi<string>(
+      connection,
+      token,
+      "/posts/comment",
+      comment,
+      (commentId) => {
+        const addedComment: ICommentModel = {
+          commentId: commentId,
+          authorDisplayName: appUser?.displayName,
+          body: newComment,
+          votes: 1,
+          when: "just now",
+        };
+
+        setNewComment("");
+        setSubmittingComment(false);
+        setComments([...comments, addedComment]);
+      },
+      () => setSubmittingComment(false),
+    );
+
+    setSubmittingComment(true);
+  };
 
   useEffect(() => {
     if (connection && loadingPost) {
@@ -71,23 +135,20 @@ const ViewPostView: React.FC<RouteComponentProps> = () => {
       {!loadingPost && !post && <div id="unavailable">Post unavailable</div>}
       {!loadingPost && post && (
         <>
-          <Post post={post} includeCommentBox>
-            <h4>This is the Title of this post! Why do they all do it?</h4>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque
-              elit arcu, et fringilla mauris dignissim sit amet. Maecenas facilisis
-              dignissim erat. Praesent faucibus facilisis tortor vel ornare. Sed lacinia
-              eu urna nec condimentum. Suspendisse molestie mauris ac ligula molestie
-              malesuada. Duis sed tellus ipsum.
-            </p>
-          </Post>
+          <Post
+            post={post}
+            commentValue={newComment}
+            onCommentSubmitted={handleCommentSubmitted}
+            onCommentChanged={handleCommentChanged}
+            submitting={submittingComment}
+          />
           <div className="comment-toolbar" role="toolbar">
             <div className="row-10">
               <h4>Comments ({comments.length})</h4>
-              {comments.length > 0 && <SearchBox placeholder="Search comments" />}
+              {/* {comments.length > 0 && <SearchBox placeholder="Search comments" />} */}
             </div>
 
-            {comments.length > 0 && (
+            {/* {comments.length > 0 && (
               <Filter
                 label="Sort by"
                 tooltip="Sort by"
@@ -101,7 +162,7 @@ const ViewPostView: React.FC<RouteComponentProps> = () => {
                   "Oldest",
                 ]}
               />
-            )}
+            )} */}
           </div>
           <section id="comments">
             {loadingComments && <Loading />}
@@ -112,12 +173,19 @@ const ViewPostView: React.FC<RouteComponentProps> = () => {
                 ) : (
                   <>
                     {comments.map((comment, key) => (
-                      <Comment key={key} body={comment.body} votes={comment.votes}>
+                      <Comment key={key} body={comment.body}>
                         <img src={ProfilePic} alt="profile" />
+
                         <div className="post-user">
                           <a className="user">{comment.authorDisplayName}</a>
-                          <p>{getTimeAgoUtc(comment.when)}</p>
+                          <p>
+                            <TimeAgo date={getTimeAgoUtc(post.when)} />
+                          </p>
                         </div>
+                        <Icons.Heart
+                          text={formatStatistic(post.votes)}
+                          onClick={() => upVote(comment.commentId)}
+                        />
                       </Comment>
                     ))}
                   </>

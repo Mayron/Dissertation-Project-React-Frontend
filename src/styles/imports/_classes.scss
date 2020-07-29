@@ -58,6 +58,7 @@ a.link {
 
 .btn-secondary {
   @include ui-border;
+  background-color: transparent;
   color: $dark-orange;
   font-weight: 600;
   padding: 6px $section-spacing;
@@ -83,7 +84,7 @@ a.link {
   white-space: nowrap;
   padding: 6px $section-spacing;
   border-radius: $border-radius;
-  background-color: $dark-orange !important;
+  background-color: $dark-orange;
   color: $white;
   font-size: 14px;
   font-weight: 600;
@@ -94,7 +95,12 @@ a.link {
     font-size: 16px;
   }
 
-  &:hover {
+  &:disabled {
+    cursor: not-allowed;
+    background-color: $disabled-orange;
+  }
+
+  &:not(:disabled):hover {
     background-color: $primary-orange !important;
   }
 }
@@ -102,6 +108,7 @@ a.link {
 .btn-tertiary {
   text-decoration: underline;
   color: $dark-orange;
+  background: none;
 
   &:hover {
     color: $primary-orange;

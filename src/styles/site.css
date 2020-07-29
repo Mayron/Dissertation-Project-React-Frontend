@@ -66,6 +66,7 @@ a.link {
 .btn-secondary {
   border: 1px solid #d9d9d9;
   border-radius: 4px;
+  background-color: transparent;
   color: #f24d2b;
   font-weight: 600;
   padding: 6px 15px;
@@ -92,7 +93,7 @@ a.link {
   white-space: nowrap;
   padding: 6px 15px;
   border-radius: 4px;
-  background-color: #f24d2b !important;
+  background-color: #f24d2b;
   color: #fff;
   font-size: 14px;
   font-weight: 600;
@@ -104,13 +105,19 @@ a.link {
   font-size: 16px;
 }
 
-.btn-primary:hover {
+.btn-primary:disabled {
+  cursor: not-allowed;
+  background-color: #feac9c;
+}
+
+.btn-primary:not(:disabled):hover {
   background-color: #ff6f00 !important;
 }
 
 .btn-tertiary {
   text-decoration: underline;
   color: #f24d2b;
+  background: none;
 }
 
 .btn-tertiary:hover {
@@ -581,6 +588,11 @@ input[type="button"],
 input[type="submit"] {
   outline: none;
   border: none;
+}
+
+button:not([class^="btn"]),
+input[type="button"]:not([class^="btn"]),
+input[type="submit"]:not([class^="btn"]) {
   background: none;
 }
 
@@ -1935,6 +1947,22 @@ footer.post-footer > p {
   margin-left: 5px;
 }
 
+.comment .heart-icon {
+  margin-left: auto;
+}
+
+.comment .heart-icon span {
+  margin-left: 5px;
+}
+
+.comment.post {
+  margin-bottom: 10px;
+}
+
+.comment.post:last-child {
+  margin-bottom: 60px;
+}
+
 .comment footer {
   margin-top: 20px;
   display: -webkit-box;
@@ -2044,6 +2072,7 @@ footer.post-footer > p {
           align-items: center;
   padding-left: 10px;
   margin-left: 10px;
+  background-color: #fff;
 }
 
 #postBox .btn-create-post:hover {

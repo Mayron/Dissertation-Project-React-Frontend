@@ -80,7 +80,10 @@ input[type="button"],
 input[type="submit"] {
   outline: none;
   border: none;
-  background: none;
+
+  &:not([class^="btn"]) {
+    background: none;
+  }
 
   &:hover {
     cursor: pointer;

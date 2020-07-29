@@ -53,15 +53,17 @@ const MainNav: React.FC<IMainNavProps> = ({ collapsed, menuType }) => {
         <MenuListItem url="/">
           <Icons.Placeholder text="Home" />
         </MenuListItem>
+
         {/* <MenuListItem url="/discover">
           <Icons.Placeholder text="Discover" />
         </MenuListItem>
         <MenuListItem url="/opportunities">
           <Icons.Placeholder text="Opportunities" />
         </MenuListItem>
+         */}
         <MenuListItem url="/browse">
           <Icons.Placeholder text="Browse" />
-        </MenuListItem> */}
+        </MenuListItem>
       </ul>
       {!collapsed && (
         <>

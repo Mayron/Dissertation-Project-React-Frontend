@@ -8,7 +8,7 @@ import TagsEditBox from "../../components/widgets/tags-editbox";
 import { AuthContext } from "../../components/providers/auth-provider";
 import { SignalRContext } from "../../components/providers/signalr-provider";
 import { toast } from "react-toastify";
-import api, { invokeApiHub, getAuthConfig } from "../../api";
+import api, { invokeApiHub, getAuthConfig, postToApi } from "../../api";
 import { addPendingMessage } from "../../utils";
 import Loading from "../../components/common/loading";
 import Dropdown from "../../components/widgets/dropdown";
@@ -74,49 +74,20 @@ const CreateProjectPage = () => {
       visibility: formValues.visibility.value,
     };
 
-    (async () => {
-      const config = await getAuthConfig(token);
-      await api
-        .post<IApiResponse>("/projects/create", project, config)
-        .then((response) => {
-          if (response.status === 202 && response.data.isValid) {
-            invokeApiHub<ISagaMessageEmittedEvent>(
-              connection,
-              "Subscribe",
-              (ev) => {
-                const { success, message, args } = ev;
-
-                if (!success) {
-                  toast.error(message, { position: "top-center" });
-                  setLoading(false);
-                  return;
-                }
-
-                addPendingMessage(localStorage, { success, message });
-
-                if (args?.projectId) {
-                  navigateTo(`/p/${args.projectId}`);
-                } else {
-                  navigateTo("/");
-                }
-              },
-              () => {
-                setLoading(false);
-              },
-              response.data.message,
-            );
-          } else {
-            toast.error(response.data.message);
-          }
-        })
-        .catch((reason) => {
-          const { errors } = reason.response.data;
-          _.forOwn(errors, (value: string[]) => {
-            value.forEach((v) => toast.error(v));
-          });
-          setLoading(false);
+    postToApi<string>(
+      connection,
+      token,
+      "/projects/create",
+      project,
+      (projectId) => {
+        addPendingMessage(localStorage, {
+          success: true,
+          message: "Your new project is ready to use!",
         });
-    })();
+        navigateTo(`/P/${projectId}`);
+      },
+      () => setLoading(false),
+    );
 
     setLoading(true);
   };

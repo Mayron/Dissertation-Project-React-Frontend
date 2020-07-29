@@ -12,7 +12,7 @@ import SettingsView from "../components/group/views/settings";
 import ProjectsView from "../components/group/views/projects";
 import ProjectsInCategoryView from "../components/group/views/projects-in-category";
 import ListProjectView from "../components/group/views/list-project";
-import ViewPostView from "../components/group/views/view-post-view";
+import ViewPostView from "../components/group/views/view-post";
 
 const App = () => {
   return (

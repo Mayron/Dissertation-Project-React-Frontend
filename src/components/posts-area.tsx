@@ -1,13 +1,12 @@
 import { useEffect, useContext, useState } from "react";
 import { SignalRContext } from "./providers/signalr-provider";
 import { AuthContext } from "./providers/auth-provider";
-import api, { getAuthConfig, invokeApiHub } from "../api";
+import { invokeApiHub, postToApi } from "../api";
 import React from "react";
 import CreatePostPopup from "./common/create-post-popup";
 import PostBox from "./post-box";
 import ToolBar from "./index/tool-bar";
 import Post from "./common/post";
-import { toast } from "react-toastify";
 import Loading from "./common/loading";
 import { addPendingMessage, getSlug } from "../utils";
 import { navigateTo } from "gatsby";
@@ -49,29 +48,9 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId, groupName }) 
     });
   };
 
-  const handleApiHubResponse = (event: ISagaMessageEmittedEvent, post: INewPostModel) => {
-    const { success, message, args } = event;
-
-    if (success && args) {
-      addPendingMessage(localStorage, { success, message });
-      navigateTo(`/g/${post.groupId}/post/${args.postId}/${getSlug(post.title)}`);
-    } else if (success) {
-      toast.success(message);
-      setNewPost({
-        title: {},
-        body: {},
-        group: {},
-      });
-      setShowPopup(false);
-      setLoading(false);
-    } else {
-      toast.error(message);
-    }
-  };
-
   const handleNewPostSubmitted = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!token) return;
+    if (!token || !connection) return;
 
     if (!newPost.group.value) {
       const nextState = { ...newPost };
@@ -93,23 +72,17 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId, groupName }) 
       groupId: newPost.group.value,
     };
 
-    (async () => {
-      const config = await getAuthConfig(token);
-
-      await api.post<IApiResponse>("/posts", post, config).then((response) => {
-        if (response.status === 202 && response.data.isValid) {
-          invokeApiHub<ISagaMessageEmittedEvent>(
-            connection,
-            "Subscribe",
-            (ev) => handleApiHubResponse(ev, post),
-            undefined,
-            response.data.message,
-          );
-        } else {
-          toast.error(response.data.message);
-        }
-      });
-    })();
+    postToApi<string>(
+      connection,
+      token,
+      "/posts",
+      post,
+      (postId) => {
+        addPendingMessage(localStorage, { success: true, message: "New post created!" });
+        navigateTo(`/g/${post.groupId}/post/${postId}/${getSlug(post.title)}`);
+      },
+      () => setLoading(true),
+    );
 
     setLoading(true);
   };

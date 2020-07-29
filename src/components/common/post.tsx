@@ -10,11 +10,22 @@ import Marked from "marked";
 interface IPostProps {
   url?: string;
   post: IPostModel;
-  includeCommentBox?: boolean;
   flags?: string[];
+  onCommentSubmitted?: () => void;
+  commentValue?: string;
+  onCommentChanged?: (value: string) => void;
+  submitting?: boolean;
 }
 
-const Post: React.FC<IPostProps> = ({ url, post, includeCommentBox, flags }) => {
+const Post: React.FC<IPostProps> = ({
+  url,
+  post,
+  flags,
+  onCommentSubmitted,
+  commentValue,
+  onCommentChanged,
+  submitting,
+}) => {
   const handleClick = (e: React.MouseEvent) => {
     if (!url) return;
     const target = e.target as HTMLElement;
@@ -63,7 +74,14 @@ const Post: React.FC<IPostProps> = ({ url, post, includeCommentBox, flags }) => 
 
       <PostFooter post={post} postedBy={false} />
 
-      {includeCommentBox && <CommentBox />}
+      {onCommentSubmitted && onCommentChanged && commentValue !== undefined && (
+        <CommentBox
+          onSubmitted={onCommentSubmitted}
+          value={commentValue}
+          onChange={onCommentChanged}
+          submitting={submitting}
+        />
+      )}
     </article>
   );
 };

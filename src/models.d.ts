@@ -43,6 +43,12 @@ declare interface IPostModel {
   votes: number;
 }
 
+declare interface IChangeVoteInputModel {
+  postId: string;
+  commentId?: string;
+  vote: number;
+}
+
 // retrieve the core group properties (does not include all properties)
 declare interface IGroupDetailsViewModel {
   about?: string;
@@ -92,12 +98,6 @@ declare interface IPayloadEvent<T> {
   payload?: T;
 }
 
-declare interface ISagaMessageEmittedEvent {
-  message: string;
-  success: boolean;
-  args?: { [key: string]: string };
-}
-
 declare interface ITag {
   editing?: boolean;
   value: string;
@@ -106,4 +106,10 @@ declare interface ITag {
 declare type NamedEntity = {
   name: string;
   id: string;
+};
+
+declare type GroupCreatedViewModel = {
+  successfulConnections: number;
+  failedConnections: number;
+  groupId: string;
 };

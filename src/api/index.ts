@@ -22,6 +22,75 @@ export const getAuthConfig = async (token?: string) => {
   return config;
 };
 
+export const postToApi = <T>(
+  connection: HubConnection,
+  token: string,
+  url: string,
+  data: any,
+  onSuccess?: (payload: T) => void,
+  onFailure?: (errors: string[]) => void,
+) => {
+  (async () => {
+    let receivedReply = false;
+    const config = await getAuthConfig(token);
+
+    const callback = `${url}-${_.times(8, () =>
+      ((Math.random() * 0xf) << 0).toString(16),
+    ).join("")}`;
+
+    connection.on(callback, (response: IPayloadEvent<T>) => {
+      receivedReply = true;
+      connection.off(callback);
+
+      if (onSuccess && response.payload) onSuccess(response.payload);
+      else if (response.errors) {
+        response.errors.forEach((e) => toast.error(e));
+        if (onFailure) onFailure(response.errors);
+      }
+    });
+
+    data.connectionId = connection.connectionId;
+    data.callback = callback;
+
+    await api
+      .post<IApiResponse>(url, data, config)
+      .then((response) => {
+        debugger;
+        if (!(response.status === 202 && response.data.isValid)) {
+          receivedReply = true;
+          connection.off(callback);
+          toast.error(response.data.message);
+          if (onFailure) onFailure([response.data.message]);
+        }
+      })
+      .catch((reason) => {
+        debugger;
+        receivedReply = true;
+
+        if (reason.errors) {
+          const { errors } = reason.response.data;
+          _.forOwn(errors, (value: string[]) => {
+            value.forEach((v) => toast.error(v));
+            if (onFailure) onFailure(value);
+          });
+        } else if (reason.isAxiosError) {
+          if (reason.code === "ECONNABORTED") {
+            if (onFailure) onFailure(["Request timed out."]);
+          } else if (onFailure) onFailure([reason.message]);
+        }
+      });
+
+    setTimeout(() => {
+      if (!receivedReply) {
+        connection.off(callback);
+
+        toast.error(`Request timed out: ${url}`);
+        onFailure && onFailure(["Request timed out."]);
+      }
+    }, 8000);
+  })();
+};
+
 let currentConnectionId: string | null = null;
 let connectionTimeout = false;
 

@@ -61,6 +61,19 @@ export const getSlug = (value: string) => {
 };
 
 export const getTimeAgoUtc = (value: string) => {
+  if (value === "just now") {
+    const date = new Date();
+    const year = date.getUTCFullYear();
+    const month = date.getUTCMonth();
+    const day = date.getUTCDay();
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+    const seconds = date.getUTCSeconds();
+
+    var timeAgo = Date.UTC(year, month, day, hours, minutes, seconds);
+    return timeAgo;
+  }
+
   const values = value.split(":").map((v) => parseInt(v));
   const year = values[0];
   const month = values[1] - 1;

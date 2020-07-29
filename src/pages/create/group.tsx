@@ -9,7 +9,7 @@ import PanelSection from "../../components/common/panel-section";
 import TagsEditBox from "../../components/widgets/tags-editbox";
 import { AuthContext } from "../../components/providers/auth-provider";
 import { SignalRContext } from "../../components/providers/signalr-provider";
-import api, { getAuthConfig, invokeApiHub } from "../../api";
+import { invokeApiHub, postToApi } from "../../api";
 import { toast } from "react-toastify";
 import Loading from "../../components/common/loading";
 import { addPendingMessage } from "../../utils";
@@ -101,50 +101,35 @@ const CreateGroupPage: React.FC = () => {
       visibility: formValues.visibility.value,
     };
 
-    (async () => {
-      const config = await getAuthConfig(token);
-      await api
-        .post<IApiResponse>("/groups/create", group, config)
-        .then((response) => {
-          if (response.status === 202 && response.data.isValid) {
-            invokeApiHub<ISagaMessageEmittedEvent>(
-              connection,
-              "Subscribe",
-              (ev) => {
-                const { success, message, args } = ev;
-
-                if (!success) {
-                  toast.error(message, { position: "top-center" });
-                  setLoading(false);
-                  return;
-                }
-
-                addPendingMessage(localStorage, { success, message });
-
-                if (args?.groupId) {
-                  navigateTo(`/g/${args.groupId}`);
-                } else {
-                  navigateTo("/");
-                }
-              },
-              () => {
-                setLoading(false);
-              },
-              response.data.message,
-            );
-          } else {
-            toast.error(response.data.message);
-            setLoading(false);
-          }
-        })
-        .catch((reason) => {
-          const { errors } = reason.response.data;
-          _.forOwn(errors, (value: string[]) => {
-            value.forEach((v) => toast.error(v));
-          });
-          setLoading(false);
+    postToApi<GroupCreatedViewModel>(
+      connection,
+      token,
+      "/groups/create",
+      group,
+      (viewModel) => {
+        addPendingMessage(localStorage, {
+          success: true,
+          message: "Your new group is ready to use!",
         });
-    })();
+
+        if (viewModel.successfulConnections > 0) {
+          addPendingMessage(localStorage, {
+            success: true,
+            message: `${viewModel.successfulConnections} projects connected to group.`,
+          });
+        }
+
+        if (viewModel.failedConnections > 0) {
+          addPendingMessage(localStorage, {
+            success: false,
+            message: `${viewModel.failedConnections} projects failed to connect to group. This could be due to visibility restrictions.`,
+          });
+        }
+
+        navigateTo(`/g/${viewModel.groupId}`);
+      },
+      () => setLoading(false),
+    );
 
     setLoading(true);
   };

@@ -1,23 +1,16 @@
-import React, { useState } from "react";
-import { Icons } from "../icons";
-import Vote from "./vote";
-import CommentReply from "./comment-reply";
+import React from "react";
 import Marked from "marked";
 
 interface ICommentProps {
-  votes: number;
   body: string;
 }
 
-const Comment: React.FC<ICommentProps> = ({ children, votes, body }) => {
+const Comment: React.FC<ICommentProps> = ({ children, body }) => {
   // const [showReplies, setShowReplies] = useState(true);
 
   return (
     <article className="comment post">
-      <header>
-        <Vote value={votes} />
-        {children}
-      </header>
+      <header>{children}</header>
       <div
         className="markdown"
         dangerouslySetInnerHTML={{ __html: Marked.parse(body) }}

@@ -7,9 +7,8 @@ import {
   DropdownOnSearchChangeData,
   DropdownItemProps,
 } from "semantic-ui-react";
-import api, { invokeApiHub } from "../../api";
+import { invokeApiHub } from "../../api";
 import { SignalRContext } from "../providers/signalr-provider";
-import { addPendingMessage } from "../../utils";
 import { toast } from "react-toastify";
 import Loading from "./loading";
 
