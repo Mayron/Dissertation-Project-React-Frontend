@@ -2,14 +2,14 @@ import React, { useContext, useState } from "react";
 import { RouteComponentProps, Link } from "@reach/router";
 import Panel from "../../common/panel";
 import GroupConnectionList from "../../group-connection-list";
-import api, { getAuthConfig, invokeApiHub } from "../../../api";
+import { postToApi } from "../../../api";
 import { AuthContext } from "../../providers/auth-provider";
 import { SignalRContext } from "../../providers/signalr-provider";
 import { addPendingMessage } from "../../../utils";
 import { navigateTo } from "gatsby";
-import { toast } from "react-toastify";
 import Loading from "../../common/loading";
 import { ProjectContext } from "../../providers/project-provider.tsx";
+import { toast } from "react-toastify";
 
 const ConnectView: React.FC<RouteComponentProps> = () => {
   const { projectId, createRoute } = useContext(ProjectContext);
@@ -27,6 +27,8 @@ const ConnectView: React.FC<RouteComponentProps> = () => {
   const handleSubmitted = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!connection || !token) return;
+
     if (!connectedGroupId) {
       setError("You have not selected a group to connect to.");
       return;
@@ -37,30 +39,17 @@ const ConnectView: React.FC<RouteComponentProps> = () => {
       groupId: connectedGroupId,
     };
 
-    (async () => {
-      const config = await getAuthConfig(token);
-      await api
-        .post<IApiResponse>("/projects/connect", postData, config)
-        .then((response) => {
-          if (response.status === 202 && response.data.isValid) {
-            invokeApiHub<ISagaMessageEmittedEvent>(
-              connection,
-              "Subscribe",
-              (ev) => {
-                const { success, message } = ev;
-                addPendingMessage(localStorage, { success, message });
-                navigateTo(createRoute());
-              },
-              () => {
-                setLoading(false);
-              },
-              response.data.message,
-            );
-          } else {
-            toast.error(response.data.message);
-          }
-        });
-    })();
+    postToApi<string>(
+      connection,
+      token,
+      "/projects/connect",
+      postData,
+      (message) => {
+        toast.success(message);
+        setLoading(false);
+      },
+      () => setLoading(false),
+    );
 
     setLoading(true);
   };

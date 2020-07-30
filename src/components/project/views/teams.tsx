@@ -1,41 +1,39 @@
-import React from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import LinkPanel from "../../common/link-panel";
-import { Link, navigate } from "gatsby";
+import { Link, navigateTo } from "gatsby";
 import { Icons } from "../../icons";
+import { invokeApiHub } from "../../../api";
+import { SignalRContext } from "../../providers/signalr-provider";
+import { ProjectContext } from "../../providers/project-provider.tsx";
+import Loading from "../../common/loading";
 
 interface ITeamPanelProps {
-  teamName: string;
-  color: string;
-  description: string;
-  members: number;
+  team: Team;
 }
 
-const TeamPanel: React.FC<ITeamPanelProps> = ({
-  teamName,
-  members,
-  color,
-  description,
-}) => {
+const TeamPanel: React.FC<ITeamPanelProps> = ({ team }) => {
+  const { createRoute } = useContext(ProjectContext);
+
   return (
     <LinkPanel
-      url="/p/mayronui-gen6/t/admins/members"
+      url={createRoute("t", team.teamId, "members")}
       extraIcon={() => (
         <Icons.Settings
           text="Permissions"
-          onClick={() => navigate("/p/mayronui-gen6/t/admins/permissions")}
+          onClick={() => navigateTo(createRoute("t", team.teamId, "permissions"))}
         />
       )}
-      meta={members === 1 ? "1 member" : `${members} members`}
+      meta={team.totalMembers === 1 ? "1 member" : `${team.totalMembers} members`}
       titleStyle={{
-        color,
+        color: team.color,
         fontWeight: 600,
       }}
-      title={teamName}
+      title={team.name}
     >
       <div className="spaced row-20">
-        <p>{description}</p>
-        <Link className="btn-secondary" to="/p/mayronui-gen6/t/admins/members">
+        <p>{team.description}</p>
+        <Link className="btn-secondary" to={createRoute("t", team.teamId, "members")}>
           View Members
         </Link>
       </div>
@@ -43,30 +41,49 @@ const TeamPanel: React.FC<ITeamPanelProps> = ({
   );
 };
 
+type Team = {
+  teamId: string;
+  name: string;
+  description: string;
+  totalMembers: number;
+  color: string;
+};
+
+interface ITeamsViewModel {
+  teams: Team[];
+}
+
 const TeamsView: React.FC<RouteComponentProps> = ({}) => {
+  const connection = useContext(SignalRContext);
+  const [loading, setLoading] = useState(true);
+  const [teams, setTeams] = useState<Team[]>([]);
+
+  useEffect(() => {
+    if (!connection) return;
+
+    invokeApiHub<IPayloadEvent<ITeamsViewModel>>(connection, "FetchTeams", (response) => {
+      setLoading(false);
+      if (response.payload) {
+        setTeams(response.payload.teams);
+      }
+    });
+  }, [connection]);
+
   return (
     <section id="project_t">
       <header>
         <h2>Teams</h2>
       </header>
-      <TeamPanel
-        teamName="Admins"
-        color="#F251ED"
-        description="Owners of the project and controls teams and moderator permissions."
-        members={1}
-      />
-      <TeamPanel
-        teamName="Moderators"
-        color="#F25151"
-        members={4}
-        description="Controls knowledge base, opportunities, and addresses issues raised and forwards to teams."
-      />
-      <TeamPanel
-        teamName="Developers"
-        color="#F2A751"
-        members={30}
-        description="Helps to develop the MayronUI project and attends to any bug fixes."
-      />
+      {loading ? (
+        <Loading dimmer />
+      ) : (
+        <>
+          {teams.length === 0 && <h2 className="unavailable">Teams unavailable.</h2>}
+          {teams.map((team, key) => (
+            <TeamPanel key={key} team={team} />
+          ))}
+        </>
+      )}
     </section>
   );
 };

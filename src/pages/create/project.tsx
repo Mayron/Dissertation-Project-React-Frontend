@@ -84,7 +84,7 @@ const CreateProjectPage = () => {
           success: true,
           message: "Your new project is ready to use!",
         });
-        navigateTo(`/P/${projectId}`);
+        navigateTo(`/p/${projectId}`);
       },
       () => setLoading(false),
     );

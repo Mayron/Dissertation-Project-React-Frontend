@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import PlaceholderProfilePic from "../../images/placeholder-profile-pic.svg";
 import { formatStatistic, getTimeAgoUtc } from "../../utils";
 import { ProjectContext } from "../providers/project-provider.tsx";
+import TimeAgo from "react-timeago";
 
 const ProjectHeader: React.FC = () => {
   const { project } = useContext(ProjectContext);
@@ -33,7 +34,9 @@ const ProjectHeader: React.FC = () => {
           <p className="meta">
             {formatStatistic(project.totalDownloads, "download", true)}
           </p>
-          <p className="meta">Last updated {getTimeAgoUtc(project.lastUpdated)}</p>
+          <p className="meta">
+            Last updated <TimeAgo date={getTimeAgoUtc(project.lastUpdated)} />
+          </p>
         </div>
         <button className="btn-primary">Download</button>
       </div>
