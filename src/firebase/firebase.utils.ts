@@ -36,6 +36,8 @@ export const createUserProfileDocument = async (
         displayName,
         email,
         createdAt,
+        lastOnline: createdAt,
+        isOnline: true,
         ...additionalData,
       });
     } catch (error) {

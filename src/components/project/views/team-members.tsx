@@ -1,16 +1,18 @@
-import React from "react";
-import { RouteComponentProps } from "@reach/router";
+import React, { useEffect, useContext, useState } from "react";
+import { RouteComponentProps, useMatch } from "@reach/router";
 import Filter from "../../common/filter";
 import SearchBox from "../../common/search-box";
 import Panel from "../../common/panel";
 import PlaceholderProfilePic from "../../../images/placeholder-profile-pic.svg";
 import { Link } from "gatsby";
 import MoreDropdown from "../../common/more-dropdown";
-
-interface IFlexTableProps {
-  headers: string[];
-  className: string;
-}
+import { ProjectContext } from "../../providers/project-provider.tsx";
+import { SignalRContext } from "../../providers/signalr-provider";
+import { AuthContext } from "../../providers/auth-provider";
+import { invokeApiHub } from "../../../api";
+import Loading from "../../common/loading";
+import TimeAgo from "react-timeago";
+import { getTimeAgoUtc } from "../../../utils";
 
 const FlexTable: React.FC = ({ children }) => {
   return (
@@ -26,32 +28,64 @@ const FlexTable: React.FC = ({ children }) => {
 };
 
 interface IMemberRow {
-  user: string;
-  teams: string;
-  lastOnline: string;
-  contributions: number;
+  member: Member;
 }
 
-const MemberRow: React.FC<IMemberRow> = ({ user, teams, lastOnline, contributions }) => {
+const MemberRow: React.FC<IMemberRow> = ({ member }) => {
   return (
     <li className="member-row">
       <div className="team-user">
         <MoreDropdown items={["View profile", "Remove from team"]} />
         <img src={PlaceholderProfilePic} alt="user" />
         <div>
-          <Link to={`/u/${user.toLowerCase()}`} className="user">
-            {user}
+          <Link to={`/u/${member.userId}`} className="user">
+            {member.name}
           </Link>
-          <p>{teams}</p>
+          <p>{member.teams}</p>
         </div>
       </div>
-      <p>{lastOnline}</p>
-      <p>{contributions}</p>
+      <p>
+        <TimeAgo date={getTimeAgoUtc(member.lastOnline)} />
+      </p>
+      <p>{member.contributions}</p>
     </li>
   );
 };
 
+type Member = {
+  userId: string;
+  name: string;
+  teams: string;
+  lastOnline: string;
+  contributions: number;
+};
+
 const TeamMembersView: React.FC<RouteComponentProps> = ({}) => {
+  const teamIdMatch = useMatch("/p/:projectId/t/:teamId/*");
+  const teamId = teamIdMatch?.teamId as string;
+
+  const connection = useContext(SignalRContext);
+  const { token } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
+  const [members, setMembers] = useState<Member[]>([]);
+
+  useEffect(() => {
+    if (!connection || !token) return;
+
+    invokeApiHub<IPayloadEvent<Member[]>>(
+      connection,
+      "FetchTeamMembers",
+      (response) => {
+        setLoading(false);
+        if (response.payload) {
+          setMembers(response.payload);
+        }
+      },
+      () => setLoading(false),
+      teamId,
+    );
+  }, [connection, token]);
+
   return (
     <section id="project_tm">
       <div className="spaced row">
@@ -67,26 +101,17 @@ const TeamMembersView: React.FC<RouteComponentProps> = ({}) => {
         />
       </div>
       <Panel>
-        <FlexTable>
-          <MemberRow
-            user="Mayron"
-            teams="Admin, Moderator, Support, Developer"
-            lastOnline="16 hours ago"
-            contributions={83}
-          />
-          <MemberRow
-            user="Skorm"
-            teams="Moderator, Support"
-            lastOnline="1 week ago"
-            contributions={32}
-          />
-          <MemberRow
-            user="Pyro"
-            teams="Developer"
-            lastOnline="2 minutes ago"
-            contributions={41}
-          />
-        </FlexTable>
+        {loading ? (
+          <Loading dimmer />
+        ) : members.length === 0 ? (
+          <p>This team has no members in it.</p>
+        ) : (
+          <FlexTable>
+            {members.map((member, key) => (
+              <MemberRow key={key} member={member} />
+            ))}
+          </FlexTable>
+        )}
       </Panel>
     </section>
   );

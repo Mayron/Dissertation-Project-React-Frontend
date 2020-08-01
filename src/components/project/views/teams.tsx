@@ -7,6 +7,7 @@ import { invokeApiHub } from "../../../api";
 import { SignalRContext } from "../../providers/signalr-provider";
 import { ProjectContext } from "../../providers/project-provider.tsx";
 import Loading from "../../common/loading";
+import { AuthContext } from "../../providers/auth-provider";
 
 interface ITeamPanelProps {
   team: Team;
@@ -49,25 +50,29 @@ type Team = {
   color: string;
 };
 
-interface ITeamsViewModel {
-  teams: Team[];
-}
-
 const TeamsView: React.FC<RouteComponentProps> = ({}) => {
+  const { projectId } = useContext(ProjectContext);
   const connection = useContext(SignalRContext);
+  const { token } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [teams, setTeams] = useState<Team[]>([]);
 
   useEffect(() => {
-    if (!connection) return;
+    if (!connection || !token) return;
 
-    invokeApiHub<IPayloadEvent<ITeamsViewModel>>(connection, "FetchTeams", (response) => {
-      setLoading(false);
-      if (response.payload) {
-        setTeams(response.payload.teams);
-      }
-    });
-  }, [connection]);
+    invokeApiHub<IPayloadEvent<Team[]>>(
+      connection,
+      "FetchTeams",
+      (response) => {
+        setLoading(false);
+        if (response.payload) {
+          setTeams(response.payload);
+        }
+      },
+      () => setLoading(false),
+      projectId,
+    );
+  }, [connection, token]);
 
   return (
     <section id="project_t">
@@ -75,7 +80,7 @@ const TeamsView: React.FC<RouteComponentProps> = ({}) => {
         <h2>Teams</h2>
       </header>
       {loading ? (
-        <Loading dimmer />
+        <Loading />
       ) : (
         <>
           {teams.length === 0 && <h2 className="unavailable">Teams unavailable.</h2>}
