@@ -51,7 +51,7 @@ type Team = {
 };
 
 const TeamsView: React.FC<RouteComponentProps> = ({}) => {
-  const { projectId } = useContext(ProjectContext);
+  const { projectId, createRoute } = useContext(ProjectContext);
   const connection = useContext(SignalRContext);
   const { token } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
@@ -89,6 +89,11 @@ const TeamsView: React.FC<RouteComponentProps> = ({}) => {
           ))}
         </>
       )}
+      <footer>
+        <Link to={createRoute("create-team")} className="btn-primary lg">
+          Create Team
+        </Link>
+      </footer>
     </section>
   );
 };

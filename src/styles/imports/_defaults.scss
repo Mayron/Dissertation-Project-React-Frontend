@@ -169,7 +169,7 @@ footer a {
   text-decoration: underline;
   color: $dark-orange;
 
-  &:hover {
+  &:not([class^="btn"]):hover {
     color: $primary-orange;
   }
 }

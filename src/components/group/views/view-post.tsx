@@ -11,11 +11,12 @@ import { getTimeAgoUtc, formatStatistic } from "../../../utils";
 import { AuthContext } from "../../providers/auth-provider";
 import TimeAgo from "react-timeago";
 import { Icons } from "../../icons";
+import { toast } from "react-toastify";
 
 interface ICommentModel {
   commentId: string;
   authorDisplayName: string;
-  when: string;
+  createdAt: string;
   body: string;
   votes: number;
 }
@@ -81,12 +82,13 @@ const ViewPostView: React.FC<RouteComponentProps> = () => {
           authorDisplayName: appUser?.displayName,
           body: newComment,
           votes: 1,
-          when: "just now",
+          createdAt: "just now",
         };
 
         setNewComment("");
         setSubmittingComment(false);
-        setComments([...comments, addedComment]);
+        setComments([addedComment, ...comments]);
+        toast.success("Comment added");
       },
       () => setSubmittingComment(false),
     );
@@ -118,7 +120,6 @@ const ViewPostView: React.FC<RouteComponentProps> = () => {
         (ev) => {
           if (ev.errors) {
           } else if (ev.payload) {
-            debugger;
             setComments(ev.payload);
           }
           setLoadingComments(false);
@@ -179,7 +180,7 @@ const ViewPostView: React.FC<RouteComponentProps> = () => {
                         <div className="post-user">
                           <a className="user">{comment.authorDisplayName}</a>
                           <p>
-                            <TimeAgo date={getTimeAgoUtc(post.when)} />
+                            <TimeAgo date={getTimeAgoUtc(comment.createdAt)} />
                           </p>
                         </div>
                         <Icons.Heart

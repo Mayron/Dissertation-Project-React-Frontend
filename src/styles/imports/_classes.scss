@@ -115,6 +115,43 @@ a.link {
   }
 }
 
+.panel .field {
+  flex: 1;
+
+  header {
+    padding-bottom: $item-spacing-small;
+  }
+}
+
+.color-picker {
+  position: relative;
+  z-index: 10;
+
+  button.color {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    background-color: $black;
+
+    &:hover {
+      cursor: pointer;
+      filter: brightness(110%);
+    }
+  }
+
+  .twitter-picker {
+    position: absolute !important;
+    z-index: 100;
+    top: 40px;
+    left: -5px;
+
+    input {
+      padding: 0;
+      height: 30px !important;
+    }
+  }
+}
+
 // TODO: Should rename this to "block" or something
 .row {
   display: flex;
@@ -401,4 +438,10 @@ h1.unavailable {
   & > * {
     flex: 1;
   }
+}
+
+.ui.dimmer.inline {
+  position: relative !important;
+  height: 60px;
+  margin-top: -8px;
 }

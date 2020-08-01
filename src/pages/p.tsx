@@ -16,6 +16,7 @@ import TeamsView from "../components/project/views/teams";
 import TeamHeader from "../components/project/team-header";
 import NewIssueView from "../components/project/views/new-issue";
 import ViewIssueView from "../components/project/views/view-issue";
+import CreateTeamView from "../components/project/views/create-team";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
         <AllDownloadsView path="/all-downloads" />
         <GeneralSettingsView path="/settings" />
         <TeamsView path="/teams" />
+        <CreateTeamView path="/create-team" />
       </ProjectPage>
 
       <TeamHeader path="/p/:projectId/t/:teamId">

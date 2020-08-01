@@ -55,7 +55,6 @@ export const postToApi = <T>(
     await api
       .post<IApiResponse>(url, data, config)
       .then((response) => {
-        debugger;
         if (!(response.status === 202 && response.data.isValid)) {
           receivedReply = true;
           connection.off(callback);
@@ -64,19 +63,20 @@ export const postToApi = <T>(
         }
       })
       .catch((reason) => {
-        debugger;
         receivedReply = true;
 
-        if (reason.errors) {
-          const { errors } = reason.response.data;
+        if (reason.response.data && reason.response.data.errors) {
+          const { errors } = reason?.response?.data;
+
           _.forOwn(errors, (value: string[]) => {
             value.forEach((v) => toast.error(v));
             if (onFailure) onFailure(value);
           });
-        } else if (reason.isAxiosError) {
-          if (reason.code === "ECONNABORTED") {
-            if (onFailure) onFailure(["Request timed out."]);
-          } else if (onFailure) onFailure([reason.message]);
+        } else {
+          const message = reason?.message || "Something unexpected occured.";
+          toast.error(message);
+
+          if (onFailure) onFailure([message]);
         }
       });
 

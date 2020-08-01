@@ -124,6 +124,46 @@ a.link {
   color: #ff6f00;
 }
 
+.panel .field {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.panel .field header {
+  padding-bottom: 5px;
+}
+
+.color-picker {
+  position: relative;
+  z-index: 10;
+}
+
+.color-picker button.color {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background-color: #212121;
+}
+
+.color-picker button.color:hover {
+  cursor: pointer;
+  -webkit-filter: brightness(110%);
+          filter: brightness(110%);
+}
+
+.color-picker .twitter-picker {
+  position: absolute !important;
+  z-index: 100;
+  top: 40px;
+  left: -5px;
+}
+
+.color-picker .twitter-picker input {
+  padding: 0;
+  height: 30px !important;
+}
+
 .row {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -508,6 +548,12 @@ h1.unavailable {
           flex: 1;
 }
 
+.ui.dimmer.inline {
+  position: relative !important;
+  height: 60px;
+  margin-top: -8px;
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -689,8 +735,8 @@ footer a {
   color: #f24d2b;
 }
 
-p a:hover,
-footer a:hover {
+p a:not([class^="btn"]):hover,
+footer a:not([class^="btn"]):hover {
   color: #ff6f00;
 }
 
@@ -2211,6 +2257,15 @@ footer.post-footer > p {
       -ms-flex-pack: end;
           justify-content: flex-end;
   margin-top: 10px;
+  position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post .comment-box footer .ui.loader {
+  margin-right: 20px;
+  height: 22px;
 }
 
 .text-field {
@@ -3238,6 +3293,22 @@ footer.post-footer > p {
 #confirmConnection {
   margin-top: 40px;
   text-align: center;
+}
+
+#project_ct #teamName {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+}
+
+#project_t footer {
+  margin-top: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 #userPage {

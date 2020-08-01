@@ -339,3 +339,17 @@
   margin-top: $section-spacing-large;
   text-align: center;
 }
+
+#project_ct {
+  #teamName {
+    flex: 2;
+  }
+}
+
+#project_t {
+  footer {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+  }
+}

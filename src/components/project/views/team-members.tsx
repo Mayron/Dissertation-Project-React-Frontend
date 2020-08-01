@@ -6,13 +6,12 @@ import Panel from "../../common/panel";
 import PlaceholderProfilePic from "../../../images/placeholder-profile-pic.svg";
 import { Link } from "gatsby";
 import MoreDropdown from "../../common/more-dropdown";
-import { ProjectContext } from "../../providers/project-provider.tsx";
 import { SignalRContext } from "../../providers/signalr-provider";
 import { AuthContext } from "../../providers/auth-provider";
 import { invokeApiHub } from "../../../api";
 import Loading from "../../common/loading";
 import TimeAgo from "react-timeago";
-import { getTimeAgoUtc } from "../../../utils";
+import { getTimeAgoUtc, getSlug } from "../../../utils";
 
 const FlexTable: React.FC = ({ children }) => {
   return (
@@ -20,7 +19,7 @@ const FlexTable: React.FC = ({ children }) => {
       <header>
         <h5>Members</h5>
         <h5>Last online</h5>
-        <h5>Contribution</h5>
+        <h5>Contributions</h5>
       </header>
       <ul>{children}</ul>
     </div>
@@ -38,26 +37,30 @@ const MemberRow: React.FC<IMemberRow> = ({ member }) => {
         <MoreDropdown items={["View profile", "Remove from team"]} />
         <img src={PlaceholderProfilePic} alt="user" />
         <div>
-          <Link to={`/u/${member.userId}`} className="user">
+          <Link to={`/u/${getSlug(member.name)}`} className="user">
             {member.name}
           </Link>
           <p>{member.teams}</p>
         </div>
       </div>
       <p>
-        <TimeAgo date={getTimeAgoUtc(member.lastOnline)} />
+        {member.lastOnline === "Online" ? (
+          "Online"
+        ) : (
+          <TimeAgo date={getTimeAgoUtc(member.lastOnline)} />
+        )}
       </p>
-      <p>{member.contributions}</p>
+      <p>{member.contributions || "0"}</p>
     </li>
   );
 };
 
 type Member = {
-  userId: string;
   name: string;
   teams: string;
   lastOnline: string;
   contributions: number;
+  memberId: string;
 };
 
 const TeamMembersView: React.FC<RouteComponentProps> = ({}) => {
@@ -97,12 +100,12 @@ const TeamMembersView: React.FC<RouteComponentProps> = ({}) => {
           label="Sort by"
           tooltip="Sort by"
           selected={0}
-          items={["User name", "Last online", "Contribution"]}
+          items={["User name", "Last online", "Contributions"]}
         />
       </div>
       <Panel>
         {loading ? (
-          <Loading dimmer />
+          <Loading dimmer inline />
         ) : members.length === 0 ? (
           <p>This team has no members in it.</p>
         ) : (

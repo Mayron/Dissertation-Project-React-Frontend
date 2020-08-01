@@ -34,7 +34,7 @@ const CommentBox: React.FC<ICommentBoxProps> = ({
         value={value}
       />
       <footer>
-        {submitting && <Loading size="tiny" />}
+        {submitting && <Loading size="tiny" inline />}
         <button
           className="btn-primary"
           onClick={onSubmitted}

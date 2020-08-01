@@ -78,7 +78,7 @@ const PostsArea: React.FC<IPostsProps> = ({ fetchCommand, groupId, groupName }) 
       "/posts",
       post,
       (postId) => {
-        addPendingMessage(localStorage, { success: true, message: "New post created!" });
+        addPendingMessage(localStorage, { success: true, message: "New post created" });
         navigateTo(`/g/${post.groupId}/post/${postId}/${getSlug(post.title)}`);
       },
       () => setLoading(true),
