@@ -1,4 +1,4 @@
-# Dissertation Project: React Frontend
+# Dissertation Project: React/Gatsby.js (Frontend)
 
 For the full Dissertation and Backend code, please refer to the other GitHub repository:
 https://github.com/Mayron/Dissertation-Project-Microservice-Backend
